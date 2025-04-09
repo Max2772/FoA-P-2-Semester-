@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>sprites/clock_white.ico</file>
+    </qresource>
+</RCC>

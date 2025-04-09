@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Task_1
+Exec=/home/user/Documents/453502/ОАиП2/LabWork_2/Task_1/build/Desktop-Debug/Task_1
+Icon=/home/user/Documents/453502/ОАиП2/LabWork_2/Task_1/sprites/clock_white.ico
+Type=Application
+Terminal=false
+Name[en_US]=clock_white.desktop

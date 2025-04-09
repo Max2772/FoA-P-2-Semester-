@@ -64,19 +64,18 @@ int Date::DateToDays(int day, int month, int year)
     return day + monthDays + year * 365;
 }
 
-int Date::DaysTillYourBirthday(QString bDate){
-    int bDateDays = bDate.mid(0,2).toInt();
-    qDebug() << bDateDays;
-    int bDateMonths = bDate.mid(3,2).toInt();
-    qDebug() << bDateMonths;
+int Date::DaysTillYourBirthday(Date bDate){
+    if(month > bDate.month || (month == bDate.month && day > bDate.day)){
+        return 365 - DateToDays(bDate.day, bDate.month, 0) - DateToDays(day, month, 0);
+    }
 
-    return abs(DateToDays(bDateDays, bDateMonths, 0) - DateToDays(day, month, 0));
+    return abs(DateToDays(bDate.day, bDate.month, 0) - DateToDays(day, month, 0));
 }
 
 
-int Date::Duration(QString date)
+int Date::Duration(Date date)
 {
-    int dateDays = DateToDays(date, false);
+    int dateDays = DateToDays(date.day, date.month, date.year);
     int currentDays = DateToDays(day , month, year);
 
     return abs(dateDays - currentDays);
