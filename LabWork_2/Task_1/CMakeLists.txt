@@ -39,6 +39,9 @@ else()
         add_executable(Task_1
             ${PROJECT_SOURCES}
             mainwindow.ui mainwindow.h mainwindow.cpp main.cpp date.h date.cpp CMakeLists.txt.user CMakeLists.txt
+
+
+
         )
     endif()
 endif()

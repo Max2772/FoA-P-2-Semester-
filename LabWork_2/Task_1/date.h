@@ -2,6 +2,8 @@
 #define DATE_H
 
 #include <QString>
+#include <cmath>
+#include <QDebug>
 
 class Date{
 public:
@@ -26,7 +28,9 @@ public:
     short WeekNumber();
 
     int DaysTillYourBirthday(QString bDay);
-    int DateToDays(QString date);
+    int DateToDays(QString date, bool noYear);
+    int DateToDays(int day, int month, int year);
+    int Duration(QString date);
 private:
     int daysInMonth[13]{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 };
