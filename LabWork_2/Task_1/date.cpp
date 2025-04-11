@@ -1,30 +1,58 @@
 #include "date.h"
 
-QString Date::NextDay()
+Date Date::NextDay() const
 {
-    QString str = QString::number(day + 1);
-    return str;
+    Date nextDay = *this;
+    int maxDays = daysInMonth[nextDay.month];
+    if(IsLeapYear(nextDay.year) && nextDay.month == 2){
+        maxDays = 29;
+    }
+
+    if(nextDay.day < maxDays){
+        nextDay.day++;
+    }else{
+        nextDay.day = 1;
+        if(nextDay.month == 12){
+            nextDay.month = 1;
+            nextDay.year++;
+        }else{
+            nextDay.month++;
+        }
+    }
+    return nextDay;
 }
 
-QString Date::PreviousDay()
+Date Date::PreviousDay() const
 {
-    QString str = QString::number(day - 1);
-    return str;
+    Date previousDay = *this;
+    int maxDaysPreviousMonth = daysInMonth[previousDay.month-1];
+    if(maxDaysPreviousMonth == 0){ // Проверка на январь
+        maxDaysPreviousMonth = 31;
+    }
+
+    if(IsLeapYear(previousDay.year) && previousDay.month == 3){
+        maxDaysPreviousMonth = 29;
+    }
+
+    if(previousDay.day > 1){
+        previousDay.day--;
+    }else{
+        if(previousDay.month == 1){
+            previousDay.month = 12;
+            previousDay.year--;
+            previousDay.day = maxDaysPreviousMonth;
+        }else{
+            previousDay.month--;
+            previousDay.day = maxDaysPreviousMonth;
+        }
+    }
+
+    return previousDay;
 }
 
 QString Date::DateToStr(){
-    QString str = QString::number(day) + '/' + QString::number(month) + '/' + QString::number(year);
-    return str;
+    return QString::number(day) + '/' + QString::number(month) + '/' + QString::number(year);
 }
-
-bool Date::IsLeap()
-{
-    if((year % 4 == 0 && year % 100 != 0) || year % 400 == 0){
-        return true;
-    }
-    return false;
-}
-
 
 short Date::WeekNumber(){
     int monthDays = day;
@@ -34,24 +62,37 @@ short Date::WeekNumber(){
     return monthDays / 7;
 }
 
-int Date::DateToDays(QString date, bool noYear)
+int Date::DateToDays(Date& date) const
 {
-    int day = 0, month = 0, year = 0;
-    day = date.mid(0,2).toInt();
-
-    month = date.mid(3,2).toInt();
+    int day = date.day, month = date.month, year = date.year;
+    bool isLeap = IsLeapYear(year);
     int monthDays = 0;
-    for(int i = 0; i < month; ++i){
-        monthDays += daysInMonth[i];
+    for(int i = 1; i < 13; ++i){
+        if(isLeap && i == 2)
+            monthDays += 29;
+        else
+            monthDays += daysInMonth[i];
+    }
+    auto leap_count = year/4 - year/100 + year/400;
+    auto no_leap_count = year - leap_count;
+
+    return day + monthDays + no_leap_count * 365 + leap_count * 366;
+
+}
+
+bool Date::StringDateIsCorrect(QString line)
+{
+    int day = line.mid(0,2).toInt();
+    int month = line.mid(3,2).toInt();
+    int year = line.mid(6,4).toInt();
+
+    if (year > 0 & year < 9999 &&
+        month > 0 && month < 13 &&
+        day > 0 && day < 32 && daysInMonth[month] >= day){
+        return true;
     }
 
-    if(noYear){
-        return day + monthDays;
-    }else{
-        year = date.mid(6,date.length() - 5).toInt();
-        qDebug() << year;
-        return day + monthDays + year * 365;
-    }
+    return false;
 }
 
 int Date::DateToDays(int day, int month, int year)
@@ -64,31 +105,36 @@ int Date::DateToDays(int day, int month, int year)
     return day + monthDays + year * 365;
 }
 
-int Date::DaysTillYourBirthday(Date bDate){
-    if(month > bDate.month || (month == bDate.month && day > bDate.day)){
-        return 365 - DateToDays(bDate.day, bDate.month, 0) - DateToDays(day, month, 0);
+int Date::DaysTillYourBirthday(const Date& date, const Date& bDate){
+
+    bool isCurrentLeap = IsLeapYear(date.year);
+    bool isNextYearLeap = IsLeapYear(bDate.year);
+
+    Date bDateTemp = bDate;
+    Date dateTemp = date;
+    bDateTemp.year = 0;
+    dateTemp.year = 0;
+
+    if(dateTemp.month > bDate.month ||
+      (dateTemp.month == bDateTemp.month && dateTemp.day > bDateTemp.day)){
+        int daysToEndOfTheYear = (isCurrentLeap ? 366 : 365) - DateToDays(dateTemp);
+
+        if(bDate.month == 2 && bDate.day == 29 && !isNextYearLeap){
+            bDateTemp.day = 28;
+        }
+
+        int bDateDays = DateToDays(bDateTemp);
+        return daysToEndOfTheYear + bDateDays;
     }
 
-    return abs(DateToDays(bDate.day, bDate.month, 0) - DateToDays(day, month, 0));
+    return DateToDays(bDateTemp) - DateToDays(dateTemp);
 }
 
 
-int Date::Duration(Date date)
+int Date::Duration(Date& date)
 {
     int dateDays = DateToDays(date.day, date.month, date.year);
     int currentDays = DateToDays(day , month, year);
 
     return abs(dateDays - currentDays);
 }
-
-
-
-
-/*
-
-    QString currentDateStr = QString("%1/%2/%3")
-                              .arg(day, 2, 10, QChar('0'))
-                              .arg(month, 2, 10, QChar('0'))
-                              .arg(year);
-*/
-

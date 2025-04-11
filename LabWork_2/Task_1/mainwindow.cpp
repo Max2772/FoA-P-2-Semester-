@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include <QFileDialog>
+#include <QFile>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,24 +10,40 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    Date* date = new Date(30, 5, 2026);
-    Date* bDate = new Date(27, 5, 2006);
-    Date* durationDate = new Date(11, 9, 2001);
+    Date date = Date(28, 05, 2006);
+    Date bDate = Date(27, 05, 2025);
+    Date Day = date.PreviousDay();
 
-    QString dateStr = date->DateToStr();
-    /*
-    ui->textEdit->setText(dateStr);
-    ui->textEdit->append(QString::number(date->WeekNumber()));
-    ui->textEdit->append(QString::number(date->DateToDays("30/12/2026", false) - date->DateToDays("30/12/2025", false)));
-    ui->textEdit->append(QString::number(date->DaysTillYourBirthday(*bDate)));
-    ui->textEdit->append(QString::number(date->Duration(*durationDate)));
-*/
-    QString fileName = QFileDialog::getOpenFileName(nullptr, "Выберите файл сука", "", "Текстовые файлы (*.txt);;Все файлы (*)");
-    if(!fileName.isEmpty()){
+    QString Daystr = Day.DateToStr();
 
-    }else{
-        qDebug("Файл не выбран");
-    }
+
+    ui->textEdit->setText(Daystr);
+    ui->textEdit->append(QString::number(date.DaysTillYourBirthday(date, bDate)));
+    // ui->textEdit->append(QString::number(date.DateToDays("30/12/2026", false) - date.DateToDays("30/12/2025", false)));
+    // ui->textEdit->append(QString::number(date.DaysTillYourBirthday(bDate)));
+    // ui->textEdit->append(QString::number(date.Duration(durationDate)));
+
+    // QString fileName = QFileDialog::getOpenFileName(this, "Выберите файл", QString(), "Текстовые файлы (*.txt)");
+    // if(!fileName.isEmpty()){
+    //     QFile file(fileName);
+    //     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+    //         qDebug("Файл не открылся");
+    //     }
+
+    //     QTextStream in(&file);
+    //     QStringList dates;
+    //     while(!in.atEnd()){
+    //         QString line = in.readLine().trimmed();
+    //         if(!line.isEmpty()){
+    //             dates.append(line);
+    //         }
+    //     }
+    //     file.close();
+
+    // }else{
+    //     qDebug("Файл не выбран");
+    // }
+
 }
 
 MainWindow::~MainWindow()
