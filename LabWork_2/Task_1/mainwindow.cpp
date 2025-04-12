@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "date.h"
 
 #include <QFileDialog>
 #include <QFile>
@@ -55,7 +54,7 @@ void MainWindow::on_actionImport_triggered()
         QStringList dates;
         while(!in.atEnd()){
             QString line = in.readLine().trimmed();
-            if(!line.isEmpty()){
+            if(!line.isEmpty() && Date::DateIsValid(line)){
                 dates.append(line);
             }
         }
@@ -75,5 +74,39 @@ void MainWindow::on_actionClean_triggered()
 {
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
+}
+
+
+void MainWindow::on_actionUpdate_triggered()
+{
+    dateVector.clear();
+    int vectorSize = ui->tableWidget->rowCount();
+
+    for(int i = 0; i < vectorSize; ++i){
+        QStringList dateParts = dates[i].split(QRegularExpression("[/.]"));
+        int day = dateParts[0].toInt();
+        int month = dateParts[1].toInt();
+        int year = dateParts[2].toInt();
+        dateVector.push_back(Date(day, month, year));
+    }
+
+    if(dateVector.size() > 0)
+        calculateAll();
+}
+
+
+void MainWindow::calculateAll()
+{
+    for(int i = 0; i < dateVector.size(); ++i){
+        Date date = dateVector[i];
+        ui->tableWidget->setItem(i, 1, new QTableWidgetItem(date.NextDay().DateToStr()));
+        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(date.PreviousDay().DateToStr()));
+
+        QTableWidgetItem* item = new QTableWidgetItem;
+        item->setCheckState((Date::IsLeapYear(date.getYear()) ? Qt::Checked : Qt::Unchecked));
+        ui->tableWidget->setItem(i, 3, item);
+
+        ui->tableWidget->setItem(i, 4, new QTableWidgetItem(QString::number(date.WeekNumber())));
+    }
 }
 

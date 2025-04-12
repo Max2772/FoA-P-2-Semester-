@@ -59,7 +59,8 @@ short Date::WeekNumber(){
     for(int i = 0; i < month; ++i){
         monthDays += daysInMonth[i];
     }
-    return monthDays / 7;
+
+    return monthDays / 7 + 1;
 }
 
 int Date::DateToDays(const Date& date)
@@ -116,17 +117,3 @@ int Date::Duration(const Date& givenDate)
     return (result < 0 ? -result : result);
 }
 
-// bool Date::StringDateIsCorrect(QString line)
-// {
-//     int day = line.mid(0,2).toInt();
-//     int month = line.mid(3,2).toInt();
-//     int year = line.mid(6,4).toInt();
-
-//     if (year > 0 & year < 9999 &&
-//         month > 0 && month < 13 &&
-//         day > 0 && day < 32 && daysInMonth[month] >= day){
-//         return true;
-//     }
-
-//     return false;
-// }

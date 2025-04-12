@@ -5,6 +5,13 @@
 #include <QTableWidget>
 #include <QStringList>
 #include <QMessageBox>
+#include <vector>
+#include <ctime>
+#include <chrono>
+
+#include "date.h"
+
+using std::vector;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,10 +28,14 @@ public:
     ~MainWindow();
 private:
     QStringList dates;
+    vector<Date> dateVector;
     void ImportDatesInTable();
+    void calculateAll();
+    void SetTodaysDate();
 private slots:
     void on_actionImport_triggered();
     void on_actionClean_triggered();
+    void on_actionUpdate_triggered();
 
 private:
     Ui::MainWindow *ui;
