@@ -67,7 +67,7 @@ int Date::DateToDays(const Date& date)
     int day = date.day, month = date.month, year = date.year;
     bool isLeap = IsLeapYear(year);
     int monthDays = 0;
-    for(int i = 1; i < 13; ++i){
+    for(int i = 1; i < month; ++i){
         if(isLeap && i == 2)
             monthDays += 29;
         else

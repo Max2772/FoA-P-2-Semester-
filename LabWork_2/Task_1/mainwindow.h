@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "date.h"
+#include <QTableWidget>
+#include <QStringList>
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,6 +19,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+private:
+    QStringList dates;
+    void ImportDatesInTable();
+private slots:
+    void on_actionImport_triggered();
+    void on_actionClean_triggered();
 
 private:
     Ui::MainWindow *ui;
