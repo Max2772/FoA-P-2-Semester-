@@ -11,7 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Rocket App</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme="go-up"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="graphicsView">
@@ -60,14 +63,13 @@
      <height>20</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuTask_1">
-    <property name="title">
-     <string>Task 1</string>
-    </property>
-   </widget>
-   <addaction name="menuTask_1"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionRocket">
+   <property name="text">
+    <string>Rocket</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -14,15 +14,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->graphicsView->setScene(scene);
     scene->setSceneRect(0, 0, width_scene, heigth_scene);
 
-    rock = new Rocket;
-    scene->addItem(rock);
-    rock->setPos(450, 500);
+    scene->addItem(&rock);
+    rock.setPos(450, 500);
 
     QTimer *time = new QTimer();
     connect(time, &QTimer::timeout, this, &MainWindow::moveObj);
     time->start(6);
-
-    QTimer* flameTimer = new QTimer();
 
     connect(ui->startButton, &QPushButton::clicked, this, &MainWindow::turn_onObj);
     connect(ui->restartButton, &QPushButton::clicked, this, &MainWindow::restartObj);
@@ -35,17 +32,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::moveObj()
 {
-    rock->move();
+    if(rock.y() < -300){
+        restartObj();
+    }
+    rock.move();
 }
 
 void MainWindow::turn_onObj()
 {
-    rock->turn_on();
-    rock->startFlame();
+    rock.turn_on();
+    rock.startFlame();
 }
 
 void MainWindow::restartObj()
 {
-    rock->restart();
-    rock->stopFlame();
+    rock.restart();
+    rock.stopFlame();
 }

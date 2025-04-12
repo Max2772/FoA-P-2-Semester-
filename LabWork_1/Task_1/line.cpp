@@ -20,7 +20,7 @@ void Line::restart()
 
 void Line::move()
 {
-    if(on_off == true) {
+    if(on_off == true){
         this->setPos(this->x(), this->y() - 1);
     }
 }

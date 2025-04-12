@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include "rocket.h"
-#include "line.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -23,8 +22,7 @@ private:
     Ui::MainWindow *ui;
     int width_scene = 1000;
     int heigth_scene = 500;
-    Rocket* rock;
-    Line* line;
+    Rocket rock;
 
 private slots:
     void moveObj();

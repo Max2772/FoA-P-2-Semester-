@@ -62,7 +62,7 @@ short Date::WeekNumber(){
     return monthDays / 7;
 }
 
-int Date::DateToDays(Date& date) const
+int Date::DateToDays(const Date& date)
 {
     int day = date.day, month = date.month, year = date.year;
     bool isLeap = IsLeapYear(year);
@@ -78,31 +78,6 @@ int Date::DateToDays(Date& date) const
 
     return day + monthDays + no_leap_count * 365 + leap_count * 366;
 
-}
-
-bool Date::StringDateIsCorrect(QString line)
-{
-    int day = line.mid(0,2).toInt();
-    int month = line.mid(3,2).toInt();
-    int year = line.mid(6,4).toInt();
-
-    if (year > 0 & year < 9999 &&
-        month > 0 && month < 13 &&
-        day > 0 && day < 32 && daysInMonth[month] >= day){
-        return true;
-    }
-
-    return false;
-}
-
-int Date::DateToDays(int day, int month, int year)
-{
-    int monthDays = 0;
-    for(int i = 0; i < month; ++i){
-        monthDays += daysInMonth[i];
-    }
-
-    return day + monthDays + year * 365;
 }
 
 int Date::DaysTillYourBirthday(const Date& date, const Date& bDate){
@@ -131,10 +106,27 @@ int Date::DaysTillYourBirthday(const Date& date, const Date& bDate){
 }
 
 
-int Date::Duration(Date& date)
+int Date::Duration(const Date& givenDate)
 {
-    int dateDays = DateToDays(date.day, date.month, date.year);
-    int currentDays = DateToDays(day , month, year);
+    int daysGivenDate = DateToDays(givenDate);
+    int daysThisDate = DateToDays(*this);
 
-    return abs(dateDays - currentDays);
+    int result = daysGivenDate - daysThisDate;
+
+    return (result < 0 ? -result : result);
 }
+
+// bool Date::StringDateIsCorrect(QString line)
+// {
+//     int day = line.mid(0,2).toInt();
+//     int month = line.mid(3,2).toInt();
+//     int year = line.mid(6,4).toInt();
+
+//     if (year > 0 & year < 9999 &&
+//         month > 0 && month < 13 &&
+//         day > 0 && day < 32 && daysInMonth[month] >= day){
+//         return true;
+//     }
+
+//     return false;
+// }

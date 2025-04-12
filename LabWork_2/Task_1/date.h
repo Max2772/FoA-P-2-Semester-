@@ -28,9 +28,8 @@ public:
     short WeekNumber();
 
     int DaysTillYourBirthday(const Date& date, const Date& bDate);
-    int DateToDays(Date& date) const;
-    int DateToDays(int day, int month, int year);
-    int Duration(Date& date);
+    int DateToDays(const Date& date);
+    int Duration(const Date& givenDate);
 private:
     int day;
     int month;

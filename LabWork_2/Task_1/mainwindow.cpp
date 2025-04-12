@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    Date date = Date(28, 05, 2006);
+    Date date = Date(28, 05, 2026);
     Date bDate = Date(27, 05, 2025);
     Date Day = date.PreviousDay();
 
@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->textEdit->setText(Daystr);
     ui->textEdit->append(QString::number(date.DaysTillYourBirthday(date, bDate)));
-    // ui->textEdit->append(QString::number(date.DateToDays("30/12/2026", false) - date.DateToDays("30/12/2025", false)));
+    ui->textEdit->append(QString::number(date.Duration(bDate)));
     // ui->textEdit->append(QString::number(date.DaysTillYourBirthday(bDate)));
     // ui->textEdit->append(QString::number(date.Duration(durationDate)));
 

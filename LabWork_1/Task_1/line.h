@@ -8,7 +8,7 @@
 class Line : public QGraphicsObject{
     Q_OBJECT
 public:
-    explicit Line();
+    Line();
     void turn_on();
     void restart();
     void move();

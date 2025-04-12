@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     a.setWindowIcon(QIcon(icon));
 
     // QSS bs
-    QFile styleSheetFile("../../Combinear.qss");
+    QFile styleSheetFile("/home/user/Documents/453502/ОАиП2/QSS/Combinear.qss");
     styleSheetFile.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(styleSheetFile.readAll());
     a.setStyleSheet(styleSheet);

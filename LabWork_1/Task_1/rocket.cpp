@@ -2,7 +2,6 @@
 #include "line.h"
 #include <QPolygon>
 
-
 void Rocket::updateFlame()
 {
     flameOffset = (flameOffset + 1) % 15;
