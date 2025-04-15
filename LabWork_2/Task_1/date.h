@@ -18,8 +18,25 @@ public:
         return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
     }
 
+    int getDay() const {
+        return day;
+    }
+    int getMonth() const {
+        return month;
+    }
+
     int getYear() const {
         return year;
+    }
+
+    int getMaxDaysInMonth(int month) const{
+        return daysInMonth[month];
+    }
+
+    void setDate(int d, int m, int y){
+        day = d;
+        month = m;
+        year = y;
     }
 
     Date NextDay() const;
@@ -48,7 +65,6 @@ public:
 
         return true;
     }
-
 
 private:
     int day;

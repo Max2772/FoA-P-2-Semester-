@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
 #include <QFileDialog>
@@ -10,18 +10,18 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    SetCurrentDate(); // Установка текущей даты
+    ui->bDayDaySpinBox->setValue(bDate.getDay());
+    ui->bDayMonthSpinBox->setValue(bDate.getMonth());
+    ui->bDayYearSpinBox->setValue(bDate.getYear());
+
+
+
+
+
     Date date = Date(28, 05, 2026);
-    Date bDate = Date(27, 05, 2025);
     Date Day = date.PreviousDay();
-
     QString Daystr = Day.DateToStr();
-
-
-    ui->textEdit->setText(Daystr);
-    ui->textEdit->append(QString::number(date.DaysTillYourBirthday(date, bDate)));
-    ui->textEdit->append(QString::number(date.Duration(bDate)));
-    // ui->textEdit->append(QString::number(date.DaysTillYourBirthday(bDate)));
-    // ui->textEdit->append(QString::number(date.Duration(durationDate)));
 }
 
 
@@ -97,6 +97,7 @@ void MainWindow::on_actionUpdate_triggered()
 
 void MainWindow::calculateAll()
 {
+    Date currentDate = GetCurrentDate();
     for(int i = 0; i < dateVector.size(); ++i){
         Date date = dateVector[i];
         ui->tableWidget->setItem(i, 1, new QTableWidgetItem(date.NextDay().DateToStr()));
@@ -107,6 +108,66 @@ void MainWindow::calculateAll()
         ui->tableWidget->setItem(i, 3, item);
 
         ui->tableWidget->setItem(i, 4, new QTableWidgetItem(QString::number(date.WeekNumber())));
+        ui->tableWidget->setItem(i, 5, new QTableWidgetItem((QString::number(date.Duration(currentDate)))));
+        ui->tableWidget->setItem(i, 6, new QTableWidgetItem(QString::number(date.DaysTillYourBirthday(date, bDate))));
+    }
+}
+
+void MainWindow::SetCurrentDate()
+{
+    time_t currentTime = time(nullptr);
+    struct tm *localTime = localtime(&currentTime);
+    Date currentDate((localTime->tm_mday), (localTime->tm_mon + 1), (localTime->tm_year + YEAR_CONST));
+    ui->currentDateLabel->setText(currentDate.DateToStr());
+}
+
+void MainWindow::SetBirthDate(int day, int month, int year)
+{
+    QString date = QString("%1/%2/%3").
+                   arg(day, 2, 10, QChar('0')).
+                   arg(month, 2, 10, QChar('0'))
+                       .arg(year);
+
+    if(!Date::DateIsValid(date)){
+        qDebug() << "Incorrect date for birthday";
+    }
+
+    ui->bDayDaySpinBox->setValue(day);
+    ui->bDayMonthSpinBox->setValue(month);
+    ui->bDayYearSpinBox->setValue(year);
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    int day = ui->bDayDaySpinBox->value();
+    int month = ui->bDayMonthSpinBox->value();
+    int year = ui->bDayYearSpinBox->value();
+    bDate.setDate(day, month, year);
+    qDebug() << "Birthday changed to " << bDate.DateToStr();
+}
+
+
+void MainWindow::on_bDayMonthSpinBox_valueChanged(int month)
+{
+    int maxDays = bDate.getMaxDaysInMonth(month);
+    int year = ui->bDayYearSpinBox->value();
+
+    if(month == 2 && Date::IsLeapYear(year)){
+        ui->bDayDaySpinBox->setMaximum(29);
+    }else{
+        ui->bDayDaySpinBox->setMaximum(maxDays);
+    }
+    qDebug() << "Max birthday Days changed to " << maxDays;
+}
+
+
+void MainWindow::on_bDayYearSpinBox_valueChanged(int year)
+{
+    bool isLeap = Date::IsLeapYear(year);
+    int month = ui->bDayMonthSpinBox->value();
+    if(isLeap && month == 2){
+        ui->bDayDaySpinBox->setMaximum(29);
     }
 }
 

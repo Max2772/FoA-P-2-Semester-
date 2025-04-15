@@ -51,7 +51,10 @@ Date Date::PreviousDay() const
 }
 
 QString Date::DateToStr(){
-    return QString::number(day) + '/' + QString::number(month) + '/' + QString::number(year);
+    return QString("%1/%2/%3")
+        .arg(day, 2, 10, QChar('0'))
+        .arg(month, 2, 10, QChar('0'))
+        .arg(year);
 }
 
 short Date::WeekNumber(){
