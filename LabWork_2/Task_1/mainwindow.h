@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <vector>
 #include <ctime>
+#include <QSpinBox>
 
 #include "date.h"
 
@@ -24,12 +25,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void setErase(const vector<Date> &newErase);
+
 private:
     static const int YEAR_CONST = 1900;
     Date bDate = Date(27, 05, 2006);
 
     QStringList dates;
     vector<Date> dateVector;
+    vector<Date> erase(vector<Date> dateVector, int idx);
+
     void ImportDatesInTable();
     void calculateAll();
     void SetTodaysDate();
@@ -51,9 +56,15 @@ private slots:
     void on_actionUpdate_triggered();
 
     // Birthday
-    void on_pushButton_clicked();
-    void on_bDayMonthSpinBox_valueChanged(int month);
-    void on_bDayYearSpinBox_valueChanged(int year);
+    void bDayPushButton_clicked();
+    void MonthSpinBox_valueChanged(QSpinBox* spinBoxDay, QSpinBox* spinBoxMonth, QSpinBox* spinBoxYear);
+    void YearSpinBox_valueChanged(QSpinBox* spinBoxDay, QSpinBox* spinBoxMonth, QSpinBox* spinBoxYear);
+
+    // Delete Element
+    void on_actionDeleteElement_triggered();
+
+    // Add date
+    void on_addDatePushButton_clicked();
 
 private:
     Ui::MainWindow *ui;

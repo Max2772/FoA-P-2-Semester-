@@ -3,6 +3,7 @@
 
 #include <QFileDialog>
 #include <QFile>
+#include <QInputDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -15,9 +16,29 @@ MainWindow::MainWindow(QWidget *parent)
     ui->bDayMonthSpinBox->setValue(bDate.getMonth());
     ui->bDayYearSpinBox->setValue(bDate.getYear());
 
+    Date currentDate = GetCurrentDate();
+    ui->addDateDaySpinBox->setValue(currentDate.getDay());
+    ui->addDateMonthSpinBox->setValue(currentDate.getMonth());
+    ui->addDateYearSpinBox->setValue(currentDate.getYear());
 
+    // Dont touch this BS
+    // Birthday methods
+    connect(ui->bDayMonthSpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=]() {
+        MonthSpinBox_valueChanged(ui->bDayDaySpinBox, ui->bDayMonthSpinBox, ui->bDayYearSpinBox);
+    });
 
+    connect(ui->bDayYearSpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=]() {
+        YearSpinBox_valueChanged(ui->bDayDaySpinBox, ui->bDayMonthSpinBox, ui->bDayYearSpinBox);
+    });
 
+    // Add new date methods
+    connect(ui->addDateMonthSpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=]() {
+        MonthSpinBox_valueChanged(ui->addDateDaySpinBox, ui->addDateMonthSpinBox, ui->addDateYearSpinBox);
+    });
+
+    connect(ui->addDateYearSpinBox, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, [=]() {
+        YearSpinBox_valueChanged(ui->addDateDaySpinBox, ui->addDateMonthSpinBox, ui->addDateYearSpinBox);
+    });
 
     Date date = Date(28, 05, 2026);
     Date Day = date.PreviousDay();
@@ -138,7 +159,7 @@ void MainWindow::SetBirthDate(int day, int month, int year)
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::bDayPushButton_clicked()
 {
     int day = ui->bDayDaySpinBox->value();
     int month = ui->bDayMonthSpinBox->value();
@@ -148,26 +169,82 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
-void MainWindow::on_bDayMonthSpinBox_valueChanged(int month)
+void MainWindow::MonthSpinBox_valueChanged(QSpinBox* spinBoxDay, QSpinBox* spinBoxMonth, QSpinBox* spinBoxYear)
 {
-    int maxDays = bDate.getMaxDaysInMonth(month);
-    int year = ui->bDayYearSpinBox->value();
+    int month = spinBoxMonth->value();
+    int maxDays = bDate.getMaxDaysInMonth(spinBoxMonth->value());
+    int year = spinBoxYear->value();
 
     if(month == 2 && Date::IsLeapYear(year)){
-        ui->bDayDaySpinBox->setMaximum(29);
+        spinBoxDay->setMaximum(29);
     }else{
-        ui->bDayDaySpinBox->setMaximum(maxDays);
+        spinBoxDay->setMaximum(maxDays);
     }
     qDebug() << "Max birthday Days changed to " << maxDays;
 }
 
 
-void MainWindow::on_bDayYearSpinBox_valueChanged(int year)
+void MainWindow::YearSpinBox_valueChanged(QSpinBox* spinBoxDay, QSpinBox* spinBoxMonth, QSpinBox* spinBoxYear)
 {
+    int year = spinBoxYear->value();
     bool isLeap = Date::IsLeapYear(year);
-    int month = ui->bDayMonthSpinBox->value();
+    int month = spinBoxMonth->value();
     if(isLeap && month == 2){
-        ui->bDayDaySpinBox->setMaximum(29);
+        spinBoxDay->setMaximum(29);
+    }else if(month == 2){
+        spinBoxDay->setMaximum(28);
     }
+}
+
+vector<Date> MainWindow::erase(vector<Date> dateVector, int idx)
+{
+    vector<Date> newDateVector;
+    for(int i = 0; i < dateVector.size(); ++i){
+        if(i == idx){
+            continue;
+        }
+        newDateVector.push_back(dateVector[i]);
+    }
+    return newDateVector;
+}
+
+void MainWindow::on_actionDeleteElement_triggered()
+{
+    bool ok;
+    int index = QInputDialog::getInt(
+        this,
+        "Удаление элемента",
+        "Введите индекс элемента для удаления:",
+        1,
+        1,
+        ui->tableWidget->rowCount(),
+        1,
+        &ok
+        );
+
+    if(ok){
+        dates.removeAt(index - 1);
+        dateVector = erase(dateVector, index - 1);
+        ui->tableWidget->removeRow(index - 1);
+        qDebug() << "Row " << index << " has been deleted";
+        qDebug() << "QStringList size: " << dates.size();
+        qDebug() << "vector<Date> dateVector size: " << dateVector.size();
+    }
+}
+
+void MainWindow::on_addDatePushButton_clicked()
+{
+    int day = ui->addDateDaySpinBox->value();
+    int month = ui->addDateMonthSpinBox->value();
+    int year = ui->addDateYearSpinBox->value();
+    Date newDate(day, month, year);
+    int idx = ui->tableWidget->rowCount();
+    ui->tableWidget->setRowCount(idx + 1);
+    ui->tableWidget->setItem(idx, 0, new QTableWidgetItem(newDate.DateToStr()));
+
+    dates.append(newDate.DateToStr());
+    dateVector.push_back(newDate);
+
+    qDebug() << "Added date: " << newDate.DateToStr() << " to table";
 }
 
