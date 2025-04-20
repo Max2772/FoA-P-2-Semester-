@@ -126,6 +126,7 @@ void MainWindow::calculateAll()
 
         QTableWidgetItem* item = new QTableWidgetItem;
         item->setCheckState((Date::IsLeapYear(date.getYear()) ? Qt::Checked : Qt::Unchecked));
+        item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
         ui->tableWidget->setItem(i, 3, item);
 
         ui->tableWidget->setItem(i, 4, new QTableWidgetItem(QString::number(date.WeekNumber())));
@@ -158,8 +159,7 @@ void MainWindow::SetBirthDate(int day, int month, int year)
     ui->bDayYearSpinBox->setValue(year);
 }
 
-
-void MainWindow::bDayPushButton_clicked()
+void MainWindow::on_bDayPushButton_clicked()
 {
     int day = ui->bDayDaySpinBox->value();
     int month = ui->bDayMonthSpinBox->value();
@@ -167,7 +167,6 @@ void MainWindow::bDayPushButton_clicked()
     bDate.setDate(day, month, year);
     qDebug() << "Birthday changed to " << bDate.DateToStr();
 }
-
 
 void MainWindow::MonthSpinBox_valueChanged(QSpinBox* spinBoxDay, QSpinBox* spinBoxMonth, QSpinBox* spinBoxYear)
 {
@@ -222,14 +221,18 @@ void MainWindow::on_actionDeleteElement_triggered()
         &ok
         );
 
-    if(ok){
+    int tableSize = ui->tableWidget->rowCount();
+    if(ok && tableSize > 0){
         dates.removeAt(index - 1);
         dateVector = erase(dateVector, index - 1);
         ui->tableWidget->removeRow(index - 1);
         qDebug() << "Row " << index << " has been deleted";
         qDebug() << "QStringList size: " << dates.size();
         qDebug() << "vector<Date> dateVector size: " << dateVector.size();
+    }else{
+        QMessageBox::critical(this, "Ошибка", "Невозможно удалить элемент из пустой таблицы!");
     }
+
 }
 
 void MainWindow::on_addDatePushButton_clicked()
@@ -247,4 +250,3 @@ void MainWindow::on_addDatePushButton_clicked()
 
     qDebug() << "Added date: " << newDate.DateToStr() << " to table";
 }
-

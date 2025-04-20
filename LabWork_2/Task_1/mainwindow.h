@@ -56,7 +56,7 @@ private slots:
     void on_actionUpdate_triggered();
 
     // Birthday
-    void bDayPushButton_clicked();
+    void on_bDayPushButton_clicked();
     void MonthSpinBox_valueChanged(QSpinBox* spinBoxDay, QSpinBox* spinBoxMonth, QSpinBox* spinBoxYear);
     void YearSpinBox_valueChanged(QSpinBox* spinBoxDay, QSpinBox* spinBoxMonth, QSpinBox* spinBoxYear);
 
@@ -65,6 +65,7 @@ private slots:
 
     // Add date
     void on_addDatePushButton_clicked();
+
 
 private:
     Ui::MainWindow *ui;
