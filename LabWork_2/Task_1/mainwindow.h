@@ -8,6 +8,7 @@
 #include <vector>
 #include <ctime>
 #include <QSpinBox>
+#include <QTemporaryFile>
 
 #include "date.h"
 
@@ -29,7 +30,9 @@ public:
 
 private:
     static const int YEAR_CONST = 1900;
+    QString filePath;
     Date bDate = Date(27, 05, 2006);
+    bool rewriteMode = false;
 
     QStringList dates;
     vector<Date> dateVector;
@@ -40,6 +43,8 @@ private:
     void SetTodaysDate();
     void SetCurrentDate();
     void SetBirthDate(int day, int month, int year);
+    bool addDateToFile(const QString &filePath, Date &date);
+    bool deleteDateFromFile(const QString &filePath, int lineNumber);
 
     static Date GetCurrentDate()
     {
@@ -66,6 +71,11 @@ private slots:
     // Add date
     void on_addDatePushButton_clicked();
 
+    // Save file
+    void on_actionSave_triggered();
+
+    // Get bool for Rewrite Mode
+    void on_actionRewriteFile_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;

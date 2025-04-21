@@ -476,6 +476,7 @@
     <addaction name="actionClean"/>
     <addaction name="actionUpdate"/>
     <addaction name="actionDeleteElement"/>
+    <addaction name="actionRewriteFile"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -503,6 +504,14 @@
   <action name="actionDeleteElement">
    <property name="text">
     <string>Удалить элемент</string>
+   </property>
+  </action>
+  <action name="actionRewriteFile">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Режим перезаписи</string>
    </property>
   </action>
  </widget>

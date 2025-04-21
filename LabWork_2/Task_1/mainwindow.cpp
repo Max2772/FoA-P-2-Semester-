@@ -84,6 +84,9 @@ void MainWindow::on_actionImport_triggered()
             ImportDatesInTable();
         }
 
+        filePath = fileName;
+        qDebug() << "Table in file: " << filePath;
+
         file.close();
 
     }else{
@@ -223,17 +226,65 @@ void MainWindow::on_actionDeleteElement_triggered()
 
     int tableSize = ui->tableWidget->rowCount();
     if(ok && tableSize > 0){
+        if(rewriteMode){
+            deleteDateFromFile(filePath, index - 1);
+        }
         dates.removeAt(index - 1);
         dateVector = erase(dateVector, index - 1);
         ui->tableWidget->removeRow(index - 1);
         qDebug() << "Row " << index << " has been deleted";
         qDebug() << "QStringList size: " << dates.size();
         qDebug() << "vector<Date> dateVector size: " << dateVector.size();
+    }else if(!deleteDateFromFile(filePath, index - 1)){
+        QMessageBox::critical(this, "Ошибка", "Ошибка при удалении даты в файле!");
     }else{
         QMessageBox::critical(this, "Ошибка", "Невозможно удалить элемент из пустой таблицы!");
     }
 
 }
+
+bool MainWindow::deleteDateFromFile(const QString &filePath, int lineNumber)
+{
+    QFile file(filePath);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return false;
+    }
+
+    QTemporaryFile tempFile;
+    if (!tempFile.open()) {
+        qDebug() << "Невозможно создать временный файл!";
+        file.close();
+        return false;
+    }
+
+    QTextStream in(&file);
+    QTextStream out(&tempFile);
+    int currentLine = 0;
+
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        if (currentLine != lineNumber) {
+            out << line << "\n";
+        }
+        currentLine++;
+    }
+
+    file.close();
+    tempFile.close();
+
+    if(!file.remove()){
+        qDebug() << "Невозможно удалить оригинальный файл!";
+        return false;
+    }
+
+    if(!tempFile.copy(filePath)){
+        qDebug() << "Невозможно копировать во временный файл!";
+        return false;
+    }
+
+    return true;
+}
+
 
 void MainWindow::on_addDatePushButton_clicked()
 {
@@ -248,5 +299,56 @@ void MainWindow::on_addDatePushButton_clicked()
     dates.append(newDate.DateToStr());
     dateVector.push_back(newDate);
 
-    qDebug() << "Added date: " << newDate.DateToStr() << " to table";
+    if(rewriteMode){
+        if(!addDateToFile(filePath, newDate)){
+            qDebug() << "Ошибка при открытии файла при добавлении даты";
+        }
+    }
+
+    qDebug() << "Добавлена дата: " << newDate.DateToStr();
 }
+
+bool MainWindow::addDateToFile(const QString &filePath, Date &date)
+{
+    QFile file(filePath);
+    if(!file.open(QIODevice::Append | QIODevice::Text)){
+        return false;
+    }
+
+    QTextStream out(&file);
+    out << date.DateToStr() << '\n';
+    file.close();
+    return true;
+}
+
+void MainWindow::on_actionSave_triggered()
+{
+    if(rewriteMode){
+        QMessageBox::warning(this, "Предупреждение", "Нечего сохранять т.к. включен Режим Перезаписи!");
+        return;
+    }
+
+    QFile file(filePath);
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        qDebug() << "Ошибка открытия файла!";
+        return;
+    }
+
+    int tableSize = ui->tableWidget->rowCount();
+    QTextStream out(&file);
+    for(int i = 0; i < tableSize; ++i){
+        out << dates[i] << '\n';
+    }
+
+    file.close();
+    qDebug() << "Успешное сохранение!";
+}
+
+
+
+void MainWindow::on_actionRewriteFile_toggled(bool checked)
+{
+    rewriteMode = checked;
+    qDebug() << "Rewrite enabled to " << rewriteMode;
+}
+
