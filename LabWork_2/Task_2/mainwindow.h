@@ -26,16 +26,18 @@ public:
 private slots:
     void on_pushButtonImport_clicked();
     void FillTable(const QVector<Order> &orderVector);
+    void SetSpinBoxesMaximum();
 
     void ShowErrorEvent(QString information);
     void ShowInformationEvent(QString information);
-    void on_spinBoxDeleteOrder_valueChanged(int arg1);
     void AddElementToTable(const Order &order, const int &idx);
 
     void on_pushButtonDeleteOrder_clicked();
     void on_pushButtonAdd_clicked();
     void on_pushButtonSave_clicked();
     void on_pushButtonClose_clicked();
+
+    void on_pushButtonEdit_clicked();
 
 private:
     Ui::MainWindow *ui;

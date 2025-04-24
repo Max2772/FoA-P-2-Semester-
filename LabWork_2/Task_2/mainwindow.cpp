@@ -42,6 +42,7 @@ void MainWindow::on_pushButtonImport_clicked()
     }
 
     FillTable(fileManager.orders());
+    SetSpinBoxesMaximum();
 }
 
 void MainWindow::AddElementToTable(const Order &order, const int &idx)
@@ -71,11 +72,11 @@ void MainWindow::FillTable(const QVector<Order> &orderVector)
 
 }
 
-void MainWindow::on_spinBoxDeleteOrder_valueChanged(int arg1)
+void MainWindow::SetSpinBoxesMaximum()
 {
     ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
+    ui->spinBoxEditOrder->setMaximum(ui->tableWidget->rowCount());
 }
-
 
 void MainWindow::on_pushButtonDeleteOrder_clicked()
 {
@@ -88,8 +89,7 @@ void MainWindow::on_pushButtonDeleteOrder_clicked()
     fileManager.DeleteOrder(idx - 1);
     qDebug() << idx << " deleted from table";
 
-    ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
-
+    SetSpinBoxesMaximum();
 }
 
 
@@ -117,7 +117,7 @@ void MainWindow::on_pushButtonAdd_clicked()
 
     qDebug() << "Новый элемент " << newOrder.brand() << " добавлен в таблицу";
 
-    ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
+    SetSpinBoxesMaximum();
 }
 
 
@@ -143,5 +143,12 @@ void MainWindow::on_pushButtonClose_clicked()
     ui->tableWidget->setRowCount(0);
 
     ShowInformationEvent("Файл закрыт!");
+
+    SetSpinBoxesMaximum();
 }
 
+
+void MainWindow::on_pushButtonEdit_clicked()
+{
+
+}

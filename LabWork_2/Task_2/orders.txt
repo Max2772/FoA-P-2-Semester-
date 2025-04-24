@@ -1,16 +1,40 @@
-Телевизор;Samsung QLED;01.05.2023;05.05.2023;Готово
-Радиотелефон;Motorola X;02.05.2023;04.05.2023;Не готово
-Телевизор;LG OLED;03.05.2023;06.05.2023;Готово
-Радио;Philips Retro;01.05.2023;03.05.2023;Не готово
-Телевизор;Sony Bravia;04.05.2023;07.05.2023;Не готово
-Радиотелефон;Nokia 3310;05.05.2023;08.05.2023;Готово
-Телевизор;Panasonic Viera;06.05.2023;10.05.2023;Не готово
-Радио;Sony ICF;02.05.2023;05.05.2023;Готово
-Музыкальный центр;JVC UX;07.05.2023;09.05.2023;Не готово
-Телевизор;Toshiba Regza;08.05.2023;12.05.2023;Готово
-Радиотелефон;Siemens Gigaset;09.05.2023;11.05.2023;Не готово
-Радио;Grundig Classic;10.05.2023;13.05.2023;Готово
-Телевизор;Sharp Aquos;11.05.2023;14.05.2023;Готово
+Group: QLED;01.05.2023;05.05.2023;Готово
+Brand: X;02.05.2023;04.05.2023;Не
+Complete: Incomplete
+Acceptance date: 
+Order execution date: 
+
+Group: 3310;05.05.2023;08.05.2023;Готово
+Brand: Viera;06.05.2023;10.05.2023;Не
+Complete: Incomplete
+Acceptance date: 
+Order execution date: 
+
+Group: Gigaset;09.05.2023;11.05.2023;Не готово
+Brand: Classic;10.05.2023;13.05.2023;Готово
+Complete: Incomplete
+Acceptance date: 
+Order execution date: 
+
+Group: готово
+Brand: ULED;15.05.2023;18.05.2023;Готово
+Complete: Incomplete
+Acceptance date: 
+Order execution date: 
+
+Group: 
+Brand: WR;20.05.2023;23.05.2023;Не
+Complete: Incomplete
+Acceptance date: 
+Order execution date: 
+
+Group: GML;24.05.2023;27.05.2023;Не готово
+Brand: 4K;25.05.2023;28.05.2023;Готово
+Complete: Incomplete
+Acceptance date: 
+Order execution date: 
+
+uos;11.05.2023;14.05.2023;Готово
 Радиотелефон;Panasonic KX;12.05.2023;15.05.2023;Не готово
 Радио;Roberts Revival;13.05.2023;16.05.2023;Готово
 Музыкальный центр;Pioneer X;14.05.2023;17.05.2023;Не готово
