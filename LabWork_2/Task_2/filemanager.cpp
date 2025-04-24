@@ -14,8 +14,8 @@ bool FileManager::ImportFile()
         return false;
     }
 
-    QFileInfo check_file(filePath_);
-    if (check_file.suffix() == "txt") {
+    QFileInfo checkFile(filePath_);
+    if (checkFile.suffix() == "txt") {
         isFileOpen_ = true;
         orderVector_ = ImportOrders(filePath_);
         return true;
@@ -23,6 +23,48 @@ bool FileManager::ImportFile()
 
     qDebug() << "Неверный формат файла!";
     return false;
+}
+
+bool FileManager::SaveFile()
+{
+    if(!isFileOpen_){
+        qDebug("Ни один файл не открыт");
+        return false;
+    }
+
+    QFile file(filePath_);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "Ошибки при открытии файла для записи";
+        return false;
+    }
+
+    QTextStream out(&file);
+    for(const Order &order : orderVector_){
+        out << order.groupName() << ';'
+            << order.brand() << ';'
+            << order.receiptDate().toString("dd.MM.yyyy") << ';'
+            << order.completionDate().toString("dd.MM.yyyy") << ';'
+            << (order.isCompleted() ? QStringLiteral("Готово") : QStringLiteral("Не готово")) << "\n";
+    }
+
+    qDebug() << "Сохранение в " << filePath_ << " успешно!";
+
+    file.close();
+    return true;
+}
+
+bool FileManager::CloseFile()
+{
+    if(!isFileOpen_){
+        qDebug() << "Нету открытого файла!";
+        return false;
+    }
+
+    isFileOpen_ = false;
+    filePath_ = nullptr;
+    orderVector_.clear();
+    qDebug() << "Файл закрыт!";
+    return true;
 }
 
 QVector<Order> FileManager::ImportOrders(const QString &filePath)
@@ -44,6 +86,7 @@ QVector<Order> FileManager::ImportOrders(const QString &filePath)
                         QDate::fromString(parts[2], "dd.MM.yyyy"),
                         QDate::fromString(parts[3], "dd.MM.yyyy"),
                         parts[4].trimmed() == "Готово");
+            qDebug() << order.groupName() << order.isCompleted();
             orderVector.append(order);
         }
     }

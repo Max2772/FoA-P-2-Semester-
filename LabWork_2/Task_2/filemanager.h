@@ -16,6 +16,8 @@ public:
     QVector<Order> orders() const { return orderVector_; }
 
     bool ImportFile();
+    bool SaveFile();
+    bool CloseFile();
     QVector <Order> ImportOrders(const QString &filePath);
     void DeleteOrder(const int &idx);
     void AddOrder(const Order &order);

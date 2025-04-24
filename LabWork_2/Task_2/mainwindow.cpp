@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
+#include <QTextCodec>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -40,6 +42,19 @@ void MainWindow::on_pushButtonImport_clicked()
     FillTable(fileManager.orders());
 }
 
+void MainWindow::AddElementToTable(const Order &order, const int &idx)
+{
+    ui->tableWidget->setItem(idx, 0, new QTableWidgetItem(order.groupName()));
+    ui->tableWidget->setItem(idx, 1, new QTableWidgetItem(order.brand()));
+    ui->tableWidget->setItem(idx, 2, new QTableWidgetItem(order.receiptDate().toString("dd.MM.yyyy")));
+    ui->tableWidget->setItem(idx, 3, new QTableWidgetItem(order.completionDate().toString("dd.MM.yyyy")));
+
+    QTableWidgetItem* item = new QTableWidgetItem;
+    item->setCheckState(order.isCompleted() ? Qt::Checked : Qt::Unchecked);
+    item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
+    ui->tableWidget->setItem(idx, 4, item);
+}
+
 void MainWindow::FillTable(const QVector<Order> &orderVector)
 {
     if(orderVector.size() == 0)
@@ -49,15 +64,7 @@ void MainWindow::FillTable(const QVector<Order> &orderVector)
     ui->tableWidget->setRowCount(orderVector.size());
 
     for(int i = 0; i < orderVector.size(); ++i){
-        ui->tableWidget->setItem(i, 0, new QTableWidgetItem(orderVector[i].groupName()));
-        ui->tableWidget->setItem(i, 1, new QTableWidgetItem(orderVector[i].brand()));
-        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(orderVector[i].receiptDate().toString("dd.MM.yyyy")));
-        ui->tableWidget->setItem(i, 3, new QTableWidgetItem(orderVector[i].completionDate().toString("dd.MM.yyyy")));
-
-        QTableWidgetItem* item = new QTableWidgetItem;
-        item->setCheckState(orderVector[i].isCompleted() ? Qt::Checked : Qt::Unchecked);
-        item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
-        ui->tableWidget->setItem(i, 4, item);
+        AddElementToTable(orderVector[i], i);
     }
 
 }
@@ -103,19 +110,36 @@ void MainWindow::on_pushButtonAdd_clicked()
 
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->setRowCount(row + 1);
-    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(newOrder.groupName()));
-    ui->tableWidget->setItem(row, 1, new QTableWidgetItem(newOrder.brand()));
-    ui->tableWidget->setItem(row, 2, new QTableWidgetItem(newOrder.receiptDate().toString("dd.MM.yyyy")));
-    ui->tableWidget->setItem(row, 3, new QTableWidgetItem(newOrder.completionDate().toString("dd.MM.yyyy")));
-
-    QTableWidgetItem* item = new QTableWidgetItem;
-    item->setCheckState(newOrder.isCompleted() ? Qt::Checked : Qt::Unchecked);
-    item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
-    ui->tableWidget->setItem(row, 4, item);
+    AddElementToTable(newOrder, row);
 
 
     qDebug() << "Новый элемент " << newOrder.brand() << " добавлен в таблицу";
 
     ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
+}
+
+
+void MainWindow::on_pushButtonSave_clicked()
+{
+    if(!fileManager.SaveFile()){
+        ShowErrorEvent("Ошибка при сохранении файла!");
+        return;
+    }
+
+    ShowInformationEvent("Файл сохранен!");
+}
+
+
+void MainWindow::on_pushButtonClose_clicked()
+{
+    if(!fileManager.CloseFile()){
+        ShowErrorEvent("Ошибка при закрытии файла!");
+        return;
+    }
+
+    ui->tableWidget->clearContents();
+    ui->tableWidget->setRowCount(0);
+
+    ShowInformationEvent("Файл закрыт!");
 }
 
