@@ -171,9 +171,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>340</y>
+      <y>380</y>
       <width>391</width>
-      <height>357</height>
+      <height>321</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -192,18 +192,38 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labelDeleteOrder">
-       <property name="text">
-        <string>Номер удаляемого заказа:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="spinBoxDeleteOrder">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="labelDeleteOrder">
+         <property name="text">
+          <string>Номер удаляемого заказа:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="spinBoxDeleteOrder">
+         <property name="minimum">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="Line" name="line_2">
@@ -220,104 +240,202 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="labelGroupName">
-       <property name="text">
-        <string>Группа: </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBoxGroupName">
-       <property name="currentText">
-        <string>Телевизор</string>
-       </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
-        <property name="text">
-         <string>Телевизор</string>
-        </property>
+        <widget class="QLabel" name="labelGroupName">
+         <property name="text">
+          <string>Группа: </string>
+         </property>
+        </widget>
        </item>
        <item>
-        <property name="text">
-         <string>Радиотелефон</string>
-        </property>
+        <widget class="QComboBox" name="comboBoxGroupName">
+         <property name="currentText">
+          <string>Телевизор</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>Телевизор</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Радиотелефон</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Радио</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Музыкальный центр</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Прочее</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item>
-        <property name="text">
-         <string>Радио</string>
-        </property>
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::MinimumExpanding</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
-        <property name="text">
-         <string>Музыкальный центр</string>
-        </property>
+        <widget class="QCheckBox" name="checkBoxIsCompleted">
+         <property name="text">
+          <string>Готовность</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="labelBrand">
+         <property name="text">
+          <string>Марка:</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <property name="text">
-         <string>Прочее</string>
-        </property>
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
        </item>
-      </widget>
+       <item>
+        <widget class="QLineEdit" name="lineEditBrand"/>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBoxIsCompleted">
-       <property name="text">
-        <string>Готовность</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="labelReceiptDate">
+         <property name="text">
+          <string>Дата поступления:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="dateEditReceiptDate">
+         <property name="displayFormat">
+          <string>dd/MM/yyyy</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
-      <widget class="QLabel" name="labelBrand">
-       <property name="text">
-        <string>Марка:</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_8">
+       <item>
+        <widget class="QLabel" name="labelCompletionDate">
+         <property name="text">
+          <string>Дата исполнения:</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Minimum</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="dateEditCompletionDate">
+         <property name="displayFormat">
+          <string>dd/MM/yyyy</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_7">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>340</y>
+      <width>391</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
-      <widget class="QLineEdit" name="lineEditBrand"/>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelReceiptDate">
-       <property name="text">
-        <string>Дата поступления:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDateEdit" name="dateEditReceiptDate">
-       <property name="displayFormat">
-        <string>dd/MM/yyyy</string>
-       </property>
-       <property name="calendarPopup">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="labelCompletionDate">
-       <property name="text">
-        <string>Дата исполнения:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDateEdit" name="dateEditCompletionDate">
-       <property name="displayFormat">
-        <string>dd/MM/yyyy</string>
-       </property>
-       <property name="calendarPopup">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="Line" name="line_3">
-       <property name="lineWidth">
-        <number>0</number>
-       </property>
+      <spacer name="verticalSpacer_6">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
-      </widget>
+       <property name="sizeType">
+        <enum>QSizePolicy::MinimumExpanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>
