@@ -56,3 +56,8 @@ void FileManager::DeleteOrder(const int &idx)
 {
     orderVector_.remove(idx);
 }
+
+void FileManager::AddOrder(const Order &order)
+{
+    orderVector_.append(order);
+}

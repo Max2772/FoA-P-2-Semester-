@@ -7,6 +7,7 @@
 #include <QDate>
 
 #include "filemanager.h"
+#include "order.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -31,6 +32,8 @@ private slots:
     void on_spinBoxDeleteOrder_valueChanged(int arg1);
 
     void on_pushButtonDeleteOrder_clicked();
+
+    void on_pushButtonAdd_clicked();
 
 private:
     Ui::MainWindow *ui;

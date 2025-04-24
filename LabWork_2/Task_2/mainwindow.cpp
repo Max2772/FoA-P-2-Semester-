@@ -83,3 +83,39 @@ void MainWindow::on_pushButtonDeleteOrder_clicked()
 
 }
 
+
+void MainWindow::on_pushButtonAdd_clicked()
+{
+    if(ui->lineEditBrand->text().isEmpty()){
+        ShowInformationEvent("Заполните модель!");
+        return;
+    }
+
+    Order newOrder(
+        ui->comboBoxGroupName->currentText(),
+        ui->lineEditBrand->text(),
+        ui->dateEditReceiptDate->date(),
+        ui->dateEditCompletionDate->date(),
+        ui->checkBoxIsCompleted->isChecked()
+        );
+
+    fileManager.AddOrder(newOrder);
+
+    int row = ui->tableWidget->rowCount();
+    ui->tableWidget->setRowCount(row + 1);
+    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(newOrder.groupName()));
+    ui->tableWidget->setItem(row, 1, new QTableWidgetItem(newOrder.brand()));
+    ui->tableWidget->setItem(row, 2, new QTableWidgetItem(newOrder.receiptDate().toString("dd.MM.yyyy")));
+    ui->tableWidget->setItem(row, 3, new QTableWidgetItem(newOrder.completionDate().toString("dd.MM.yyyy")));
+
+    QTableWidgetItem* item = new QTableWidgetItem;
+    item->setCheckState(newOrder.isCompleted() ? Qt::Checked : Qt::Unchecked);
+    item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
+    ui->tableWidget->setItem(row, 4, item);
+
+
+    qDebug() << "Новый элемент " << newOrder.brand() << " добавлен в таблицу";
+
+    ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
+}
+
