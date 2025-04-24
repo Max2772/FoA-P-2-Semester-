@@ -34,6 +34,7 @@ void MainWindow::on_pushButtonImport_clicked()
 {
     if(!fileManager.ImportFile()){
         ShowErrorEvent("Ошибка при импортировании!");
+        return;
     }
 
     FillTable(fileManager.orders());

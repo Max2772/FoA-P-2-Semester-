@@ -32,7 +32,8 @@
    <string>Радиоателье</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="audio-card"/>
+   <iconset theme="audio-card">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <property name="iconSize">
    <size>
@@ -44,10 +45,10 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>15</y>
-      <width>841</width>
-      <height>681</height>
+      <x>440</x>
+      <y>10</y>
+      <width>831</width>
+      <height>691</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -133,7 +134,7 @@
     <row/>
     <column>
      <property name="text">
-      <string>Наименование</string>
+      <string>Группа</string>
      </property>
     </column>
     <column>
@@ -191,6 +192,156 @@
       <widget class="QPushButton" name="pushButtonClose">
        <property name="text">
         <string>Закрыть файл</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>340</y>
+      <width>391</width>
+      <height>356</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="Line" name="line">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonDeleteOrder">
+       <property name="text">
+        <string>Удалить заказ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelDeleteOrder">
+       <property name="text">
+        <string>Номер удаляемого заказа:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditDeleteOrder"/>
+     </item>
+     <item>
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonAdd">
+       <property name="text">
+        <string>Добавить заказ</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelGroupName">
+       <property name="text">
+        <string>Группа: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBoxGroupName">
+       <property name="currentText">
+        <string>Телевизор</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>Телевизор</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Радиотелефон</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Радио</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Музыкальный центр</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Прочее</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBoxIsCompleted">
+       <property name="text">
+        <string>Готовность</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelBrand">
+       <property name="text">
+        <string>Марка:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEditBrand"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelReceiptDate">
+       <property name="text">
+        <string>Дата поступления:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="dateEditReceiptDate">
+       <property name="displayFormat">
+        <string>dd/MM/yyyy</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="labelCompletionDate">
+       <property name="text">
+        <string>Дата исполнения:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="dateEditCompletionDate">
+       <property name="displayFormat">
+        <string>dd/MM/yyyy</string>
+       </property>
+       <property name="calendarPopup">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="Line" name="line_3">
+       <property name="lineWidth">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
