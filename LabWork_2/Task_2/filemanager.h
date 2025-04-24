@@ -15,7 +15,7 @@ public:
     FileManager();
     QVector<Order> orders() const { return orderVector_; }
 
-    bool ImportFile();
+    bool ImportFile(const QString &filePath);
     bool SaveFile();
     bool CloseFile();
     QVector <Order> ImportOrders(const QString &filePath);

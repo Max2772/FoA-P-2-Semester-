@@ -34,7 +34,9 @@ void MainWindow::ShowInformationEvent(QString information) {
 
 void MainWindow::on_pushButtonImport_clicked()
 {
-    if(!fileManager.ImportFile()){
+    QString filePath = QFileDialog::getOpenFileName(this, "Открыть файл", "", "Текстовые файлы (*.txt)", nullptr, QFileDialog::DontUseNativeDialog);
+
+    if(!fileManager.ImportFile(filePath)){
         ShowErrorEvent("Ошибка при импортировании!");
         return;
     }

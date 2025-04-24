@@ -2,10 +2,10 @@
 
 FileManager::FileManager() {}
 
-bool FileManager::ImportFile()
+bool FileManager::ImportFile(const QString &filePath)
 {
     isFileOpen_ = false;
-    filePath_ = QFileDialog::getOpenFileName();
+    filePath_ = filePath;
 
     QFile file(filePath_);
 
