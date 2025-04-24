@@ -28,6 +28,10 @@ private slots:
 
     void ShowErrorEvent(QString information);
     void ShowInformationEvent(QString information);
+    void on_spinBoxDeleteOrder_valueChanged(int arg1);
+
+    void on_pushButtonDeleteOrder_clicked();
+
 private:
     Ui::MainWindow *ui;
     FileManager fileManager;

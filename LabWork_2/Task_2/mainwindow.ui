@@ -91,7 +91,7 @@
      <bool>false</bool>
     </property>
     <property name="rowCount">
-     <number>30</number>
+     <number>0</number>
     </property>
     <attribute name="horizontalHeaderMinimumSectionSize">
      <number>21</number>
@@ -102,36 +102,6 @@
     <attribute name="verticalHeaderDefaultSectionSize">
      <number>45</number>
     </attribute>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
-    <row/>
     <column>
      <property name="text">
       <string>Группа</string>
@@ -203,7 +173,7 @@
       <x>20</x>
       <y>340</y>
       <width>391</width>
-      <height>356</height>
+      <height>357</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -229,7 +199,11 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEditDeleteOrder"/>
+      <widget class="QSpinBox" name="spinBoxDeleteOrder">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="Line" name="line_2">

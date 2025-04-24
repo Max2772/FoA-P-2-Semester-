@@ -51,3 +51,8 @@ QVector<Order> FileManager::ImportOrders(const QString &filePath)
     file.close();
     return orderVector;
 }
+
+void FileManager::DeleteOrder(const int &idx)
+{
+    orderVector_.remove(idx);
+}

@@ -61,3 +61,25 @@ void MainWindow::FillTable(const QVector<Order> &orderVector)
     }
 
 }
+
+void MainWindow::on_spinBoxDeleteOrder_valueChanged(int arg1)
+{
+    ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
+}
+
+
+void MainWindow::on_pushButtonDeleteOrder_clicked()
+{
+    if(ui->tableWidget->rowCount() == 0){
+        ShowErrorEvent("Таблица пуста, удаление невозможно!");
+        return;
+    }
+    int idx = ui->spinBoxDeleteOrder->value();
+    ui->tableWidget->removeRow(idx - 1);
+    fileManager.DeleteOrder(idx - 1);
+    qDebug() << idx << " deleted from table";
+
+    ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
+
+}
+

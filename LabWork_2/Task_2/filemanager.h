@@ -17,6 +17,7 @@ public:
 
     bool ImportFile();
     QVector <Order> ImportOrders(const QString &filePath);
+    void DeleteOrder(const int &idx);
 private:
     bool isFileOpen_;
     QString filePath_;
