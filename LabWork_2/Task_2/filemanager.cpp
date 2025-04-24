@@ -104,3 +104,8 @@ void FileManager::AddOrder(const Order &order)
 {
     orderVector_.append(order);
 }
+
+void FileManager::EditOrder(const Order &order, const int &idx)
+{
+    orderVector_[idx] = order;
+}

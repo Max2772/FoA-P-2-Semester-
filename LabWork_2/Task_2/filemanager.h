@@ -21,6 +21,7 @@ public:
     QVector <Order> ImportOrders(const QString &filePath);
     void DeleteOrder(const int &idx);
     void AddOrder(const Order &order);
+    void EditOrder(const Order &order, const int &idx);
 private:
     bool isFileOpen_;
     QString filePath_;

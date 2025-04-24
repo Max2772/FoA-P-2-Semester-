@@ -150,5 +150,23 @@ void MainWindow::on_pushButtonClose_clicked()
 
 void MainWindow::on_pushButtonEdit_clicked()
 {
+    if(ui->lineEditBrand->text().isEmpty()){
+        ShowInformationEvent("Заполните модель!");
+        return;
+    }
+
+    Order editedOrder(
+        ui->comboBoxGroupName->currentText(),
+        ui->lineEditBrand->text(),
+        ui->dateEditReceiptDate->date(),
+        ui->dateEditCompletionDate->date(),
+        ui->checkBoxIsCompleted->isChecked()
+        );
+
+    int row = ui->spinBoxEditOrder->value();
+    fileManager.EditOrder(editedOrder, row - 1);
+    AddElementToTable(editedOrder, row - 1);
+
+    qDebug() << "Элемент " << editedOrder.brand() << " заменил " << row << " строку" ;
 
 }
