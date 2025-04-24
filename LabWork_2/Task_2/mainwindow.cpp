@@ -170,3 +170,10 @@ void MainWindow::on_pushButtonEdit_clicked()
     qDebug() << "Элемент " << editedOrder.brand() << " заменил " << row << " строку" ;
 
 }
+
+
+
+void MainWindow::on_pushButtonReadyOrders_clicked()
+{
+
+}

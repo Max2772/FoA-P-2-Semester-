@@ -38,6 +38,7 @@ private slots:
     void on_pushButtonClose_clicked();
 
     void on_pushButtonEdit_clicked();
+    void on_pushButtonReadyOrders_clicked();
 
 private:
     Ui::MainWindow *ui;
