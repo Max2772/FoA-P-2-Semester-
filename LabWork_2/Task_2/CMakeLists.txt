@@ -38,6 +38,8 @@ else()
     else()
         add_executable(Task_2
             ${PROJECT_SOURCES}
+            order.h order.cpp
+            filemanager.h filemanager.cpp
         )
     endif()
 endif()

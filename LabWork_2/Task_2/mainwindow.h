@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QVector>
+#include <QDate>
+
+#include "filemanager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,7 +22,14 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_pushButtonImport_clicked();
+    void FillTable(const QVector<Order> &orderVector);
+
+    void ShowErrorEvent(QString information);
+    void ShowInformationEvent(QString information);
 private:
     Ui::MainWindow *ui;
+    FileManager fileManager;
 };
 #endif // MAINWINDOW_H

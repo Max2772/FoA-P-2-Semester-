@@ -181,7 +181,6 @@ QPushButton
 {
 	background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(84, 84, 84, 255),stop:1 rgba(59, 59, 59, 255));
 	color: #ffffff;
-	min-width: 80px;
 	border-style: solid;
 	border-width: 1px;
 	border-radius: 3px;
@@ -377,7 +376,7 @@ QComboBox::drop-down
 
 QComboBox::down-arrow
 {
-    image: url(://arrow-down.png);
+    image: url(:/icons/arrow-down.png)
     width: 8px;
     height: 8px;
 }
@@ -429,7 +428,7 @@ QDateTimeEdit::up-button:pressed
 QSpinBox::up-arrow,
 QDateTimeEdit::up-arrow
 {
-    image: url(://arrow-up.png);
+    image: url(:/icons/arrow-up.png)
     width: 7px;
     height: 7px;
 
@@ -468,7 +467,7 @@ QDateTimeEdit::down-button:pressed
 QSpinBox::down-arrow,
 QDateTimeEdit::down-arrow
 {
-    image: url(://arrow-down.png);
+    image: url(:/icons/arrow-down.png);
     width: 7px;
     height: 7px;
 
