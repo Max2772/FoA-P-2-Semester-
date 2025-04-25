@@ -175,10 +175,47 @@ void MainWindow::on_pushButtonEdit_clicked()
 
 }
 
-// void MainWindow::on_radioButtonReadyOrders_toggled(bool checked)
-// {
-//     if(checked){
+void MainWindow::on_radioButtonReadyOrders_toggled(bool checked)
+{
+    if(checked){
+        ui->radioButtonUnfinishedOrders->setChecked(false);
 
-//     }
-// }
+        QString groupName = ui->comboBoxGroupNameReadyOrders->currentText();
+        QVector<Order> readyOrders = orderManager.ShowReadyTodayOrders(groupName);
+
+        FillTable(readyOrders);
+        qDebug() << "Выполненные заказы из группы " << groupName;
+    }else{
+        FillTable(orderManager.orders());
+        qDebug() << "Весь список!";
+    }
+}
+
+
+void MainWindow::on_radioButtonUnfinishedOrders_toggled(bool checked)
+{
+    if(checked){
+        ui->radioButtonReadyOrders->setChecked(false);
+
+        QVector<Order> unfinishedOrders = orderManager.ShowUnfinishedOrders();
+        FillTable(unfinishedOrders);
+
+        qDebug() << "Заказы невыполненные в срок!";
+    }else{
+        FillTable(orderManager.orders());
+        qDebug() << "Весь список!";
+    }
+}
+
+
+void MainWindow::on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index)
+{
+    if(ui->radioButtonReadyOrders->isChecked()){
+        QString groupName = ui->comboBoxGroupNameReadyOrders->currentText();
+        QVector<Order> readyOrders = orderManager.ShowReadyTodayOrders(groupName);
+
+        FillTable(readyOrders);
+        qDebug() << "Выполненные заказы из группы " << groupName;
+    }
+}
 

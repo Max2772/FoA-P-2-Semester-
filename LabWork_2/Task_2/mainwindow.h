@@ -37,10 +37,13 @@ private slots:
     void on_pushButtonAdd_clicked();
     void on_pushButtonSave_clicked();
     void on_pushButtonClose_clicked();
-
     void on_pushButtonEdit_clicked();
 
-    // void on_radioButtonReadyOrders_toggled(bool checked);
+    void on_radioButtonReadyOrders_toggled(bool checked);
+
+    void on_radioButtonUnfinishedOrders_toggled(bool checked);
+
+    void on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index);
 
 private:
     Ui::MainWindow *ui;

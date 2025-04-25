@@ -508,8 +508,14 @@
         <layout class="QHBoxLayout" name="horizontalLayout_11">
          <item>
           <widget class="QRadioButton" name="radioButtonReadyOrders">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
            <property name="text">
             <string>Готовые заказы</string>
+           </property>
+           <property name="autoExclusive">
+            <bool>false</bool>
            </property>
           </widget>
          </item>
@@ -530,7 +536,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBoxGroupName_2">
+          <widget class="QComboBox" name="comboBoxGroupNameReadyOrders">
            <property name="currentText">
             <string>Телевизор</string>
            </property>
@@ -573,6 +579,9 @@
           <widget class="QRadioButton" name="radioButtonUnfinishedOrders">
            <property name="text">
             <string>Невыполненные в срок заказы</string>
+           </property>
+           <property name="autoExclusive">
+            <bool>false</bool>
            </property>
           </widget>
          </item>

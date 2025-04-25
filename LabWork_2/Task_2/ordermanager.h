@@ -14,7 +14,8 @@ public:
     bool SaveOrders();
     void ClearOrders();
 
-    QVector<Order> ShowReadyTodayOrders();
+    QVector<Order> ShowReadyTodayOrders(const QString &groupName);
+    QVector<Order> ShowUnfinishedOrders();
 
     void DeleteOrder(const int &idx);
     void AddOrder(const Order &order);
