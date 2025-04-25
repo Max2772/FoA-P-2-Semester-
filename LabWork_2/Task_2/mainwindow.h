@@ -45,6 +45,9 @@ private slots:
 
     void on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index);
 
+
+    void on_comboBoxGroupNameSort_currentTextChanged(const QString &choice);
+
 private:
     Ui::MainWindow *ui;
     FileManager fileManager;

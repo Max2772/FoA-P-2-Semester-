@@ -219,3 +219,23 @@ void MainWindow::on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index)
     }
 }
 
+
+
+void MainWindow::on_comboBoxGroupNameSort_currentTextChanged(const QString &choice)
+{
+    if(choice == "По дате добавления"){
+        FillTable(orderManager.orders());
+        qDebug() << "Список по дате добавления!";
+    }else if(choice == "По убыванию даты исполнения"){
+        QVector<Order> descendingOrders = orderManager.SortOrdersDescending();
+
+        FillTable(descendingOrders);
+        qDebug() << "Заказы по убыванию даты исполнения";
+    }else{
+        QVector<Order> ascendingOrders = orderManager.SortOrdersAscending();
+
+        FillTable(ascendingOrders);
+        qDebug() << "Заказы по возврастанию даты исполнения";
+    }
+}
+

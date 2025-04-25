@@ -54,6 +54,26 @@ QVector<Order> OrderManager::ShowUnfinishedOrders()
     return unfinishedOrdersVector;
 }
 
+QVector<Order> OrderManager::SortOrdersDescending()
+{
+    QVector<Order> descendingOrdersVector = orderVector_;
+    std::sort(descendingOrdersVector.begin(), descendingOrdersVector.end(),
+              [](const Order &a, const Order &b) {
+                  return a.completionDate() > b.completionDate();
+              });
+    return descendingOrdersVector;
+}
+
+QVector<Order> OrderManager::SortOrdersAscending()
+{
+    QVector<Order> ascendingOrdersVector = orderVector_;
+    std::sort(ascendingOrdersVector.begin(), ascendingOrdersVector.end(),
+              [](const Order &a, const Order &b) {
+                    return a.completionDate() < b.completionDate();
+              });
+    return ascendingOrdersVector;
+}
+
 void OrderManager::DeleteOrder(const int &idx)
 {
     orderVector_.remove(idx);

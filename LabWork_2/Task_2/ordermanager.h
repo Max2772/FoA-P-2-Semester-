@@ -3,6 +3,7 @@
 
 #include "filemanager.h"
 #include <QDate>
+#include <algorithm>
 
 class OrderManager
 {
@@ -16,6 +17,9 @@ public:
 
     QVector<Order> ShowReadyTodayOrders(const QString &groupName);
     QVector<Order> ShowUnfinishedOrders();
+
+    QVector<Order> SortOrdersDescending();
+    QVector<Order> SortOrdersAscending();
 
     void DeleteOrder(const int &idx);
     void AddOrder(const Order &order);
