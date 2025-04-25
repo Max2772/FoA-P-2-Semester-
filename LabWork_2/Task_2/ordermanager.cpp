@@ -26,6 +26,16 @@ void OrderManager::ClearOrders()
     orderVector_.clear();
 }
 
+// QVector<Order> OrderManager::ShowReadyTodayOrders()
+// {
+//     QString currentDate = QDate::currentDate().toString("dd.MM.yyyy");
+//     QVector<Order> readyOrdersVector;
+
+//     for(int i = 0; i < orderVector_.size(); ++i){
+//         if()
+//     }
+// }
+
 void OrderManager::DeleteOrder(const int &idx)
 {
     orderVector_.remove(idx);

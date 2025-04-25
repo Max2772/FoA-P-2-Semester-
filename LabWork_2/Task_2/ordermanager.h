@@ -2,6 +2,7 @@
 #define ORDERMANAGER_H
 
 #include "filemanager.h"
+#include <QDate>
 
 class OrderManager
 {
@@ -12,6 +13,8 @@ public:
     void LoadOrders(const QString &filePath);
     bool SaveOrders();
     void ClearOrders();
+
+    QVector<Order> ShowReadyTodayOrders();
 
     void DeleteOrder(const int &idx);
     void AddOrder(const Order &order);

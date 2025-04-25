@@ -175,9 +175,10 @@ void MainWindow::on_pushButtonEdit_clicked()
 
 }
 
+// void MainWindow::on_radioButtonReadyOrders_toggled(bool checked)
+// {
+//     if(checked){
 
+//     }
+// }
 
-void MainWindow::on_pushButtonReadyOrders_clicked()
-{
-
-}

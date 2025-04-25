@@ -503,40 +503,94 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_5">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_12">
+      <layout class="QVBoxLayout" name="verticalLayout_6">
        <item>
-        <widget class="QRadioButton" name="radioButton">
-         <property name="text">
-          <string>Готовые заказы</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QRadioButton" name="radioButton_2">
-         <property name="text">
-          <string>Невыполненные в срок заказы</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="QRadioButton" name="radioButtonReadyOrders">
+           <property name="text">
+            <string>Готовые заказы</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QComboBox" name="comboBoxGroupName_2">
+           <property name="currentText">
+            <string>Телевизор</string>
+           </property>
+           <item>
+            <property name="text">
+             <string>Телевизор</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Радиотелефон</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Радио</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Музыкальный центр</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Прочее</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </item>
      <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="radioButtonUnfinishedOrders">
+           <property name="text">
+            <string>Невыполненные в срок заказы</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="Line" name="line_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_13">
        <item>
-        <widget class="QLabel" name="labelGroupName_2">
+        <widget class="QLabel" name="labelGroupNameSort">
          <property name="text">
           <string>Сортировка:</string>
          </property>
@@ -556,7 +610,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBoxGroupName_2">
+        <widget class="QComboBox" name="comboBoxGroupNameSort">
          <property name="currentText">
           <string>По дате добавления</string>
          </property>
@@ -580,7 +634,7 @@
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButtonAdd_2">
+      <widget class="QPushButton" name="pushButtonSearch">
        <property name="text">
         <string>Поиск заказов</string>
        </property>

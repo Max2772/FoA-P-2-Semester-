@@ -39,7 +39,8 @@ private slots:
     void on_pushButtonClose_clicked();
 
     void on_pushButtonEdit_clicked();
-    void on_pushButtonReadyOrders_clicked();
+
+    // void on_radioButtonReadyOrders_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;
