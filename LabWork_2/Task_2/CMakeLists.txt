@@ -41,6 +41,8 @@ else()
             order.h order.cpp
             filemanager.h filemanager.cpp
             ordermanager.h ordermanager.cpp
+            searchwindow.h searchwindow.cpp searchwindow.ui
+
         )
     endif()
 endif()

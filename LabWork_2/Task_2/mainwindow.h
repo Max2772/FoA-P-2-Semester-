@@ -40,12 +40,9 @@ private slots:
     void on_pushButtonEdit_clicked();
 
     void on_radioButtonReadyOrders_toggled(bool checked);
-
     void on_radioButtonUnfinishedOrders_toggled(bool checked);
 
     void on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index);
-
-
     void on_comboBoxGroupNameSort_currentTextChanged(const QString &choice);
 
 private:
