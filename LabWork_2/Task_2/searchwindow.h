@@ -3,11 +3,9 @@
 
 #include <QDialog>
 
-QT_BEGIN_NAMESPACE
 namespace Ui {
 class SearchWindow;
 }
-QT_END_NAMESPACE
 
 class SearchWindow : public QDialog
 {

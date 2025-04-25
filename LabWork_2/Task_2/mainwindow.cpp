@@ -239,3 +239,10 @@ void MainWindow::on_comboBoxGroupNameSort_currentTextChanged(const QString &choi
     }
 }
 
+
+void MainWindow::on_pushButtonSearch_clicked()
+{
+    SearchWindow *searchWindow = new SearchWindow(this);
+    searchWindow->exec();
+}
+

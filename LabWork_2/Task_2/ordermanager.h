@@ -3,7 +3,6 @@
 
 #include "filemanager.h"
 #include <QDate>
-#include <algorithm>
 
 class OrderManager
 {

@@ -8,6 +8,7 @@
 
 #include "filemanager.h"
 #include "ordermanager.h"
+#include "searchwindow.h"
 #include "order.h"
 
 QT_BEGIN_NAMESPACE
@@ -44,6 +45,8 @@ private slots:
 
     void on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index);
     void on_comboBoxGroupNameSort_currentTextChanged(const QString &choice);
+
+    void on_pushButtonSearch_clicked();
 
 private:
     Ui::MainWindow *ui;
