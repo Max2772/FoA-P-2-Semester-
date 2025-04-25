@@ -17,7 +17,6 @@ bool FileManager::ImportFile(const QString &filePath)
     QFileInfo checkFile(filePath_);
     if (checkFile.suffix() == "txt") {
         isFileOpen_ = true;
-        orderVector_ = ImportOrders(filePath_);
         return true;
     }
 
@@ -25,7 +24,7 @@ bool FileManager::ImportFile(const QString &filePath)
     return false;
 }
 
-bool FileManager::SaveFile()
+bool FileManager::SaveFile(const QVector <Order> &orderVector)
 {
     if(!isFileOpen_){
         qDebug("Ни один файл не открыт");
@@ -39,7 +38,7 @@ bool FileManager::SaveFile()
     }
 
     QTextStream out(&file);
-    for(const Order &order : orderVector_){
+    for(const Order &order : orderVector){
         out << order.groupName() << ';'
             << order.brand() << ';'
             << order.receiptDate().toString("dd.MM.yyyy") << ';'
@@ -62,7 +61,6 @@ bool FileManager::CloseFile()
 
     isFileOpen_ = false;
     filePath_ = nullptr;
-    orderVector_.clear();
     qDebug() << "Файл закрыт!";
     return true;
 }
@@ -93,19 +91,4 @@ QVector<Order> FileManager::ImportOrders(const QString &filePath)
 
     file.close();
     return orderVector;
-}
-
-void FileManager::DeleteOrder(const int &idx)
-{
-    orderVector_.remove(idx);
-}
-
-void FileManager::AddOrder(const Order &order)
-{
-    orderVector_.append(order);
-}
-
-void FileManager::EditOrder(const Order &order, const int &idx)
-{
-    orderVector_[idx] = order;
 }

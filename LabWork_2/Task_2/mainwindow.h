@@ -7,6 +7,7 @@
 #include <QDate>
 
 #include "filemanager.h"
+#include "ordermanager.h"
 #include "order.h"
 
 QT_BEGIN_NAMESPACE
@@ -43,5 +44,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     FileManager fileManager;
+    OrderManager orderManager;
 };
 #endif // MAINWINDOW_H

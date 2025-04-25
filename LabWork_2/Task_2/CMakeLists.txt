@@ -40,6 +40,7 @@ else()
             ${PROJECT_SOURCES}
             order.h order.cpp
             filemanager.h filemanager.cpp
+            ordermanager.h ordermanager.cpp
         )
     endif()
 endif()

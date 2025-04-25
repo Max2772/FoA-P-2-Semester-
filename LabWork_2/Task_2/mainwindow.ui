@@ -505,9 +505,9 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_12">
        <item>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QRadioButton" name="radioButton">
          <property name="text">
-          <string>Невыполненные в срок заказы</string>
+          <string>Готовые заказы</string>
          </property>
         </widget>
        </item>
@@ -525,9 +525,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="radioButton_2">
          <property name="text">
-          <string>Готовые заказы</string>
+          <string>Невыполненные в срок заказы</string>
          </property>
         </widget>
        </item>
@@ -558,16 +558,16 @@
        <item>
         <widget class="QComboBox" name="comboBoxGroupName_2">
          <property name="currentText">
-          <string>По убыванию даты исполнения</string>
+          <string>По дате добавления</string>
          </property>
          <item>
           <property name="text">
-           <string>По убыванию даты исполнения</string>
+           <string>По дате добавления</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>По дате добавления</string>
+           <string>По убыванию даты исполнения</string>
           </property>
          </item>
          <item>

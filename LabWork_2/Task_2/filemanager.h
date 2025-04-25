@@ -13,19 +13,13 @@ class FileManager
 {
 public:
     FileManager();
-    QVector<Order> orders() const { return orderVector_; }
-
     bool ImportFile(const QString &filePath);
-    bool SaveFile();
+    bool SaveFile(const QVector <Order> &orderVector);
     bool CloseFile();
     QVector <Order> ImportOrders(const QString &filePath);
-    void DeleteOrder(const int &idx);
-    void AddOrder(const Order &order);
-    void EditOrder(const Order &order, const int &idx);
 private:
     bool isFileOpen_;
     QString filePath_;
-    QVector <Order> orderVector_;
 };
 
 #endif // FILEMANAGER_H

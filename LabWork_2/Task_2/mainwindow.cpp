@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-#include <QTextCodec>
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -41,7 +39,9 @@ void MainWindow::on_pushButtonImport_clicked()
         return;
     }
 
-    FillTable(fileManager.orders());
+    orderManager.LoadOrders(filePath);
+
+    FillTable(orderManager.orders());
     SetSpinBoxesMaximum();
 }
 
@@ -60,8 +60,10 @@ void MainWindow::AddElementToTable(const Order &order, const int &idx)
 
 void MainWindow::FillTable(const QVector<Order> &orderVector)
 {
-    if(orderVector.size() == 0)
+    if(orderVector.size() == 0){
         ShowErrorEvent("Пустой список!");
+        return;
+    }
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(orderVector.size());
@@ -86,7 +88,7 @@ void MainWindow::on_pushButtonDeleteOrder_clicked()
     }
     int idx = ui->spinBoxDeleteOrder->value();
     ui->tableWidget->removeRow(idx - 1);
-    fileManager.DeleteOrder(idx - 1);
+    orderManager.DeleteOrder(idx - 1);
     qDebug() << idx << " deleted from table";
 
     SetSpinBoxesMaximum();
@@ -108,7 +110,7 @@ void MainWindow::on_pushButtonAdd_clicked()
         ui->checkBoxIsCompleted->isChecked()
         );
 
-    fileManager.AddOrder(newOrder);
+    orderManager.AddOrder(newOrder);
 
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->setRowCount(row + 1);
@@ -123,7 +125,7 @@ void MainWindow::on_pushButtonAdd_clicked()
 
 void MainWindow::on_pushButtonSave_clicked()
 {
-    if(!fileManager.SaveFile()){
+    if(!orderManager.SaveOrders()){
         ShowErrorEvent("Ошибка при сохранении файла!");
         return;
     }
@@ -138,6 +140,8 @@ void MainWindow::on_pushButtonClose_clicked()
         ShowErrorEvent("Ошибка при закрытии файла!");
         return;
     }
+
+    orderManager.ClearOrders();
 
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
@@ -164,7 +168,7 @@ void MainWindow::on_pushButtonEdit_clicked()
         );
 
     int row = ui->spinBoxEditOrder->value();
-    fileManager.EditOrder(editedOrder, row - 1);
+    orderManager.EditOrder(editedOrder, row - 1);
     AddElementToTable(editedOrder, row - 1);
 
     qDebug() << "Элемент " << editedOrder.brand() << " заменил " << row << " строку" ;
