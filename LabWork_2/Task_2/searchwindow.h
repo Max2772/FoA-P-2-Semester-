@@ -2,6 +2,9 @@
 #define SEARCHWINDOW_H
 
 #include <QDialog>
+#include "ordermanager.h"
+#include "utils.h"
+#include "order.h"
 
 namespace Ui {
 class SearchWindow;
@@ -15,8 +18,10 @@ public:
     explicit SearchWindow(QWidget *parent = nullptr);
     ~SearchWindow();
 
+
 private:
     Ui::SearchWindow *ui;
+    OrderManager orderManager;
 };
 
 #endif // SEARCHWINDOW_H

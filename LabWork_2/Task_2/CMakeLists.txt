@@ -42,6 +42,7 @@ else()
             filemanager.h filemanager.cpp
             ordermanager.h ordermanager.cpp
             searchwindow.h searchwindow.cpp searchwindow.ui
+            utils.h
 
         )
     endif()

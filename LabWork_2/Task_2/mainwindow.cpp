@@ -14,76 +14,34 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::ShowErrorEvent(QString information) {
-    QMessageBox box;
-    box.setWindowTitle("Ошибка");
-    box.setText(information);
-    box.setIcon(QMessageBox::Critical);
-    box.exec();
-}
-
-void MainWindow::ShowInformationEvent(QString information) {
-    QMessageBox box;
-    box.setWindowTitle("Информационная панель");
-    box.setIcon(QMessageBox::Information);
-    box.setText(information);
-    box.exec();
-}
-
 void MainWindow::on_pushButtonImport_clicked()
 {
     QString filePath = QFileDialog::getOpenFileName(this, "Открыть файл", "", "Текстовые файлы (*.txt)", nullptr, QFileDialog::DontUseNativeDialog);
 
     if(!fileManager.ImportFile(filePath)){
-        ShowErrorEvent("Ошибка при импортировании!");
+        Utils::ShowErrorEvent("Ошибка при импортировании!");
         return;
     }
 
     orderManager.LoadOrders(filePath);
 
-    FillTable(orderManager.orders());
-    SetSpinBoxesMaximum();
+    Utils::FillTable(ui->tableWidget, orderManager.orders());
+    SetSpinBoxesLimits();
 }
 
-void MainWindow::AddElementToTable(const Order &order, const int &idx)
-{
-    ui->tableWidget->setItem(idx, 0, new QTableWidgetItem(order.groupName()));
-    ui->tableWidget->setItem(idx, 1, new QTableWidgetItem(order.brand()));
-    ui->tableWidget->setItem(idx, 2, new QTableWidgetItem(order.receiptDate().toString("dd.MM.yyyy")));
-    ui->tableWidget->setItem(idx, 3, new QTableWidgetItem(order.completionDate().toString("dd.MM.yyyy")));
-
-    QTableWidgetItem* item = new QTableWidgetItem;
-    item->setCheckState(order.isCompleted() ? Qt::Checked : Qt::Unchecked);
-    item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
-    ui->tableWidget->setItem(idx, 4, item);
-}
-
-void MainWindow::FillTable(const QVector<Order> &orderVector)
-{
-    if(orderVector.size() == 0){
-        ShowErrorEvent("Пустой список!");
-        return;
-    }
-
-    ui->tableWidget->clearContents();
-    ui->tableWidget->setRowCount(orderVector.size());
-
-    for(int i = 0; i < orderVector.size(); ++i){
-        AddElementToTable(orderVector[i], i);
-    }
-
-}
-
-void MainWindow::SetSpinBoxesMaximum()
+void MainWindow::SetSpinBoxesLimits()
 {
     ui->spinBoxDeleteOrder->setMaximum(ui->tableWidget->rowCount());
     ui->spinBoxEditOrder->setMaximum(ui->tableWidget->rowCount());
+
+    ui->spinBoxEditOrder->setMinimum(1);
+    ui->spinBoxDeleteOrder->setMinimum(1);
 }
 
 void MainWindow::on_pushButtonDeleteOrder_clicked()
 {
     if(ui->tableWidget->rowCount() == 0){
-        ShowErrorEvent("Таблица пуста, удаление невозможно!");
+        Utils::ShowErrorEvent("Таблица пуста, удаление невозможно!");
         return;
     }
     int idx = ui->spinBoxDeleteOrder->value();
@@ -91,14 +49,14 @@ void MainWindow::on_pushButtonDeleteOrder_clicked()
     orderManager.DeleteOrder(idx - 1);
     qDebug() << idx << " deleted from table";
 
-    SetSpinBoxesMaximum();
+    SetSpinBoxesLimits();
 }
 
 
 void MainWindow::on_pushButtonAdd_clicked()
 {
     if(ui->lineEditBrand->text().isEmpty()){
-        ShowInformationEvent("Заполните модель!");
+        Utils::ShowInformationEvent("Заполните модель!");
         return;
     }
 
@@ -114,30 +72,30 @@ void MainWindow::on_pushButtonAdd_clicked()
 
     int row = ui->tableWidget->rowCount();
     ui->tableWidget->setRowCount(row + 1);
-    AddElementToTable(newOrder, row);
+    Utils::AddElementToTable(ui->tableWidget, newOrder, row);
 
 
     qDebug() << "Новый элемент " << newOrder.brand() << " добавлен в таблицу";
 
-    SetSpinBoxesMaximum();
+    SetSpinBoxesLimits();
 }
 
 
 void MainWindow::on_pushButtonSave_clicked()
 {
     if(!orderManager.SaveOrders()){
-        ShowErrorEvent("Ошибка при сохранении файла!");
+        Utils::ShowErrorEvent("Ошибка при сохранении файла!");
         return;
     }
 
-    ShowInformationEvent("Файл сохранен!");
+    Utils::ShowInformationEvent("Файл сохранен!");
 }
 
 
 void MainWindow::on_pushButtonClose_clicked()
 {
     if(!fileManager.CloseFile()){
-        ShowErrorEvent("Ошибка при закрытии файла!");
+        Utils::ShowErrorEvent("Ошибка при закрытии файла!");
         return;
     }
 
@@ -146,16 +104,16 @@ void MainWindow::on_pushButtonClose_clicked()
     ui->tableWidget->clearContents();
     ui->tableWidget->setRowCount(0);
 
-    ShowInformationEvent("Файл закрыт!");
+    Utils::ShowInformationEvent("Файл закрыт!");
 
-    SetSpinBoxesMaximum();
+    SetSpinBoxesLimits();
 }
 
 
 void MainWindow::on_pushButtonEdit_clicked()
 {
     if(ui->lineEditBrand->text().isEmpty()){
-        ShowInformationEvent("Заполните модель!");
+        Utils::ShowInformationEvent("Заполните модель!");
         return;
     }
 
@@ -169,7 +127,7 @@ void MainWindow::on_pushButtonEdit_clicked()
 
     int row = ui->spinBoxEditOrder->value();
     orderManager.EditOrder(editedOrder, row - 1);
-    AddElementToTable(editedOrder, row - 1);
+    Utils::AddElementToTable(ui->tableWidget, editedOrder, row - 1);
 
     qDebug() << "Элемент " << editedOrder.brand() << " заменил " << row << " строку" ;
 
@@ -183,10 +141,10 @@ void MainWindow::on_radioButtonReadyOrders_toggled(bool checked)
         QString groupName = ui->comboBoxGroupNameReadyOrders->currentText();
         QVector<Order> readyOrders = orderManager.ShowReadyTodayOrders(groupName);
 
-        FillTable(readyOrders);
+        Utils::FillTable(ui->tableWidget, readyOrders);
         qDebug() << "Выполненные заказы из группы " << groupName;
     }else{
-        FillTable(orderManager.orders());
+        Utils::FillTable(ui->tableWidget, orderManager.orders());
         qDebug() << "Весь список!";
     }
 }
@@ -198,11 +156,11 @@ void MainWindow::on_radioButtonUnfinishedOrders_toggled(bool checked)
         ui->radioButtonReadyOrders->setChecked(false);
 
         QVector<Order> unfinishedOrders = orderManager.ShowUnfinishedOrders();
-        FillTable(unfinishedOrders);
+        Utils::FillTable(ui->tableWidget, unfinishedOrders);
 
         qDebug() << "Заказы невыполненные в срок!";
     }else{
-        FillTable(orderManager.orders());
+        Utils::FillTable(ui->tableWidget, orderManager.orders());
         qDebug() << "Весь список!";
     }
 }
@@ -214,7 +172,7 @@ void MainWindow::on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index)
         QString groupName = ui->comboBoxGroupNameReadyOrders->currentText();
         QVector<Order> readyOrders = orderManager.ShowReadyTodayOrders(groupName);
 
-        FillTable(readyOrders);
+        Utils::FillTable(ui->tableWidget, readyOrders);
         qDebug() << "Выполненные заказы из группы " << groupName;
     }
 }
@@ -224,17 +182,17 @@ void MainWindow::on_comboBoxGroupNameReadyOrders_currentIndexChanged(int index)
 void MainWindow::on_comboBoxGroupNameSort_currentTextChanged(const QString &choice)
 {
     if(choice == "По дате добавления"){
-        FillTable(orderManager.orders());
+        Utils::FillTable(ui->tableWidget, orderManager.orders());
         qDebug() << "Список по дате добавления!";
     }else if(choice == "По убыванию даты исполнения"){
         QVector<Order> descendingOrders = orderManager.SortOrdersDescending();
 
-        FillTable(descendingOrders);
+        Utils::FillTable(ui->tableWidget, descendingOrders);
         qDebug() << "Заказы по убыванию даты исполнения";
     }else{
         QVector<Order> ascendingOrders = orderManager.SortOrdersAscending();
 
-        FillTable(ascendingOrders);
+        Utils::FillTable(ui->tableWidget, ascendingOrders);
         qDebug() << "Заказы по возврастанию даты исполнения";
     }
 }

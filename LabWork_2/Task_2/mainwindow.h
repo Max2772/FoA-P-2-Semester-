@@ -9,6 +9,7 @@
 #include "filemanager.h"
 #include "ordermanager.h"
 #include "searchwindow.h"
+#include "utils.h"
 #include "order.h"
 
 QT_BEGIN_NAMESPACE
@@ -27,12 +28,7 @@ public:
 
 private slots:
     void on_pushButtonImport_clicked();
-    void FillTable(const QVector<Order> &orderVector);
-    void SetSpinBoxesMaximum();
-
-    void ShowErrorEvent(QString information);
-    void ShowInformationEvent(QString information);
-    void AddElementToTable(const Order &order, const int &idx);
+    void SetSpinBoxesLimits();
 
     void on_pushButtonDeleteOrder_clicked();
     void on_pushButtonAdd_clicked();

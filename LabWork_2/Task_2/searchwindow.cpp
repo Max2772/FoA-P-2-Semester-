@@ -6,9 +6,12 @@ SearchWindow::SearchWindow(QWidget *parent) :
     ui(new Ui::SearchWindow)
 {
     ui->setupUi(this);
+
+    Utils::FillTable(ui->tableWidget, orderManager.orders());
 }
 
 SearchWindow::~SearchWindow()
 {
     delete ui;
 }
+
