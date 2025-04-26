@@ -17,18 +17,15 @@ public:
 
 
 private slots:
-    void on_radioButtonAny_clicked();
-    void on_radioButtonFinished_clicked();
-    void on_radioButtonUnfinished_clicked();
-
-    void on_lineEditBrand_textEdited(const QString &text);
-
-    void on_dateEditReceiptDate_dateChanged(const QDate &date);
-    void on_dateEditCompletionDate_dateChanged(const QDate &date);
+    void UpdateSearch();
 
 private:
     Ui::SearchWindow *ui;
     OrderManager *orderManager;
+    QString currentName;
+    QDate currentReceiptDate;
+    QDate currentCompletionDate;
+    QString currentStatus;
 };
 
 #endif // SEARCHWINDOW_H

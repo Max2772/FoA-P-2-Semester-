@@ -9,6 +9,37 @@ SearchWindow::SearchWindow(OrderManager *manager, QWidget *parent) :
 {
     ui->setupUi(this);
     Utils::FillTable(ui->tableWidget, orderManager->orders());
+
+    connect(ui->lineEditBrand, &QLineEdit::textChanged, this, [this](const QString &text) {
+        currentName = text;
+        UpdateSearch();
+    });
+    connect(ui->dateEditReceiptDate, &QDateEdit::dateChanged, this, [this](const QDate &date) {
+        currentReceiptDate = date;
+        UpdateSearch();
+    });
+    connect(ui->dateEditCompletionDate, &QDateEdit::dateChanged, this, [this](const QDate &date) {
+        currentCompletionDate = date;
+        UpdateSearch();
+    });
+    connect(ui->radioButtonAny, &QRadioButton::toggled, this, [this](bool checked) {
+        if (checked) {
+            currentStatus = "Любое";
+            UpdateSearch();
+        }
+    });
+    connect(ui->radioButtonFinished, &QRadioButton::toggled, this, [this](bool checked) {
+        if (checked) {
+            currentStatus = "Готово";
+            UpdateSearch();
+        }
+    });
+    connect(ui->radioButtonUnfinished, &QRadioButton::toggled, this, [this](bool checked) {
+        if (checked) {
+            currentStatus = "Не готово";
+            UpdateSearch();
+        }
+    });
 }
 
 SearchWindow::~SearchWindow()
@@ -16,114 +47,54 @@ SearchWindow::~SearchWindow()
     delete ui;
 }
 
-
-void SearchWindow::on_radioButtonAny_clicked()
+void SearchWindow::UpdateSearch()
 {
-    if(ui->radioButtonAny->isChecked()){
-        Utils::FillTable(ui->tableWidget, orderManager->orders());
-        qDebug() << "Любые заказы по готовности (SearchWindow)";
-    }
-}
-
-
-void SearchWindow::on_radioButtonFinished_clicked()
-{
-    if(ui->radioButtonFinished->isChecked()){
-        QVector<Order> finishedOrders = orderManager->SearchWindowFinishedOrders();
-
-        Utils::FillTable(ui->tableWidget, finishedOrders);
-        qDebug() << "Выполненные заказы (SearchWindow)";
-    }
-}
-
-
-void SearchWindow::on_radioButtonUnfinished_clicked()
-{
-    if(ui->radioButtonUnfinished->isChecked()){
-        QVector<Order> unfinishedOrders = orderManager->SearchWindowUnfinishedOrders();
-
-        Utils::FillTable(ui->tableWidget, unfinishedOrders);
-        qDebug() << "Невыполненные заказы (SearchWindow)";
-    }
-}
-
-
-void SearchWindow::on_lineEditBrand_textEdited(const QString &text)
-{
-    if(text.isEmpty()){
-        Utils::FillTable(ui->tableWidget, orderManager->orders());
-        return;
-    }
-
     QVector<Order> filteredOrders;
     for(const Order &order : orderManager->orders()){
-        if(order.brand().contains(text, Qt::CaseInsensitive)){
+        bool match = true;
+
+        if(!order.brand().contains(currentName, Qt::CaseInsensitive) && !currentName.isEmpty())
+        {
+            match = false;
+        }
+
+        if(currentReceiptDate.isValid() && order.receiptDate() != currentReceiptDate){
+            match = false;
+        }
+
+        if(currentCompletionDate.isValid() && order.completionDate() != currentCompletionDate){
+            match = false;
+        }
+
+        if(order.isCompleted() && currentStatus == "Не готово"){
+            match = false;
+        }
+
+        if(!order.isCompleted() && currentStatus == "Готово"){
+            match = false;
+        }
+
+        if(match){
             filteredOrders.append(order);
         }
     }
 
     if(filteredOrders.isEmpty()){
-        qDebug() <<  "Элементов не найдено по наименованию: " << text;
         ui->tableWidget->clearContents();
         ui->tableWidget->setRowCount(0);
+        Utils::ShowInformationEvent("Заказов не найдено!");
+        qDebug() << "Не найдено элементов по параметрам:\n"
+                 << "Наименование: " << currentName << '\n'
+                 << "Дата поступления: " << currentReceiptDate.toString("dd.MM.yyyy") << '\n'
+                 << "Дата исполнения: " << currentCompletionDate.toString("dd.MM.yyyy") << '\n'
+                 << "Состояние готовности: " << currentStatus;
         return;
     }
 
     Utils::FillTable(ui->tableWidget, filteredOrders);
-    qDebug() << "Поиск по наименованию: " << text
-             << '\n' << "Найдено " << filteredOrders.size() << " элементов";
-}
-
-
-void SearchWindow::on_dateEditReceiptDate_dateChanged(const QDate &date)
-{
-    if(!date.isValid()){
-        Utils::FillTable(ui->tableWidget, orderManager->orders());
-        return;
-    }
-
-    QVector<Order> filteredOrders;
-    for(const Order &order : orderManager->orders()){
-        if(order.receiptDate() == date){
-            filteredOrders.append(order);
-        }
-    }
-
-    if(filteredOrders.isEmpty()){
-        qDebug() <<  "Элементов не найдено по дате поступления: " << date.toString("dd.MM.yyyy");
-        Utils::ShowInformationEvent("Не найдено заказов по дате поступления:\n" + date.toString("dd.MM.yyyy"));
-        Utils::FillTable(ui->tableWidget, orderManager->orders());
-        return;
-    }
-
-    Utils::FillTable(ui->tableWidget, filteredOrders);
-    qDebug() << "Поиск по дате поступления: " << date.toString("dd.MM.yyyy")
-             << '\n' << "Найдено " << filteredOrders.size() << " элементов";
-}
-
-
-void SearchWindow::on_dateEditCompletionDate_dateChanged(const QDate &date)
-{
-    if(!date.isValid()){
-        Utils::FillTable(ui->tableWidget, orderManager->orders());
-        return;
-    }
-
-    QVector<Order> filteredOrders;
-    for(const Order &order : orderManager->orders()){
-        if(order.completionDate() == date){
-            filteredOrders.append(order);
-        }
-    }
-
-    if(filteredOrders.isEmpty()){
-        qDebug() <<  "Элементов не найдено по дате исполнения: " << date.toString("dd.MM.yyyy");
-        Utils::ShowInformationEvent("Не найдено заказов по дате исполнения:\n" + date.toString("dd.MM.yyyy"));
-        Utils::FillTable(ui->tableWidget, orderManager->orders());
-        return;
-    }
-
-    Utils::FillTable(ui->tableWidget, filteredOrders);
-    qDebug() << "Поиск по дате исполнения: " << date.toString("dd.MM.yyyy")
-             << '\n' << "Найдено " << filteredOrders.size() << " элементов";
+    qDebug() << "Найдено " << filteredOrders.size() << " элементов по параметрам:\n"
+             << "Наименование: " << currentName << '\n'
+             << "Дата поступления: " << currentReceiptDate.toString("dd.MM.yyyy") << '\n'
+             << "Дата исполнения: " << currentCompletionDate.toString("dd.MM.yyyy") << '\n'
+             << "Состояние готовности: " << currentStatus;
 }
