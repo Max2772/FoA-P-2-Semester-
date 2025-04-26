@@ -47,3 +47,83 @@ void SearchWindow::on_radioButtonUnfinished_clicked()
     }
 }
 
+
+void SearchWindow::on_lineEditBrand_textEdited(const QString &text)
+{
+    if(text.isEmpty()){
+        Utils::FillTable(ui->tableWidget, orderManager->orders());
+        return;
+    }
+
+    QVector<Order> filteredOrders;
+    for(const Order &order : orderManager->orders()){
+        if(order.brand().contains(text, Qt::CaseInsensitive)){
+            filteredOrders.append(order);
+        }
+    }
+
+    if(filteredOrders.isEmpty()){
+        qDebug() <<  "Элементов не найдено по наименованию: " << text;
+        ui->tableWidget->clearContents();
+        ui->tableWidget->setRowCount(0);
+        return;
+    }
+
+    Utils::FillTable(ui->tableWidget, filteredOrders);
+    qDebug() << "Поиск по наименованию: " << text
+             << '\n' << "Найдено " << filteredOrders.size() << " элементов";
+}
+
+
+void SearchWindow::on_dateEditReceiptDate_dateChanged(const QDate &date)
+{
+    if(!date.isValid()){
+        Utils::FillTable(ui->tableWidget, orderManager->orders());
+        return;
+    }
+
+    QVector<Order> filteredOrders;
+    for(const Order &order : orderManager->orders()){
+        if(order.receiptDate() == date){
+            filteredOrders.append(order);
+        }
+    }
+
+    if(filteredOrders.isEmpty()){
+        qDebug() <<  "Элементов не найдено по дате поступления: " << date.toString("dd.MM.yyyy");
+        Utils::ShowInformationEvent("Не найдено заказов по дате поступления:\n" + date.toString("dd.MM.yyyy"));
+        Utils::FillTable(ui->tableWidget, orderManager->orders());
+        return;
+    }
+
+    Utils::FillTable(ui->tableWidget, filteredOrders);
+    qDebug() << "Поиск по дате поступления: " << date.toString("dd.MM.yyyy")
+             << '\n' << "Найдено " << filteredOrders.size() << " элементов";
+}
+
+
+void SearchWindow::on_dateEditCompletionDate_dateChanged(const QDate &date)
+{
+    if(!date.isValid()){
+        Utils::FillTable(ui->tableWidget, orderManager->orders());
+        return;
+    }
+
+    QVector<Order> filteredOrders;
+    for(const Order &order : orderManager->orders()){
+        if(order.completionDate() == date){
+            filteredOrders.append(order);
+        }
+    }
+
+    if(filteredOrders.isEmpty()){
+        qDebug() <<  "Элементов не найдено по дате исполнения: " << date.toString("dd.MM.yyyy");
+        Utils::ShowInformationEvent("Не найдено заказов по дате исполнения:\n" + date.toString("dd.MM.yyyy"));
+        Utils::FillTable(ui->tableWidget, orderManager->orders());
+        return;
+    }
+
+    Utils::FillTable(ui->tableWidget, filteredOrders);
+    qDebug() << "Поиск по дате исполнения: " << date.toString("dd.MM.yyyy")
+             << '\n' << "Найдено " << filteredOrders.size() << " элементов";
+}

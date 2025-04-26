@@ -1,6 +1,5 @@
 #ifndef SEARCHWINDOW_H
 #define SEARCHWINDOW_H
-
 #include <QDialog>
 #include "ordermanager.h"
 
@@ -19,10 +18,13 @@ public:
 
 private slots:
     void on_radioButtonAny_clicked();
-
     void on_radioButtonFinished_clicked();
-
     void on_radioButtonUnfinished_clicked();
+
+    void on_lineEditBrand_textEdited(const QString &text);
+
+    void on_dateEditReceiptDate_dateChanged(const QDate &date);
+    void on_dateEditCompletionDate_dateChanged(const QDate &date);
 
 private:
     Ui::SearchWindow *ui;

@@ -373,7 +373,7 @@
        <item>
         <widget class="QDateEdit" name="dateEditReceiptDate">
          <property name="displayFormat">
-          <string>dd/MM/yyyy</string>
+          <string>dd.MM.yyyy</string>
          </property>
          <property name="calendarPopup">
           <bool>true</bool>
@@ -410,7 +410,7 @@
        <item>
         <widget class="QDateEdit" name="dateEditCompletionDate">
          <property name="displayFormat">
-          <string>dd/MM/yyyy</string>
+          <string>dd.MM.yyyy</string>
          </property>
          <property name="calendarPopup">
           <bool>true</bool>
