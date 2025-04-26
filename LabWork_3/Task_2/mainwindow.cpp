@@ -18,6 +18,6 @@ void MainWindow::on_pushButtonCalculate_clicked()
     int m = ui->spinBoxFirstNumber->value();
     int n = ui->spinBoxSecondNumber->value();
     int result = solution.Ackermann(m, n);
-    ui->labelResult->setText(QString(result));
+    ui->labelResult->setText(QString::number(result));
 }
 
