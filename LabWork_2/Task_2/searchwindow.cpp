@@ -40,6 +40,16 @@ SearchWindow::SearchWindow(OrderManager *manager, QWidget *parent) :
             UpdateSearch();
         }
     });
+    connect(ui->pushButtonReceiptDate, &QPushButton::clicked, this, [this]() {
+        ui->dateEditReceiptDate->setDate(QDate());
+        currentReceiptDate = QDate();
+        UpdateSearch();
+    });
+    connect(ui->pushButtonCompletionDate, &QPushButton::clicked, this, [this]() {
+        ui->dateEditCompletionDate->setDate(QDate());
+        currentCompletionDate = QDate();
+        UpdateSearch();
+    });
 }
 
 SearchWindow::~SearchWindow()
