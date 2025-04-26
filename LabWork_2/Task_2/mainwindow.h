@@ -8,9 +8,6 @@
 
 #include "filemanager.h"
 #include "ordermanager.h"
-#include "searchwindow.h"
-#include "utils.h"
-#include "order.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

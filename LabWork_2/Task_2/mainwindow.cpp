@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "searchwindow.h"
+#include "utils.h"
+#include "order.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -200,7 +203,7 @@ void MainWindow::on_comboBoxGroupNameSort_currentTextChanged(const QString &choi
 
 void MainWindow::on_pushButtonSearch_clicked()
 {
-    SearchWindow *searchWindow = new SearchWindow(this);
+    SearchWindow *searchWindow = new SearchWindow(&orderManager, this);
     searchWindow->exec();
 }
 
