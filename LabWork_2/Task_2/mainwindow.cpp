@@ -203,6 +203,12 @@ void MainWindow::on_comboBoxGroupNameSort_currentTextChanged(const QString &choi
 
 void MainWindow::on_pushButtonSearch_clicked()
 {
+    if(orderManager.orders().isEmpty()){
+        Utils::ShowErrorEvent("Пустой список!");
+        qDebug() << "Нету импорта из MainWindow!";
+        return;
+    }
+
     SearchWindow *searchWindow = new SearchWindow(&orderManager, this);
     searchWindow->exec();
 }

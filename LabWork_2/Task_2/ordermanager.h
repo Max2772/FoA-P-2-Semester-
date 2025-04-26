@@ -20,6 +20,10 @@ public:
     QVector<Order> SortOrdersDescending();
     QVector<Order> SortOrdersAscending();
 
+    // Methods for SearchWindow
+    QVector<Order> SearchWindowFinishedOrders();
+    QVector<Order> SearchWindowUnfinishedOrders();
+
     void DeleteOrder(const int &idx);
     void AddOrder(const Order &order);
     void EditOrder(const Order &order, const int &idx);

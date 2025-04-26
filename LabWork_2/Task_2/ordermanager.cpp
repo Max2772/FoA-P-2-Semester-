@@ -74,6 +74,28 @@ QVector<Order> OrderManager::SortOrdersAscending()
     return ascendingOrdersVector;
 }
 
+QVector<Order> OrderManager::SearchWindowFinishedOrders()
+{
+    QVector<Order> finishedOrders;
+    for(int i = 0; i < orderVector_.size(); ++i){
+        if(orderVector_[i].isCompleted()){
+            finishedOrders.append(orderVector_[i]);
+        }
+    }
+    return finishedOrders;
+}
+
+QVector<Order> OrderManager::SearchWindowUnfinishedOrders()
+{
+    QVector<Order> unfinishedOrders;
+    for(int i = 0; i < orderVector_.size(); ++i){
+        if(!orderVector_[i].isCompleted()){
+            unfinishedOrders.append(orderVector_[i]);
+        }
+    }
+    return unfinishedOrders;
+}
+
 void OrderManager::DeleteOrder(const int &idx)
 {
     orderVector_.remove(idx);

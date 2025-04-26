@@ -17,6 +17,13 @@ public:
     ~SearchWindow();
 
 
+private slots:
+    void on_radioButtonAny_clicked();
+
+    void on_radioButtonFinished_clicked();
+
+    void on_radioButtonUnfinished_clicked();
+
 private:
     Ui::SearchWindow *ui;
     OrderManager *orderManager;
