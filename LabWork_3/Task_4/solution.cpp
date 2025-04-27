@@ -17,5 +17,5 @@ QString Solution::Hanoi(int num, QString A,
 }
 
 void Solution::ResetLine() {
-    result = "Поочередные шаги по перестановке колец:\n";
+    result = "Шаги по перестановке колец:\n";
 }
