@@ -38,6 +38,7 @@ else()
     else()
         add_executable(Task_1
             ${PROJECT_SOURCES}
+            sort.h sort.cpp
         )
     endif()
 endif()
