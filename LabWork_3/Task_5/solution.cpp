@@ -39,7 +39,7 @@ int Solution::GetNumberOfFolders(const QString &path) {
     int result = 0;
     QFileInfoList subfolders = GetSubfolders(path);
     for (const QFileInfo &info : subfolders) {
-        result++; // Учитываем текущую подпапку
+        result++;
         result += GetNumberOfFolders(info.absoluteFilePath());
     }
     return result;

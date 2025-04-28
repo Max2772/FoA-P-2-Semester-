@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-
 #include <QMessageBox>
 #include <QFileDialog>
 
@@ -25,26 +24,10 @@ void MainWindow::ShowErrorEvent(const QString &info) {
     box.exec();
 }
 
-// void MainWindow::on_pushButton_clicked()
-
-// {
-// QString selectedDirectory = QFileDialog::getExistingDirectory(
-//     this, "Выберите папку", QDir::homePath());
-
-// QFile file(selectedDirectory);
-
-// ui->label_2->setText(selectedDirectory);
-
-// ui->label_4->setText(
-//     QString::number(solution->getNumberFoldersAndFiles(selectedDirectory)));
-
-// ui->label_5->setText(
-//     QString::number(solution->getNumberFolders(selectedDirectory)));
-
 void MainWindow::on_pushButtonCalculate_clicked()
 {
     QString selectedDirectory = QFileDialog::getExistingDirectory(
-        this, "Выберите хуй", QDir::homePath());
+        this, "Выберите папку", QDir::homePath());
 
     if(selectedDirectory.isEmpty()){
         ShowErrorEvent("Не выбрана валидная папка!");
@@ -59,10 +42,11 @@ void MainWindow::on_pushButtonCalculate_clicked()
     if(nameFilters.isEmpty()){
         ui->labelInputFiles->setText("Количество файлов в данной директории:  " +
                                      QString::number(solution.GetNumberOfFoldersAndFiles(selectedDirectory)));
+    }else{
+        ui->labelInputFiles->setText("Количество " + nameFilters.join(',') +  " файлов в данной директории: " +
+                                     QString::number(solution.GetNumberOfFoldersAndFiles(selectedDirectory)));
     }
 
-    ui->labelInputFiles->setText("Количество " + nameFilters.join(',') +  " файлов в данной директории: " +
-                                 QString::number(solution.GetNumberOfFoldersAndFiles(selectedDirectory)));
     ui->labelInputSubFolders->setText("Количество папок в данной директории: " +
                                       QString::number(solution.GetNumberOfFolders(selectedDirectory)));
 }
@@ -87,7 +71,7 @@ void MainWindow::SetNameFiltersForSolution(){
     }else{
         qDebug() << "Фильтры для файлов: " << CheckedNameFilters;
     }
-    solution.setNameFilters(CheckedNameFilters);;
+    solution.setNameFilters(CheckedNameFilters);
 }
 
 
