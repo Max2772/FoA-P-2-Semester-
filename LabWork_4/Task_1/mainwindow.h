@@ -5,6 +5,7 @@
 #include <QTimer>
 
 #include "arraymanager.h"
+#include "sortvisualizer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -50,5 +51,6 @@ private:
 
     Ui::MainWindow *ui;
     ArrayManager arrayManager;
+    SortVisualizer *sortVisualizer;
 };
 #endif // MAINWINDOW_H

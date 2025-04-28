@@ -45,6 +45,12 @@
     <property name="title">
      <string/>
     </property>
+    <property name="flat">
+     <bool>true</bool>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
     <widget class="QLabel" name="labelTitle">
      <property name="geometry">
       <rect>
