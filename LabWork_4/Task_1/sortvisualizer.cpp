@@ -35,8 +35,4 @@ void SortVisualizer::paintEvent(QPaintEvent *event)
         }
         painter.drawRect(rect);
     }
-
-    // Тестовый красный квадрат
-    painter.setBrush(Qt::red);
-    painter.drawRect(50, 50, 50, 50);
 }

@@ -26,7 +26,6 @@ public:
 
 private slots:
     void on_spinBoxAmount_valueChanged(int num);
-
     void on_pushButtonSort_clicked();
 
 private:

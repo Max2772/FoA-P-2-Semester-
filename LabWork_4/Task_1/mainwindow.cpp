@@ -16,13 +16,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBoxAmount->setMaximum(SPINBOX_MAX_VALUE);
 
     sortVisualizer = new SortVisualizer(this);
-    sortVisualizer->setGeometry(0, 0, width(), height() - 200); // Оставляем место для UI
-    sortVisualizer->lower(); // Позади centralWidget
-    ui->centralwidget->lower(); // Поднимаем centralWidget
+    sortVisualizer->setGeometry(0, 0, width(), height() - ui->groupBox->height());
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, [=]() {
-        update(); // Перерисовка окна
+        update();
         ui->pushButtonSort->setEnabled(!isUpdating);
         ui->spinBoxAmount->setEnabled(!isUpdating);
         if (size != ui->spinBoxAmount->value() && !isUpdating) {
@@ -31,7 +29,6 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
     timer->start(30);
-
 }
 
 MainWindow::~MainWindow()
@@ -60,7 +57,7 @@ void MainWindow::OutputArray()
     for(const int num: arr){
         numbers.append(QString::number(num));
     }
-    qDebug() << numbers.join(',');
+    qDebug() << "Массив: " <<numbers.join(',') << '\n';
 }
 
 // Здесь пздц -->
@@ -87,8 +84,6 @@ void MainWindow::CreateNewArr()
 
 void MainWindow::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
-    painter.setBrush(Qt::red);
-    painter.drawRect(50, 50, 50, 50);
     int vertical_offset = height() - ui->groupBox->height() + 1; // Смещение вниз
 
     QPen pen(Qt::white, 1); // Чёрная обводка толщиной 1 пиксель
