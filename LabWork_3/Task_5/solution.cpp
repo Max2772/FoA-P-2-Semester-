@@ -14,7 +14,6 @@ bool Solution::IsValidFilter(QString filter){
     return !filter.isEmpty() && re.match(filter).hasMatch();
 }
 
-
 int Solution::GetNumberOfFoldersAndFiles(const QString &path) {
     QDir dir(path);
     if (!dir.exists()){
