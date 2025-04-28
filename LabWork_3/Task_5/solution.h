@@ -12,7 +12,8 @@ public:
     int GetNumberOfFolders(const QString &path);
 
     bool IsValidFilter(QString filter);
-    void SetNameFilters(const QStringList &nameFilters);
+
+    void setNameFilters(const QStringList &nameFilters);
 
     QStringList getNameFilters(){
         return nameFilters_;

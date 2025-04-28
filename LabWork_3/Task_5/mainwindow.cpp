@@ -3,6 +3,7 @@
 
 
 #include <QMessageBox>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,21 +17,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-// void MainWindow::ShowErrorEvent(const QString &information) {
-//     QMessageBox box;
-//     box.setWindowTitle("Ошибка");
-//     box.setText(information);
-//     box.setIcon(QMessageBox::Critical);
-//     box.exec();
-// }
-
-// void MainWindow::ShowInformationEvent(const QString &information) {
-//     QMessageBox box;
-//     box.setWindowTitle("Информационная панель");
-//     box.setIcon(QMessageBox::Information);
-//     box.setText(information);
-//     box.exec();
-// }
+void MainWindow::ShowErrorEvent(const QString &info) {
+    QMessageBox box;
+    box.setWindowTitle("Ошибка");
+    box.setText(info);
+    box.setIcon(QMessageBox::Critical);
+    box.exec();
+}
 
 // void MainWindow::on_pushButton_clicked()
 
@@ -50,8 +43,33 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonCalculate_clicked()
 {
+    QString selectedDirectory = QFileDialog::getExistingDirectory(
+        this, "Выберите хуй", QDir::homePath());
+
+    if(selectedDirectory.isEmpty()){
+        ShowErrorEvent("Не выбрана валидная папка!");
+        return;
+    }
+
+    ui->labelCurrentDirectory->setText("Текущий путь: " + selectedDirectory);
+
+    SetNameFiltersForSolution();
+
+    QStringList nameFilters = solution.getNameFilters();
+    if(nameFilters.isEmpty()){
+        ui->labelInputFiles->setText("Количество файлов в данной директории:  " +
+                                     QString::number(solution.GetNumberOfFoldersAndFiles(selectedDirectory)));
+    }
+
+    ui->labelInputFiles->setText("Количество " + nameFilters.join(',') +  " файлов в данной директории: " +
+                                 QString::number(solution.GetNumberOfFoldersAndFiles(selectedDirectory)));
+    ui->labelInputSubFolders->setText("Количество папок в данной директории: " +
+                                      QString::number(solution.GetNumberOfFolders(selectedDirectory)));
+}
+
+void MainWindow::SetNameFiltersForSolution(){
     QString text = ui->lineEditInput->text();
-    QStringList nameFilters = text.trimmed().split(",", Qt::SkipEmptyParts);
+    QStringList nameFilters = text.trimmed().toLower().split(",", Qt::SkipEmptyParts);
 
     for(int i = 0; i < nameFilters.size(); ++i){
         nameFilters[i] = QString('*') + nameFilters[i].trimmed();
@@ -69,8 +87,7 @@ void MainWindow::on_pushButtonCalculate_clicked()
     }else{
         qDebug() << "Фильтры для файлов: " << CheckedNameFilters;
     }
-    solution.SetNameFilters(CheckedNameFilters);;
+    solution.setNameFilters(CheckedNameFilters);;
 }
-
 
 

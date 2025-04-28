@@ -5,7 +5,7 @@
 
 Solution::Solution() {}
 
-void Solution::SetNameFilters(const QStringList &nameFilters) {
+void Solution::setNameFilters(const QStringList &nameFilters) {
     nameFilters_ = nameFilters;
 }
 

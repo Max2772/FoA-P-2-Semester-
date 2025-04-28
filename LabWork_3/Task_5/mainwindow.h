@@ -23,8 +23,7 @@ private slots:
 
 private:
     void ShowErrorEvent(const QString &info);
-    void ShowInformationEvent(const QString &info);
-
+    void SetNameFiltersForSolution();
 
     Ui::MainWindow *ui;
     Solution solution;
