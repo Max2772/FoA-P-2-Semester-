@@ -22,6 +22,10 @@ private slots:
     void on_pushButtonCalculate_clicked();
 
 private:
+    void ShowErrorEvent(const QString &info);
+    void ShowInformationEvent(const QString &info);
+
+
     Ui::MainWindow *ui;
     Solution solution;
 };

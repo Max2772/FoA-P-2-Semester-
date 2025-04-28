@@ -3,6 +3,7 @@
 #include <QString>
 #include <QFileInfo>
 #include <QDir>
+#include <QDebug>
 
 class Solution {
 public:
@@ -10,8 +11,15 @@ public:
     int GetNumberOfFoldersAndFiles(const QString &path);
     int GetNumberOfFolders(const QString &path);
 
+    bool IsValidFilter(QString filter);
+    void SetNameFilters(const QStringList &nameFilters);
+
+    QStringList getNameFilters(){
+        return nameFilters_;
+    }
+
 private:
-    QStringList nameFilter;
+    QStringList nameFilters_;
     int CountFilteredFiles(const QString &path);
     QFileInfoList GetSubfolders(const QString &path);
 };

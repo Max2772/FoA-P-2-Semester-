@@ -1,15 +1,28 @@
 #include "solution.h"
-#include <QDebug>
 
-Solution::Solution() {
-    nameFilter << "*.cpp    ";
+#include <QDebug>
+#include <QRegularExpression>
+
+Solution::Solution() {}
+
+void Solution::SetNameFilters(const QStringList &nameFilters) {
+    nameFilters_ = nameFilters;
 }
+
+bool Solution::IsValidFilter(QString filter){
+    QRegularExpression re("^\\*\\.[a-zA-Z0-9]+$");
+    return !filter.isEmpty() && re.match(filter).hasMatch();
+}
+
 
 int Solution::GetNumberOfFoldersAndFiles(const QString &path) {
     QDir dir(path);
-    if (!dir.exists()) return 0;
+    if (!dir.exists()){
+        qDebug() << "Папки  по пути " << path << " не существует!";
+        return 0;
+    }
 
-    int result = CountFilteredFiles(path); // Считаем .txt файлы в текущей папке
+    int result = CountFilteredFiles(path);
     for (const QFileInfo &info : GetSubfolders(path)) {
         result += GetNumberOfFoldersAndFiles(info.absoluteFilePath());
     }
@@ -18,7 +31,10 @@ int Solution::GetNumberOfFoldersAndFiles(const QString &path) {
 
 int Solution::GetNumberOfFolders(const QString &path) {
     QDir dir(path);
-    if (!dir.exists()) return 0;
+    if (!dir.exists()){
+        qDebug() << "Папки  по пути " << path << " не существует!";
+        return 0;
+    }
 
     int result = 0;
     QFileInfoList subfolders = GetSubfolders(path);
@@ -30,7 +46,7 @@ int Solution::GetNumberOfFolders(const QString &path) {
 }
 
 int Solution::CountFilteredFiles(const QString &path) {
-    return QDir(path).entryList(nameFilter, QDir::Files).size();
+    return QDir(path).entryList(nameFilters_, QDir::Files).size();
 }
 
 QFileInfoList Solution::GetSubfolders(const QString &path) {
