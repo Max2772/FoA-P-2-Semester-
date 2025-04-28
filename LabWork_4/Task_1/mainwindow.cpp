@@ -1,16 +1,18 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-#include "sort.h"
+#include <QDebug>
 
-#include <QRandomGenerator>
-#include <QTime>
+#include "sort.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->spinBoxAmount->setMinimum(SPINBOX_MIN_VALUE);
+    ui->spinBoxAmount->setMaximum(SPINBOX_MAX_VALUE);
 }
 
 MainWindow::~MainWindow()
@@ -18,41 +20,26 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::RandomNumberVectorGenerate()
-{
-    QRandomGenerator rand(QRandomGenerator::system()->generate());
-    QVector<int> randomNumbers;
-    int size = ui->spinBoxAmount->value();
-
-    for(int i = 0; i < size; ++i){
-        int randomNum = rand.bounded(MINIMUM_RANDOM_NUMBER, MAXIMUM_RANDOM_NUMBER);
-        while(randomNumbers.contains(randomNum)){
-            randomNum = rand.bounded(MINIMUM_RANDOM_NUMBER, MAXIMUM_RANDOM_NUMBER);
-        }
-        randomNumbers.append(randomNum);
-    }
-    arr = randomNumbers;
-}
-
 void MainWindow::on_spinBoxAmount_valueChanged(int num)
 {
-    RandomNumberVectorGenerate();
-    QString res;
-    for(int i = 0; i < arr.size(); ++i){
-        res += QString::number(arr[i]) + ", ";
-    }
-    ui->plainTextEdit->setPlainText(res);
+    arrayManager.RandomNumberVectorGenerate(arr, num);
+    OutputArray();
 }
 
 
 void MainWindow::on_pushButtonSort_clicked()
 {
-    RandomNumberVectorGenerate();
-    Sort::HeapSort(arr);
-    QString res;
-    for(int i = 0; i < arr.size(); ++i){
-        res += QString::number(arr[i]) + ", ";
+    Sort::QuickSort(arr, 0, arr.size() - 1);
+    qDebug() << "Array:" << arr;
+    OutputArray();
+}
+
+void MainWindow::OutputArray()
+{
+    QStringList numbers;
+    for(const int num: arr){
+        numbers.append(QString::number(num));
     }
-    ui->plainTextEdit->setPlainText(res);
+    ui->plainTextEdit->setPlainText(numbers.join(','));
 }
 

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "arraymanager.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -17,18 +19,20 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    static const int SPINBOX_MIN_VALUE = 1;
+    static const int SPINBOX_MAX_VALUE = 100;
+
 private slots:
     void on_spinBoxAmount_valueChanged(int num);
 
     void on_pushButtonSort_clicked();
 
 private:
-    void RandomNumberVectorGenerate();
+    void OutputArray();
+
     QVector<int> arr;
 
-    int MINIMUM_RANDOM_NUMBER = 1;
-    int MAXIMUM_RANDOM_NUMBER = 101;
-
     Ui::MainWindow *ui;
+    ArrayManager arrayManager;
 };
 #endif // MAINWINDOW_H

@@ -387,6 +387,9 @@
       <height>591</height>
      </rect>
     </property>
+    <property name="lineWrapMode">
+     <enum>QPlainTextEdit::NoWrap</enum>
+    </property>
    </widget>
   </widget>
  </widget>

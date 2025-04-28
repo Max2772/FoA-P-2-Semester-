@@ -39,6 +39,8 @@ else()
         add_executable(Task_1
             ${PROJECT_SOURCES}
             sort.h sort.cpp
+            arraymanager.h arraymanager.cpp
+            sortvisualizer.h sortvisualizer.cpp
         )
     endif()
 endif()
