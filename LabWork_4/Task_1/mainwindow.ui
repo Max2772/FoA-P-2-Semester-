@@ -39,6 +39,9 @@
       <height>111</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="title">
      <string/>
     </property>
@@ -377,19 +380,6 @@
       </item>
      </layout>
     </widget>
-   </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>13</x>
-      <y>19</y>
-      <width>1251</width>
-      <height>591</height>
-     </rect>
-    </property>
-    <property name="lineWrapMode">
-     <enum>QPlainTextEdit::NoWrap</enum>
-    </property>
    </widget>
   </widget>
  </widget>

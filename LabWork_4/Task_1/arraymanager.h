@@ -14,6 +14,8 @@ public:
     static const int MAXIMUM_RANDOM_NUMBER = 101;
 
     void RandomNumberVectorGenerate(QVector<int>& arr, int size);
+    bool IsSorted(const QVector<int> &arr);
+
 };
 
 #endif // ARRAYMANAGER_H

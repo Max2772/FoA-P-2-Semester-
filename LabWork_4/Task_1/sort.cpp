@@ -6,24 +6,26 @@ Sort::Sort() {}
 // |
 // |
 // V
-int Sort::Partition(QVector<int>& arr, int low, int high) {
+int Sort::Partition(QVector<int>& arr, int low, int high, QVector<QPair<int, int>>& motionVector) {
     int pivot = arr[high];
     int i = low - 1;
     for (int j = low; j <= high - 1; j++) {
         if (arr[j] < pivot) {
             i++;
+            motionVector.append({i, j}); // Сохраняем пару для обмена
             std::swap(arr[i], arr[j]);
         }
     }
+    motionVector.append({i + 1, high}); // Сохраняем пару для финального обмена
     std::swap(arr[i + 1], arr[high]);
     return i + 1;
 }
 
-void Sort::QuickSort(QVector<int>& arr, int low, int high) {
+void Sort::QuickSort(QVector<int>& arr, int low, int high, QVector<QPair<int, int>>& motionVector) {
     if (low < high) {
-        int pi = Partition(arr, low, high);
-        QuickSort(arr, low, pi - 1);
-        QuickSort(arr, pi + 1, high);
+        int pi = Partition(arr, low, high, motionVector);
+        QuickSort(arr, low, pi - 1, motionVector);
+        QuickSort(arr, pi + 1, high, motionVector);
     }
 }
 

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 
 #include "arraymanager.h"
 
@@ -29,8 +30,23 @@ private slots:
 
 private:
     void OutputArray();
+    void CreateNewArr();
+    void paintEvent(QPaintEvent *event) override;
+    void ShowSort();
 
     QVector<int> arr;
+    int size;
+    int ind1, ind2;
+
+    QVector <QPair <int, int>> motionVector;
+    QVector <QRectF*> rectsVector;
+
+
+
+    bool isUpdating;
+
+    QTimer *timer;
+    QTimer *sortTimer;
 
     Ui::MainWindow *ui;
     ArrayManager arrayManager;
