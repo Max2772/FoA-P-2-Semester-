@@ -2,18 +2,13 @@
 
 #include <QPainter>
 
-SortVisualizer::SortVisualizer(QWidget *parent) : QWidget(parent), ind1(-1), ind2(-1)
-{
-    setStyleSheet("background-color: #444444;"); // Контрастный фон
-}
+SortVisualizer::SortVisualizer(QWidget *parent) : QWidget(parent), idx1(-1), idx2(-1){}
 
-#include <QPainter>
-
-void SortVisualizer::setRects(const QVector<QRectF*>& rects, int ind1, int ind2)
+void SortVisualizer::setRects(const QVector<QRectF>& rects, int idx1, int idx2)
 {
     rectsVector = rects;
-    this->ind1 = ind1;
-    this->ind2 = ind2;
+    this->idx1 = idx1;
+    this->idx2 = idx2;
     update();
 }
 
@@ -22,17 +17,19 @@ void SortVisualizer::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     int maxHeight = height();
 
-    QPen pen(Qt::white, 1); // Белая обводка
+    QPen pen(Qt::gray, 2);
     painter.setPen(pen);
 
-    for (int i = 0; i < rectsVector.size(); ++i) {
-        QRectF rect = *rectsVector[i];
+    for(int i = 0; i < rectsVector.size(); ++i){
+        QRectF rect = rectsVector[i];
         rect.moveBottom(maxHeight);
-        if (i == ind1 || i == ind2) {
-            painter.setBrush(Qt::green); // Активные
-        } else {
-            painter.setBrush(Qt::white); // Неактивные
+
+        if (i == idx1 || i == idx2){
+            painter.setBrush(Qt::green);
+        }else{
+            painter.setBrush(Qt::white);
         }
+
         painter.drawRect(rect);
     }
 }

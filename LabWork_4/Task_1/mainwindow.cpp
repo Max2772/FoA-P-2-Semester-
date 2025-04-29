@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     sortVisualizer = new SortVisualizer(this);
     sortVisualizer->setGeometry(0, 0, width(), height() - ui->groupBox->height());
+    qDebug() << ui->groupBox->height() << '/' << height();
 
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, [=]() {
@@ -33,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    for(QRectF *rect : rectsVector) delete rect;
     delete ui;
 }
 
@@ -66,40 +66,19 @@ void MainWindow::CreateNewArr()
 {
     size = ui->spinBoxAmount->value();
     arrayManager.RandomNumberVectorGenerate(arr, size);
-    for (QRectF *rect : rectsVector) delete rect;
     rectsVector.clear();
     motionVector.clear();
 
     int maxHeight = sortVisualizer->height(); // Используем высоту CanvasWidget
 
     for (int i = 0; i < size; ++i) {
-        QRectF *rect = new QRectF(30 + 10 * i, maxHeight - (20 + 4 * arr[i]), 10, 20 + 4 * arr[i]);
+        QRectF rect(30 + 10 * i, maxHeight - (20 + 4 * arr[i]), 10, 20 + 4 * arr[i]);
         rectsVector.append(rect);
     }
 
-    ind1 = ind2 = -1;
-    sortVisualizer->setRects(rectsVector, ind1, ind2);
+    idx1 = idx2 = -1;
+    sortVisualizer->setRects(rectsVector, idx1, idx2);
     OutputArray();
-}
-
-void MainWindow::paintEvent(QPaintEvent *event) {
-    QPainter painter(this);
-    int vertical_offset = height() - ui->groupBox->height() + 1; // Смещение вниз
-
-    QPen pen(Qt::white, 1); // Чёрная обводка толщиной 1 пиксель
-    painter.setPen(pen);
-
-    for (int i = 0; i < rectsVector.size(); ++i) {
-        QRectF rect = *rectsVector[i];
-        rect.moveBottom(vertical_offset); // Смещение столбца вниз
-        // Подсветка активных элементов
-        if (i == ind1 || i == ind2) {
-            painter.setBrush(Qt::green);
-        } else {
-            painter.setBrush(Qt::white);
-        }
-        painter.drawRect(rect);
-    }
 }
 
 void MainWindow::ShowSort()
@@ -111,25 +90,23 @@ void MainWindow::ShowSort()
 
     connect(sortTimer, &QTimer::timeout, [=]() {
         if (*i < motionVector.size()) {
-            ind1 = motionVector[*i].first;
-            ind2 = motionVector[*i].second;
+            idx1 = motionVector[*i].first;
+            idx2 = motionVector[*i].second;
 
-            QRectF *rect1 = new QRectF(rectsVector[ind2]->x(), sortVisualizer->height() - rectsVector[ind1]->height(), 10, rectsVector[ind1]->height());
-            QRectF *rect2 = new QRectF(rectsVector[ind1]->x(), sortVisualizer->height() - rectsVector[ind2]->height(), 10, rectsVector[ind2]->height());
-            delete rectsVector[ind1];
-            delete rectsVector[ind2];
-            rectsVector[ind1] = rect1;
-            rectsVector[ind2] = rect2;
-            std::swap(rectsVector[ind1], rectsVector[ind2]);
+            QRectF rect1(rectsVector[idx2].x(), sortVisualizer->height() - rectsVector[idx1].height(), 10, rectsVector[idx1].height());
+            QRectF rect2(rectsVector[idx1].x(), sortVisualizer->height() - rectsVector[idx2].height(), 10, rectsVector[idx2].height());
+            rectsVector[idx1] = rect1;
+            rectsVector[idx2] = rect2;
+            std::swap(rectsVector[idx1], rectsVector[idx2]);
             (*i)++;
         } else {
             isUpdating = false;
             sortTimer->stop();
-            ind1 = ind2 = -1;
+            idx1 = idx2 = -1;
             delete i;
             delete sortTimer;
         }
-        sortVisualizer->setRects(rectsVector, ind1, ind2);
+        sortVisualizer->setRects(rectsVector, idx1, idx2);
     });
     sortTimer->start();
 }

@@ -31,15 +31,15 @@ private slots:
 private:
     void OutputArray();
     void CreateNewArr();
-    void paintEvent(QPaintEvent *event) override;
     void ShowSort();
 
     QVector<int> arr;
     int size;
-    int ind1, ind2;
+    int idx1;
+    int idx2;
 
     QVector <QPair <int, int>> motionVector;
-    QVector <QRectF*> rectsVector;
+    QVector <QRectF> rectsVector;
 
 
 

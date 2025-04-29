@@ -3,9 +3,6 @@
 Sort::Sort() {}
 
 // Quick Sort
-// |
-// |
-// V
 int Sort::Partition(QVector<int>& arr, int low, int high, QVector<QPair<int, int>>& motionVector) {
     int pivot = arr[high];
     int i = low - 1;
@@ -29,7 +26,7 @@ void Sort::QuickSort(QVector<int>& arr, int low, int high, QVector<QPair<int, in
     }
 }
 
-// Merge Sort -->
+// Merge Sort
 void Sort::Merge(QVector<int>& arr, int left, int mid, int right)
 {
     int n1 = mid - left + 1;
@@ -82,9 +79,6 @@ void Sort::MergeSort(QVector<int>& arr, int left, int right)
 }
 
 // Heap Sort
-// |
-// |
-// V
 void Sort::Heapify(QVector<int>& arr, int n, int i){
     int largest = i;
     int l = 2 * i + 1;
