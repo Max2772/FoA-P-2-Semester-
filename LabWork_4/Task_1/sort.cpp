@@ -3,22 +3,22 @@
 Sort::Sort() {}
 
 // Quick Sort
-int Sort::Partition(QVector<int>& arr, int low, int high, QVector<QPair<int, int>>& motionVector) {
+int Sort::Partition(QVector<int>& arr, int low, int high, QVector<QPair<int, int>>& motionVector){
     int pivot = arr[high];
     int i = low - 1;
     for (int j = low; j <= high - 1; j++) {
         if (arr[j] < pivot) {
             i++;
-            motionVector.append({i, j}); // Сохраняем пару для обмена
             std::swap(arr[i], arr[j]);
+            motionVector.append({i, j});
         }
     }
-    motionVector.append({i + 1, high}); // Сохраняем пару для финального обмена
     std::swap(arr[i + 1], arr[high]);
+    motionVector.append({i + 1, high});
     return i + 1;
 }
 
-void Sort::QuickSort(QVector<int>& arr, int low, int high, QVector<QPair<int, int>>& motionVector) {
+void Sort::QuickSort(QVector<int>& arr, int low, int high, QVector<QPair<int, int>>& motionVector){
     if (low < high) {
         int pi = Partition(arr, low, high, motionVector);
         QuickSort(arr, low, pi - 1, motionVector);
@@ -27,8 +27,7 @@ void Sort::QuickSort(QVector<int>& arr, int low, int high, QVector<QPair<int, in
 }
 
 // Merge Sort
-void Sort::Merge(QVector<int>& arr, int left, int mid, int right)
-{
+void Sort::Merge(QVector<int>& arr, int left, int mid, int right, QVector<QPair<int, int>>& motionVector){
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
@@ -45,10 +44,12 @@ void Sort::Merge(QVector<int>& arr, int left, int mid, int right)
     while (i < n1 && j < n2) {
         if (L[i] <= R[j]) {
             arr[k] = L[i];
+            motionVector.append({k, left + i});
             i++;
         }
         else {
             arr[k] = R[j];
+            motionVector.append({k, mid + 1 + j});
             j++;
         }
         k++;
@@ -56,30 +57,31 @@ void Sort::Merge(QVector<int>& arr, int left, int mid, int right)
 
     while (i < n1) {
         arr[k] = L[i];
+        motionVector.append({k, left + i});
         i++;
         k++;
     }
 
     while (j < n2) {
         arr[k] = R[j];
+        motionVector.append({k, mid + 1 + j});
         j++;
         k++;
     }
 }
 
-void Sort::MergeSort(QVector<int>& arr, int left, int right)
-{
+void Sort::MergeSort(QVector<int>& arr, int left, int right, QVector<QPair<int, int>>& motionVector){
     if (left >= right)
         return;
 
     int mid = left + (right - left) / 2;
-    MergeSort(arr, left, mid);
-    MergeSort(arr, mid + 1, right);
-    Merge(arr, left, mid, right);
+    MergeSort(arr, left, mid, motionVector);
+    MergeSort(arr, mid + 1, right, motionVector);
+    Merge(arr, left, mid, right, motionVector);
 }
 
 // Heap Sort
-void Sort::Heapify(QVector<int>& arr, int n, int i){
+void Sort::Heapify(QVector<int>& arr, int n, int i, QVector<QPair<int, int>>& motionVector){
     int largest = i;
     int l = 2 * i + 1;
     int r = 2 * i + 2;
@@ -92,18 +94,20 @@ void Sort::Heapify(QVector<int>& arr, int n, int i){
 
     if (largest != i) {
         std::swap(arr[i], arr[largest]);
-        Heapify(arr, n, largest);
+        motionVector.append({i, largest});
+        Heapify(arr, n, largest, motionVector);
     }
 }
 
-void Sort::HeapSort(QVector<int>& arr){
+void Sort::HeapSort(QVector<int>& arr, QVector<QPair<int, int>>& motionVector){
     int n = arr.size();
 
     for (int i = n / 2 - 1; i >= 0; i--)
-        Heapify(arr, n, i);
+        Heapify(arr, n, i, motionVector);
 
     for (int i = n - 1; i > 0; i--) {
         std::swap(arr[0], arr[i]);
-        Heapify(arr, i, 0);
+        motionVector.append({0, i});
+        Heapify(arr, i, 0, motionVector);
     }
 }

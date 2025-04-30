@@ -83,30 +83,40 @@ void MainWindow::CreateNewArr()
 
 void MainWindow::ShowSort()
 {
-    int *i = new int(0);
     sortTimer = new QTimer(this);
     sortTimer->setInterval(30);
     isUpdating = true;
 
-    connect(sortTimer, &QTimer::timeout, [=]() {
-        if (*i < motionVector.size()) {
-            idx1 = motionVector[*i].first;
-            idx2 = motionVector[*i].second;
-
-            QRectF rect1(rectsVector[idx2].x(), sortVisualizer->height() - rectsVector[idx1].height(), 10, rectsVector[idx1].height());
-            QRectF rect2(rectsVector[idx1].x(), sortVisualizer->height() - rectsVector[idx2].height(), 10, rectsVector[idx2].height());
-            rectsVector[idx1] = rect1;
-            rectsVector[idx2] = rect2;
-            std::swap(rectsVector[idx1], rectsVector[idx2]);
-            (*i)++;
-        } else {
-            isUpdating = false;
-            sortTimer->stop();
-            idx1 = idx2 = -1;
-            delete i;
-            delete sortTimer;
-        }
-        sortVisualizer->setRects(rectsVector, idx1, idx2);
-    });
+    connect(sortTimer, &QTimer::timeout, this, &MainWindow::onSortTimerTimeout);
     sortTimer->start();
+}
+
+void MainWindow::onSortTimerTimeout()
+{
+    static int step = 0; // Сохраняет текущий шаг анимации между вызовами
+
+    if (step < motionVector.size()) {
+        // Получаем индексы для обмена
+        idx1 = motionVector[step].first;
+        idx2 = motionVector[step].second;
+
+        // Меняем местами прямоугольники, сохраняя их высоту
+        QRectF rect1(rectsVector[idx2].x(), sortVisualizer->height() - rectsVector[idx1].height(), 10, rectsVector[idx1].height());
+        QRectF rect2(rectsVector[idx1].x(), sortVisualizer->height() - rectsVector[idx2].height(), 10, rectsVector[idx2].height());
+        rectsVector[idx1] = rect1;
+        rectsVector[idx2] = rect2;
+        std::swap(rectsVector[idx1], rectsVector[idx2]);
+        ++step;
+    } else {
+        // Завершаем анимацию
+        isUpdating = false;
+        sortTimer->stop();
+        idx1 = idx2 = -1;
+        delete sortTimer;
+        sortTimer = nullptr;
+        step = 0; // Сбрасываем для следующей сортировки
+    }
+
+    // Обновляем визуализатор
+    sortVisualizer->setRects(rectsVector, idx1, idx2);
 }

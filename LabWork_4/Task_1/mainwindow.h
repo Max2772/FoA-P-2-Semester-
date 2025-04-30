@@ -33,6 +33,8 @@ private:
     void CreateNewArr();
     void ShowSort();
 
+    void onSortTimerTimeout();
+
     QVector<int> arr;
     int size;
     int idx1;
