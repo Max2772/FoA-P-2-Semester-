@@ -21,7 +21,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    static const int SPINBOX_MIN_VALUE = 1;
+    static const int SPINBOX_MIN_VALUE = 0;
     static const int SPINBOX_MAX_VALUE = 100;
 
 private slots:
@@ -32,7 +32,7 @@ private:
     bool isUpdating;
 
     Ui::MainWindow *ui;
-    SortController sortController;
+    SortController* sortController;
     SortVisualizer* sortVisualizer;
 };
 #endif // MAINWINDOW_H

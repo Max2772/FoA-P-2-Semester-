@@ -3,9 +3,9 @@
 
 #include <QDebug>
 
-SortController::SortController(QObject* parent) : QObject(parent) {
+SortController::SortController(SortVisualizer *visualizer, QObject* parent) : QObject(parent) {
     sortTimer = new QTimer(this); // Инициализируем таймер
-    sortVisualizer = new SortVisualizer; // Инициализируем визуализатор
+    sortVisualizer = visualizer;
 
     connect(sortTimer, &QTimer::timeout, this, &SortController::onSortTimerTimeout);
 
@@ -48,6 +48,9 @@ bool SortController::IsSorted()
 void SortController::CreateNewArr(int size)
 {
     RandomNumberVectorGenerate(size);
+    qDebug() << sortVisualizer->height();
+    OutputArray();
+
     rectsVector_.clear();
     motionVector_.clear();
 
@@ -57,11 +60,10 @@ void SortController::CreateNewArr(int size)
         QRectF rect(30 + 10 * i, maxHeight - (20 + 4 * arr_[i]), 10, 20 + 4 * arr_[i]);
         rectsVector_.append(rect);
     }
+    qDebug() << "rectsVector_ size before setRects:" << rectsVector_.size();
 
     idx1 = idx2 = -1;
     sortVisualizer->setRects(rectsVector_, idx1, idx2);
-
-    OutputArray();
 }
 
 void SortController::OutputArray()
