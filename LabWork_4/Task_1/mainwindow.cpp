@@ -32,6 +32,33 @@ void MainWindow::on_spinBoxAmount_valueChanged(int num)
 
 
 void MainWindow::on_pushButtonSort_clicked(){
-    sortController->QuickSort();
-    qDebug() << "Quick Sort сортировка\n";
+    QString input = ui->comboBoxSortType->currentText();
+    if(input == "Quick Sort"){
+        sortController->Sort(SortController::SortType::QuickSort);
+        return;
+    }else if(input == "Heap Sort"){
+        sortController->Sort(SortController::SortType::HeapSort);
+        return;
+    }else if(input == "Merge Sort"){
+        sortController->Sort(SortController::SortType::MergeSort);
+        return;
+    }
+
+    qDebug() << "Ошибка в comboBoxSortType!";
+    return;
 }
+
+
+void MainWindow::on_comboBoxSortType_currentTextChanged(const QString &text)
+{
+    qDebug() << "Выбрана сортировка: " << text;
+}
+
+
+void MainWindow::on_pushButtonShuffle_clicked()
+{
+    int size = ui->spinBoxAmount->value();
+    sortController->CreateNewArr(size);
+    qDebug() << "Массив перемешан";
+}
+

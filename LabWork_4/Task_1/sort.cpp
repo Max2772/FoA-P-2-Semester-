@@ -27,12 +27,11 @@ void Sort::QuickSort(QVector<int>& arr, int low, int high, QVector<QPair<int, in
 }
 
 // Merge Sort
-void Sort::Merge(QVector<int>& arr, int left, int mid, int right, QVector<QPair<int, int>>& motionVector){
+void Sort::Merge(QVector<int>& arr, int left, int mid, int right, QVector<QPair<int, int>>& motionVector) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
     QVector<int> L(n1), R(n2);
-
     for (int i = 0; i < n1; i++)
         L[i] = arr[left + i];
     for (int j = 0; j < n2; j++)
@@ -41,32 +40,45 @@ void Sort::Merge(QVector<int>& arr, int left, int mid, int right, QVector<QPair<
     int i = 0, j = 0;
     int k = left;
 
+    // Временный массив для хранения промежуточного результата
+    QVector<int> temp(right - left + 1);
+    int tempIndex = 0;
+
     while (i < n1 && j < n2) {
         if (L[i] <= R[j]) {
-            arr[k] = L[i];
+            temp[tempIndex] = L[i];
+            // Записываем "перемещение" элемента из позиции left+i в k
             motionVector.append({k, left + i});
             i++;
-        }
-        else {
-            arr[k] = R[j];
+        } else {
+            temp[tempIndex] = R[j];
+            // Записываем "перемещение" элемента из позиции mid+1+j в k
             motionVector.append({k, mid + 1 + j});
             j++;
         }
         k++;
+        tempIndex++;
     }
 
     while (i < n1) {
-        arr[k] = L[i];
+        temp[tempIndex] = L[i];
         motionVector.append({k, left + i});
         i++;
         k++;
+        tempIndex++;
     }
 
     while (j < n2) {
-        arr[k] = R[j];
+        temp[tempIndex] = R[j];
         motionVector.append({k, mid + 1 + j});
         j++;
         k++;
+        tempIndex++;
+    }
+
+    // Копируем временный массив обратно в arr
+    for (int t = 0; t < temp.size(); t++) {
+        arr[left + t] = temp[t];
     }
 }
 

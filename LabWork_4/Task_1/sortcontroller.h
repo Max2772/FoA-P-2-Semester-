@@ -15,8 +15,14 @@ public:
     SortController(SortVisualizer *visualizer, QObject* parent = nullptr);
     ~SortController();
 
+    enum class SortType {
+        QuickSort,
+        HeapSort,
+        MergeSort
+    };
+
     void CreateNewArr(int size);
-    void QuickSort();
+    void Sort(SortType type);
 
     static const int MINIMUM_RANDOM_NUMBER = 1;
     static const int MAXIMUM_RANDOM_NUMBER = 101;
@@ -24,9 +30,9 @@ public:
 private:
     void RandomNumberVectorGenerate(int size);
     bool IsSorted();
-    void onSortTimerTimeout();
-    void ShowSort();
     void OutputArray();
+    void onSortTimerTimeout();
+    void ShowSort();;
 
     QVector<int> arr_;
     QVector<QRectF> rectsVector_;

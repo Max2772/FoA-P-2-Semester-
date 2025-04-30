@@ -92,7 +92,7 @@
        <x>210</x>
        <y>10</y>
        <width>1071</width>
-       <height>91</height>
+       <height>97</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
@@ -197,12 +197,12 @@
           </property>
           <item>
            <property name="text">
-            <string>Heap Sort</string>
+            <string>Quick Sort</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Quick Sort</string>
+            <string>Heap Sort</string>
            </property>
           </item>
           <item>

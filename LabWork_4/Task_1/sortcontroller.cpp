@@ -66,6 +66,33 @@ void SortController::CreateNewArr(int size)
     sortVisualizer->setRects(rectsVector_, idx1, idx2);
 }
 
+void SortController::Sort(SortType type){
+    if(!motionVector_.isEmpty()){
+        motionVector_.clear();
+    }
+
+    if(IsSorted()){
+        qDebug() << "Массив уже отсортирован!";
+        return;
+    }
+
+    switch (type) {
+    case SortType::QuickSort:
+        Sort::QuickSort(arr_, 0, arr_.size() - 1, motionVector_);
+        qDebug() << "Quick Sort сортировка";
+        break;
+    case SortType::HeapSort:
+        Sort::HeapSort(arr_, motionVector_);
+        qDebug() << "Heap Sort сортировка";
+        break;
+    case SortType::MergeSort:
+        Sort::MergeSort(arr_, 0, arr_.size() - 1, motionVector_);
+        qDebug() << "Merge Sort сортировка";
+        break;
+    }
+    ShowSort();
+}
+
 void SortController::OutputArray()
 {
     QStringList numbers;
@@ -113,9 +140,4 @@ void SortController::ShowSort()
     sortTimer->setInterval(ANIMATION_SPEED);
     isUpdating = true;
     sortTimer->start();
-}
-
-void SortController::QuickSort(){
-    Sort::QuickSort(arr_, 0, arr_.size() - 1, motionVector_);
-    ShowSort();
 }
