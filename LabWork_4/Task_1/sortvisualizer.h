@@ -10,11 +10,11 @@ class SortVisualizer: public QWidget
     Q_OBJECT
 public:
     SortVisualizer(QWidget *parent = nullptr);
-    void setRects(const QVector<QRectF>& rects, int idx1, int idx2);
+    void setRects(const QVector<QRectF> &rects, int idx1, int idx2);
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
-    QVector<QRectF> rectsVector;
+    const QVector<QRectF>* rectsVector_ = nullptr;
     int idx1, idx2;
 };
 

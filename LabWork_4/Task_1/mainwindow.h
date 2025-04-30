@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 
-#include "arraymanager.h"
+#include "sortcontroller.h"
 #include "sortvisualizer.h"
 
 QT_BEGIN_NAMESPACE
@@ -29,29 +29,9 @@ private slots:
     void on_pushButtonSort_clicked();
 
 private:
-    void OutputArray();
-    void CreateNewArr();
-    void ShowSort();
-
-    void onSortTimerTimeout();
-
-    QVector<int> arr;
-    int size;
-    int idx1;
-    int idx2;
-
-    QVector <QPair <int, int>> motionVector;
-    QVector <QRectF> rectsVector;
-
-
-
     bool isUpdating;
 
-    QTimer *timer;
-    QTimer *sortTimer;
-
     Ui::MainWindow *ui;
-    ArrayManager arrayManager;
-    SortVisualizer *sortVisualizer;
+    SortController sortController;
 };
 #endif // MAINWINDOW_H
