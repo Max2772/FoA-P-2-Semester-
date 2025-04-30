@@ -13,7 +13,7 @@ public:
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
-    const QVector<QRectF>* rectsVector_ = nullptr;
+    QVector<QRectF> rectsVector_;
     int idx1, idx2;
 };
 

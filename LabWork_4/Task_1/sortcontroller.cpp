@@ -9,11 +9,11 @@ SortController::SortController(QObject* parent) : QObject(parent) {
 
     connect(sortTimer, &QTimer::timeout, this, &SortController::onSortTimerTimeout);
 
-    QTimer* updateTimer = new QTimer(this);
-    connect(updateTimer, &QTimer::timeout, [=]() {
-        qDebug() << "Update timer ticked";
-    });
-    updateTimer->start(30);
+    // QTimer* updateTimer = new QTimer(this);
+    // connect(updateTimer, &QTimer::timeout, [=]() {
+    //     qDebug() << "Update timer ticked";
+    // });
+    // updateTimer->start(30);
 }
 
 SortController::~SortController()

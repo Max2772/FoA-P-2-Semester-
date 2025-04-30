@@ -13,7 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBoxAmount->setMaximum(SPINBOX_MAX_VALUE);
 
     sortVisualizer = new SortVisualizer(this);
-    sortVisualizer->setGeometry(0, 0, width(), height() - ui->groupBox->height());
+    sortVisualizer->setGeometry(0, 0, width() / 2, height() - ui->groupBox->height());
+    sortVisualizer->show();
 }
 
 MainWindow::~MainWindow()
