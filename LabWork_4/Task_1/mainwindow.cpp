@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->spinBoxAmount->blockSignals(true);
     ui->spinBoxAmount->setMinimum(SPINBOX_MIN_VALUE);
     ui->spinBoxAmount->setMaximum(SPINBOX_MAX_VALUE);
+    ui->spinBoxAmount->blockSignals(false);
 
     sortVisualizer = new SortVisualizer(this);
     sortVisualizer->setGeometry(0, 0, width() / 2, height() - ui->groupBox->height());

@@ -21,8 +21,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    static const int SPINBOX_MIN_VALUE = 0;
-    static const int SPINBOX_MAX_VALUE = 100;
+    static const int SPINBOX_MIN_VALUE = 1; // Не ставить любое другое значение, т.к. будет крашить
+    static const int SPINBOX_MAX_VALUE = 300;
 
 private slots:
     void on_spinBoxAmount_valueChanged(int num);

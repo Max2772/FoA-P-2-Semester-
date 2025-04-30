@@ -20,7 +20,7 @@ public:
 
     const QVector<QRectF>& getRects() const { return rectsVector_; }
 
-    static const int MINIMUM_RANDOM_NUMBER = 0;
+    static const int MINIMUM_RANDOM_NUMBER = 1;
     static const int MAXIMUM_RANDOM_NUMBER = 101;
 private:
     void RandomNumberVectorGenerate(int size);
