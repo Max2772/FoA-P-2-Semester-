@@ -1,18 +1,16 @@
 #include "sortcontroller.h"
+#include "sort.h"
 
 #include <QDebug>
 
-SortController::SortController() {
+SortController::SortController(QObject* parent) : QObject(parent) {
     sortTimer = new QTimer(this); // Инициализируем таймер
-    sortVisualizer = new SortVisualizer(this); // Инициализируем визуализатор
+    sortVisualizer = new SortVisualizer; // Инициализируем визуализатор
 
-    // Подключаем сигнал один раз в конструкторе
     connect(sortTimer, &QTimer::timeout, this, &SortController::onSortTimerTimeout);
 
-    // Таймер для периодического обновления (если нужен)
     QTimer* updateTimer = new QTimer(this);
     connect(updateTimer, &QTimer::timeout, [=]() {
-        // Логика обновления, если нужна
         qDebug() << "Update timer ticked";
     });
     updateTimer->start(30);
@@ -24,7 +22,7 @@ SortController::~SortController()
     delete sortVisualizer;
 }
 
-void SortController::RandomNumberVectorGenerate(const int &size)
+void SortController::RandomNumberVectorGenerate(int size)
 {
     QRandomGenerator rand(QRandomGenerator::system()->generate());
     QVector<int> randomNumbers;
@@ -47,14 +45,13 @@ bool SortController::IsSorted()
     return true;
 }
 
-void SortController::CreateNewArr(const int &size, const int& sortWidgetHeight)
+void SortController::CreateNewArr(int size)
 {
-    //size = ui->spinBoxAmount->value();
     RandomNumberVectorGenerate(size);
     rectsVector_.clear();
     motionVector_.clear();
 
-    int maxHeight = sortWidgetHeight; // Используем высоту CanvasWidget
+    int maxHeight = sortVisualizer->height(); // Используем высоту CanvasWidget
 
     for (int i = 0; i < size; ++i) {
         QRectF rect(30 + 10 * i, maxHeight - (20 + 4 * arr_[i]), 10, 20 + 4 * arr_[i]);
@@ -116,4 +113,9 @@ void SortController::ShowSort()
     sortTimer->setInterval(30);
     isUpdating = true;
     sortTimer->start();
+}
+
+void SortController::QuickSort(){
+    Sort::QuickSort(arr_, 0, arr_.size() - 1, motionVector_);
+    ShowSort();
 }

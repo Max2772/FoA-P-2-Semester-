@@ -2,9 +2,6 @@
 #include "./ui_mainwindow.h"
 
 #include <QDebug>
-#include <QPainter>
-
-#include "sort.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,14 +23,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_spinBoxAmount_valueChanged(int num)
 {
-    //sortController.RandomNumberVectorGenerate(num);
-    sortController.OutputArray();
+    sortController.CreateNewArr(num);
 }
 
 
 void MainWindow::on_pushButtonSort_clicked(){
-    motionVector.clear();
-    Sort::QuickSort(arr, 0, arr.size() - 1, motionVector);
-    ShowSort();
-    OutputArray();
+    sortController.QuickSort();
+    qDebug() << "Quick Sort in action";
 }

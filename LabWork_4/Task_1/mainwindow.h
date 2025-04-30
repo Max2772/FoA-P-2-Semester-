@@ -33,5 +33,6 @@ private:
 
     Ui::MainWindow *ui;
     SortController sortController;
+    SortVisualizer* sortVisualizer;
 };
 #endif // MAINWINDOW_H

@@ -5,8 +5,7 @@
 #include <QVector>
 #include <QRectF>
 
-class SortVisualizer: public QWidget
-{
+class SortVisualizer: public QWidget{
     Q_OBJECT
 public:
     SortVisualizer(QWidget *parent = nullptr);
