@@ -3,7 +3,7 @@
 
 #include <QVector>
 #include <QRandomGenerator>
-#include <QTime>
+#include <QTimer>
 #include <QRectF>
 
 #include "sortvisualizer.h"
@@ -12,6 +12,7 @@ class SortController
 {
 public:
     SortController();
+    ~SortController();
 
     void OutputArray();
 
@@ -34,7 +35,8 @@ private:
 
     int idx1, idx2;
 
-    SortVisualizer sortVisualizer;
+    QTimer* sortTimer = nullptr;
+    SortVisualizer* sortVisualizer = nullptr;
 };
 
 #endif // SORTCONTROLLER_H

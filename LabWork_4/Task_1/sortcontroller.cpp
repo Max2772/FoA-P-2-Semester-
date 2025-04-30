@@ -3,17 +3,25 @@
 #include <QDebug>
 
 SortController::SortController() {
-    timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, [=]() {
-        update();
-        ui->pushButtonSort->setEnabled(!isUpdating);
-        ui->spinBoxAmount->setEnabled(!isUpdating);
-        if (size != ui->spinBoxAmount->value() && !isUpdating) {
-            size = ui->spinBoxAmount->value();
-            CreateNewArr();
-        }
+    sortTimer = new QTimer(this); // Инициализируем таймер
+    sortVisualizer = new SortVisualizer(this); // Инициализируем визуализатор
+
+    // Подключаем сигнал один раз в конструкторе
+    connect(sortTimer, &QTimer::timeout, this, &SortController::onSortTimerTimeout);
+
+    // Таймер для периодического обновления (если нужен)
+    QTimer* updateTimer = new QTimer(this);
+    connect(updateTimer, &QTimer::timeout, [=]() {
+        // Логика обновления, если нужна
+        qDebug() << "Update timer ticked";
     });
-    timer->start(30);
+    updateTimer->start(30);
+}
+
+SortController::~SortController()
+{
+    delete sortTimer;
+    delete sortVisualizer;
 }
 
 void SortController::RandomNumberVectorGenerate(const int &size)
@@ -39,22 +47,23 @@ bool SortController::IsSorted()
     return true;
 }
 
-void SortController::CreateNewArr()
+void SortController::CreateNewArr(const int &size, const int& sortWidgetHeight)
 {
-    size = ui->spinBoxAmount->value();
-    RandomNumberVectorGenerate(arr, size);
-    rectsVector.clear();
-    motionVector.clear();
+    //size = ui->spinBoxAmount->value();
+    RandomNumberVectorGenerate(size);
+    rectsVector_.clear();
+    motionVector_.clear();
 
-    int maxHeight = sortVisualizer->height(); // Используем высоту CanvasWidget
+    int maxHeight = sortWidgetHeight; // Используем высоту CanvasWidget
 
     for (int i = 0; i < size; ++i) {
-        QRectF rect(30 + 10 * i, maxHeight - (20 + 4 * arr[i]), 10, 20 + 4 * arr[i]);
-        rectsVector.append(rect);
+        QRectF rect(30 + 10 * i, maxHeight - (20 + 4 * arr_[i]), 10, 20 + 4 * arr_[i]);
+        rectsVector_.append(rect);
     }
 
     idx1 = idx2 = -1;
-    sortVisualizer->setRects(rectsVector, idx1, idx2);
+    sortVisualizer->setRects(rectsVector_, idx1, idx2);
+
     OutputArray();
 }
 
@@ -72,39 +81,39 @@ void SortController::onSortTimerTimeout()
 {
     static int step = 0; // Сохраняет текущий шаг анимации между вызовами
 
-    if (step < motionVector.size()) {
+    if (step < motionVector_.size()) {
         // Получаем индексы для обмена
-        idx1 = motionVector[step].first;
-        idx2 = motionVector[step].second;
+        idx1 = motionVector_[step].first;
+        idx2 = motionVector_[step].second;
 
         // Меняем местами прямоугольники, сохраняя их высоту
-        QRectF rect1(rectsVector[idx2].x(), sortVisualizer->height() - rectsVector[idx1].height(), 10, rectsVector[idx1].height());
-        QRectF rect2(rectsVector[idx1].x(), sortVisualizer->height() - rectsVector[idx2].height(), 10, rectsVector[idx2].height());
-        rectsVector[idx1] = rect1;
-        rectsVector[idx2] = rect2;
-        std::swap(rectsVector[idx1], rectsVector[idx2]);
+        QRectF rect1(rectsVector_[idx2].x(), sortVisualizer->height() - rectsVector_[idx1].height(), 10, rectsVector_[idx1].height());
+        QRectF rect2(rectsVector_[idx1].x(), sortVisualizer->height() - rectsVector_[idx2].height(), 10, rectsVector_[idx2].height());
+        rectsVector_[idx1] = rect1;
+        rectsVector_[idx2] = rect2;
+        std::swap(rectsVector_[idx1], rectsVector_[idx2]);
         ++step;
     } else {
         // Завершаем анимацию
         isUpdating = false;
         sortTimer->stop();
         idx1 = idx2 = -1;
-        delete sortTimer;
-        sortTimer = nullptr;
         step = 0; // Сбрасываем для следующей сортировки
     }
 
     // Обновляем визуализатор
-    sortVisualizer->setRects(rectsVector, idx1, idx2);
+    sortVisualizer->setRects(rectsVector_, idx1, idx2);
 }
 
 
 void SortController::ShowSort()
 {
-    sortTimer = new QTimer(this);
+    if (!sortTimer || motionVector_.isEmpty()) {
+        isUpdating = false;
+        return; // Проверка на валидность таймера и движений
+    }
+
     sortTimer->setInterval(30);
     isUpdating = true;
-
-    connect(sortTimer, &QTimer::timeout, this, &MainWindow::onSortTimerTimeout);
     sortTimer->start();
 }
