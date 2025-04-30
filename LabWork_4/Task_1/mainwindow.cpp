@@ -15,17 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBoxAmount->blockSignals(false);
 
     sortVisualizer = new SortVisualizer(this);
-    sortVisualizer->setGeometry(0, 0, width() / 2, height() - ui->groupBox->height());
-    qDebug() << sortVisualizer->height() << " height px";
-    qDebug() << sortVisualizer->width() << " width px";
-    sortVisualizer->setStyleSheet("background-color: red;");
-    sortVisualizer->raise();
-    sortVisualizer->show();
+    sortVisualizer->setGeometry(0, 0, width(), height() - ui->groupBox->height());
 
     sortController = new SortController(sortVisualizer, this);
-
-    qDebug() << "SortVisualizer visible:" << sortVisualizer->isVisible();
-    qDebug() << "SortVisualizer geometry:" << sortVisualizer->geometry();
 }
 
 MainWindow::~MainWindow()
@@ -41,5 +33,5 @@ void MainWindow::on_spinBoxAmount_valueChanged(int num)
 
 void MainWindow::on_pushButtonSort_clicked(){
     sortController->QuickSort();
-    qDebug() << "Quick Sort in action";
+    qDebug() << "Quick Sort сортировка\n";
 }

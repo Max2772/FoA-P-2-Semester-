@@ -18,10 +18,9 @@ public:
     void CreateNewArr(int size);
     void QuickSort();
 
-    const QVector<QRectF>& getRects() const { return rectsVector_; }
-
     static const int MINIMUM_RANDOM_NUMBER = 1;
     static const int MAXIMUM_RANDOM_NUMBER = 101;
+    static const int ANIMATION_SPEED = 30;
 private:
     void RandomNumberVectorGenerate(int size);
     bool IsSorted();
@@ -35,6 +34,7 @@ private:
 
     bool isUpdating;
 
+    int MAX_HEIGHT;
     int idx1, idx2;
 
     QTimer* sortTimer = nullptr;

@@ -10,11 +10,18 @@ class SortVisualizer: public QWidget{
 public:
     SortVisualizer(QWidget *parent = nullptr);
     void setRects(const QVector<QRectF> &rects, int idx1, int idx2);
+    QVector<QRectF> createRects(const QVector<int> &values) const;
+
+    static const int OFFSET_X = 30;
+    static const int WIDTH = 10;
+    static const int MIN_HEIGHT = 20;
+    static const int MULTIPILIER_HEIGHT = 4;
 protected:
     void paintEvent(QPaintEvent *event) override;
 private:
     QVector<QRectF> rectsVector_;
-    int idx1, idx2;
+    int idx1 = -1;
+    int idx2 = -1;
 };
 
 #endif // SORTVISUALIZER_H
