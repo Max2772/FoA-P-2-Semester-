@@ -295,7 +295,7 @@
            <number>0</number>
           </property>
           <property name="text">
-           <string>Затраченное время: 13551 мс</string>
+           <string>Затраченное время: ... мс</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -328,7 +328,7 @@
            <number>0</number>
           </property>
           <property name="text">
-           <string>Индекс элемента: 100</string>
+           <string>Индекс элемента: ...</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

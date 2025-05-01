@@ -22,7 +22,7 @@ public:
     ~MainWindow();
 
     static const int SPINBOX_MIN_VALUE = 1;
-    static const int SPINBOX_MAX_VALUE = 100;
+    static const int SPINBOX_MAX_VALUE = 120;
 
 private slots:
     void on_spinBoxAmount_valueChanged(int num);
@@ -31,6 +31,7 @@ private slots:
     void on_pushButtonShuffle_clicked();
 
     void onSortingStateChanged(bool isSorting);
+    void onSortTimeUpdated(qint64 timeResult);
 
 private:
     Ui::MainWindow *ui;

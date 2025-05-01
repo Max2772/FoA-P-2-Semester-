@@ -2,6 +2,7 @@
 #include "sort.h"
 
 #include <QDebug>
+#include <QElapsedTimer>
 
 SortController::SortController(SortVisualizer *visualizer, QObject* parent) : QObject(parent) {
     sortTimer = new QTimer(this);
@@ -76,9 +77,12 @@ void SortController::Sort(SortType type){
         return;
     }
 
+    QElapsedTimer timer;
+    timer.start();
+
     switch (type) {
     case SortType::QuickSort:
-        Sort::QuickSort(arr_, 0, arr_.size() - 1, motionVector_);
+        Sort::QuickSort(arr_, 0, arr_.size() - 1, motionVector_);;
         qDebug() << "Quick Sort сортировка";
         break;
     case SortType::HeapSort:
@@ -90,6 +94,10 @@ void SortController::Sort(SortType type){
         qDebug() << "Merge Sort сортировка";
         break;
     }
+
+    int timeResult = timer.elapsed();
+    emit sortTimeUpdated(timeResult);
+
     ShowSort();
 }
 

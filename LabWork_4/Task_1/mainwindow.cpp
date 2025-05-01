@@ -21,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(sortController, &SortController::sortingStateChanged,
             this, &MainWindow::onSortingStateChanged);
+
+    connect(sortController, &SortController::sortTimeUpdated,
+            this, &MainWindow::onSortTimeUpdated);
 }
 
 MainWindow::~MainWindow()
@@ -69,5 +72,11 @@ void MainWindow::onSortingStateChanged(bool isSorting)
 {
     ui->groupBox->setEnabled(!isSorting);
     qDebug() << "UI " << (isSorting ? "заблокирован" : "разблокирован");
+}
+
+void MainWindow::onSortTimeUpdated(qint64 timeResult)
+{
+    ui->labelWastedTime->setText(QString("Затраченное время: %1 мс").arg(timeResult));
+    qDebug() << "Затраченное время: " << timeResult;
 }
 
