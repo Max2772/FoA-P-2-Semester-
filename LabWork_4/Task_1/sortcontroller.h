@@ -27,6 +27,10 @@ public:
     static const int MINIMUM_RANDOM_NUMBER = 1;
     static const int MAXIMUM_RANDOM_NUMBER = 101;
     static const int ANIMATION_SPEED = 30;
+
+signals:
+    void sortingStateChanged(bool isSorting);
+
 private:
     void RandomNumberVectorGenerate(int size);
     bool IsSorted();

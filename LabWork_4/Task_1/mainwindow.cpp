@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     sortVisualizer->setGeometry(0, 0, width(), height() - ui->groupBox->height());
 
     sortController = new SortController(sortVisualizer, this);
+
+    connect(sortController, &SortController::sortingStateChanged,
+            this, &MainWindow::onSortingStateChanged);
 }
 
 MainWindow::~MainWindow()
@@ -60,5 +63,11 @@ void MainWindow::on_pushButtonShuffle_clicked()
     int size = ui->spinBoxAmount->value();
     sortController->CreateNewArr(size);
     qDebug() << "Массив перемешан";
+}
+
+void MainWindow::onSortingStateChanged(bool isSorting)
+{
+    ui->groupBox->setEnabled(!isSorting);
+    qDebug() << "UI " << (isSorting ? "заблокирован" : "разблокирован");
 }
 

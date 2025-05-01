@@ -121,6 +121,7 @@ void SortController::onSortTimerTimeout()
     } else {
         isUpdating = false;
         sortTimer->stop();
+        emit sortingStateChanged(false);
         idx1 = idx2 = -1;
         step = 0;
     }
@@ -140,4 +141,5 @@ void SortController::ShowSort()
     sortTimer->setInterval(ANIMATION_SPEED);
     isUpdating = true;
     sortTimer->start();
+    emit sortingStateChanged(true);
 }

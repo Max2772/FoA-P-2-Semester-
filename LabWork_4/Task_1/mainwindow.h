@@ -28,12 +28,11 @@ private slots:
     void on_spinBoxAmount_valueChanged(int num);
     void on_pushButtonSort_clicked();
     void on_comboBoxSortType_currentTextChanged(const QString &text);
-
     void on_pushButtonShuffle_clicked();
 
-private:
-    bool isUpdating;
+    void onSortingStateChanged(bool isSorting);
 
+private:
     Ui::MainWindow *ui;
     SortController* sortController;
     SortVisualizer* sortVisualizer;
