@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
 }
 
 MainWindow::~MainWindow()
@@ -27,6 +26,11 @@ void MainWindow::on_pushButtonAddSize_clicked()
 
 void MainWindow::on_pushButtonAddElement_clicked()
 {
+    if(size < 1){
+        qDebug() << "Ошибка добавления элемента: Массив не инициализирован!";
+        return;
+    }
+
     if(step < size){
         arr[step] = ui->spinBoxElement->value();
         ui->plainTextEdit->setPlainText("Массив: " + FormatArray(arr));
@@ -38,7 +42,6 @@ void MainWindow::on_pushButtonAddElement_clicked()
 
     if(step == size){
         qDebug() << "Массив на " << size << " элементов инициализирован!";
-        step = 0;
         CalculateMedians();
         DisableUI(false, true);
     }
@@ -53,13 +56,18 @@ void MainWindow::on_pushButtonDelete_clicked()
     size = 0, step = 0;
     qDebug() << "Массив удален!";
 
+    ui->spinBoxElement->clear();
+    ui->spinBoxSize->clear();
+
     EnableUI(true, true);
     ui->labelElement->setText("Введите 1 элемент:");
+    ui->plainTextEdit->setPlainText("Массив: ...");
 }
 
 
 void MainWindow::on_pushButtonAutoFill_clicked()
 {
+    DisableUI(true, true);
     QRandomGenerator rand(QRandomGenerator::system()->generate());
     if(size == 0 && arr.isEmpty()){
         size = rand.bounded(MIN_SIZE_NUMBER, MAX_SIZE_NUMBER + 1);
@@ -71,6 +79,7 @@ void MainWindow::on_pushButtonAutoFill_clicked()
         arr[i] = rand.bounded(MIN_ELEMENT_NUMBER, MAX_ELEMENT_NUMBER);
         qDebug() << "Элемент " << i+1 << " = " << arr[i];
     }
+    CalculateMedians();
 }
 
 void MainWindow::DisableUI(bool sizeUI, bool elementUI)

@@ -35,7 +35,8 @@ private:
     static const int MAX_SIZE_NUMBER = 21;
     static const int MIN_SIZE_NUMBER = 1;
 
-    long long size;
+    long long size = 0;
+    int step = 0;
     QVector<long long> arr;
     Ui::MainWindow *ui;
 };
