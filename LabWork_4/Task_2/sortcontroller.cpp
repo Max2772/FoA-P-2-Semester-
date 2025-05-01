@@ -19,6 +19,7 @@ SortController::SortController(SortVisualizer *visualizer, QObject* parent) : QO
 SortController::~SortController()
 {
     delete sortTimer;
+    delete searchTimer;
     delete sortVisualizer;
 }
 
@@ -47,7 +48,7 @@ bool SortController::IsSorted()
 
 void SortController::CreateNewArr(int size)
 {
-    if(size < 1){
+    if (size < 1) {
         qDebug() << "Размер не может быть < 1";
         Utils::ShowErrorEvent("Размер не может быть < 1!");
         return;
@@ -80,22 +81,18 @@ void SortController::Sort(){
         return;
     }
 
-    if(IsSorted()){
+    if (IsSorted()) {
         qDebug() << "Массив уже отсортирован!";
         Utils::ShowInformationEvent("Массив уже отсортирован!");
         return;
     }
 
-    QElapsedTimer timer;
-    timer.start();
     motionVector_.clear();
     isUpdating = true;
     emit sortingStateChanged(true);
 
     qDebug() << "Interpolation Sort сортировка";
     Sort::InterpolationSort(arr_, motionVector_);
-    int elapsedTime = timer.elapsed();
-    emit sortTimeUpdated(elapsedTime);
 
     ShowSort();
 }
@@ -141,15 +138,14 @@ void SortController::ShowSort()
 {
     if (!sortTimer || motionVector_.isEmpty()) {
         isUpdating = false;
+        emit sortingStateChanged(false);
         qDebug() << "SortTimer = null или motionVector пустой!";
         Utils::ShowErrorEvent("SortController.cpp Error:\nSortTimer = null или motionVector пустой!");
         return;
     }
 
     sortTimer->setInterval(SORT_ANIMATION_SPEED);
-    isUpdating = true;
     sortTimer->start();
-    emit sortingStateChanged(true);
 }
 
 // Binary Search
@@ -163,7 +159,7 @@ void SortController::BinarySearch(int value) {
     if (!IsSorted()) {
         qDebug() << "Массив не отсортирован";
         Utils::ShowInformationEvent("Массив не отсортирован!");
-        emit searchResult(-1);
+        emit searchResult(-1, -1);
         return;
     }
 
@@ -177,7 +173,7 @@ void SortController::BinarySearch(int value) {
 
     if (arr_[left] > value || arr_[right] < value) {
         qDebug() << "Число вне диапазона массива!";
-        emit searchResult(-1);
+        emit searchResult(-1, -1);
         isSearching = false;
         emit searchStateChanged(false);
         return;
@@ -201,9 +197,9 @@ void SortController::BinarySearch(int value) {
     if (foundIndex >= 0) {
         const int MOD = 1000000007; // Стандартный модуль
         int result = Sort::BinaryPow(foundIndex, arr_.size(), MOD);
-        emit searchResult(result); // index^n mod MOD
+        emit searchResult(foundIndex, result); // index^n mod MOD
     } else {
-        emit searchResult(-1);
+        emit searchResult(-1, -1);
     }
 
     if (!searchVector_.isEmpty()) {

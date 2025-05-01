@@ -276,7 +276,7 @@
       <item>
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
-         <widget class="QLabel" name="labelWastedTime">
+         <widget class="QLabel" name="labelIndexPowLength">
           <property name="font">
            <font>
             <family>URW Gothic</family>
@@ -295,7 +295,7 @@
            <number>0</number>
           </property>
           <property name="text">
-           <string>Затраченное время: ... мс</string>
+           <string>Индекс ^ Длина: ...</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>

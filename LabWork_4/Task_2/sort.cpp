@@ -8,14 +8,13 @@ void Sort::InterpolationSort(QVector<int>& arr, QVector<QPair<int, int>>& motion
     if (arr.isEmpty()) return;
 
     int size = arr.size();
-    QVector<int> process = {size}; // Стек для подмассивов
+    QVector<int> process = {size};
     int rangeStart = 0, rangeEnd = size;
 
     while (!process.isEmpty()) {
         int bucketSize = process.takeLast();
         rangeStart = rangeEnd - bucketSize;
 
-        // Находим min и max
         int min = arr[rangeStart], max = arr[rangeStart];
         for (int i = rangeStart + 1; i < rangeEnd; ++i) {
             if (arr[i] > max) max = arr[i];
@@ -27,7 +26,6 @@ void Sort::InterpolationSort(QVector<int>& arr, QVector<QPair<int, int>>& motion
             continue;
         }
 
-        // Распределяем в корзины
         QVector<QVector<int>> buckets(bucketSize);
         for (int i = rangeStart; i < rangeEnd; ++i) {
             double ratio = (arr[i] - min) / static_cast<double>(max - min);
@@ -35,7 +33,6 @@ void Sort::InterpolationSort(QVector<int>& arr, QVector<QPair<int, int>>& motion
             buckets[bucketIndex].append(arr[i]);
         }
 
-        // Собираем элементы
         int currentPos = rangeStart;
         for (int i = 0; i < bucketSize; ++i) {
             if (buckets[i].isEmpty()) continue;

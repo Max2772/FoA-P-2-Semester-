@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
+#include "ui_mainwindow.h"
 
 #include <QDebug>
 
@@ -26,9 +26,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(sortController, &SortController::sortingStateChanged,
             this, &MainWindow::onSortingStateChanged);
 
-    connect(sortController, &SortController::sortTimeUpdated,
-            this, &MainWindow::onSortTimeUpdated);
-
     connect(sortController, &SortController::searchStateChanged,
             this, &MainWindow::onSearchStateChanged);
 
@@ -46,17 +43,9 @@ void MainWindow::on_spinBoxAmount_valueChanged(int num)
     sortController->CreateNewArr(num);
 }
 
-
 void MainWindow::on_pushButtonSort_clicked(){
     sortController->Sort();
 }
-
-
-void MainWindow::on_comboBoxSortType_currentTextChanged(const QString &text)
-{
-    qDebug() << "Выбрана сортировка: " << text;
-}
-
 
 void MainWindow::on_pushButtonShuffle_clicked()
 {
@@ -71,19 +60,13 @@ void MainWindow::onSortingStateChanged(bool isSorting)
     qDebug() << "UI " << (isSorting ? "заблокирован" : "разблокирован");
 }
 
-void MainWindow::onSortTimeUpdated(qint64 timeResult)
-{
-    ui->labelWastedTime->setText(QString("Затраченное время: %1 мс").arg(timeResult));
-    qDebug() << "Затраченное время: " << timeResult;
-}
-
 void MainWindow::onSearchStateChanged(bool isSearching)
 {
     ui->groupBox->setEnabled(!isSearching);
     qDebug() << "UI " << (isSearching ? "заблокирован" : "разблокирован");
 }
 
-void MainWindow::onSearchResult(int idx)
+void MainWindow::onSearchResult(int idx, int result)
 {
     if(idx == -1){
         ui->labelIndexOfElement->setText(QString("Индекс элемента: NaN"));
@@ -91,10 +74,10 @@ void MainWindow::onSearchResult(int idx)
         return;
     }
 
+    ui->labelIndexPowLength->setText(QString("Индекс ^ Длина: %1").arg(result));
     ui->labelIndexOfElement->setText(QString("Индекс элемента: %1").arg(idx));
     qDebug() << "Элемент найден под индексом " << idx;
 }
-
 
 void MainWindow::on_pushButtonFindElement_clicked()
 {
