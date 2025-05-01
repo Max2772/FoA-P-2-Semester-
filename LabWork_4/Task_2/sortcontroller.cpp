@@ -195,9 +195,9 @@ void SortController::BinarySearch(int value) {
     }
 
     if (foundIndex >= 0) {
-        const int MOD = 1000000007; // Стандартный модуль
-        int result = Sort::BinaryPow(foundIndex, arr_.size(), MOD);
-        emit searchResult(foundIndex, result); // index^n mod MOD
+        const long long MOD = 1000000007;
+        long long result = Sort::BinaryPow(foundIndex, arr_.size(), MOD);
+        emit searchResult(foundIndex, result);
     } else {
         emit searchResult(-1, -1);
     }

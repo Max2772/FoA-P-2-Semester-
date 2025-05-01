@@ -31,7 +31,7 @@ private slots:
 
     void onSortingStateChanged(bool isSorting);
     void onSearchStateChanged(bool isSearching);
-    void onSearchResult(int idx, int result);
+    void onSearchResult(int idx, long long result);
 
 private:
     Ui::MainWindow *ui;

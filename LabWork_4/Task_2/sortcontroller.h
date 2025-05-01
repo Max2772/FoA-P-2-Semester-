@@ -20,7 +20,7 @@ public:
     void BinarySearch(int value);
 
     static const int MINIMUM_RANDOM_NUMBER = 1;
-    static const int MAXIMUM_RANDOM_NUMBER = 4;
+    static const int MAXIMUM_RANDOM_NUMBER = 121;
     static const int SORT_ANIMATION_SPEED = 30;
     static const int SERACH_ANIMATION_SPEED = 300;
 
@@ -28,7 +28,7 @@ signals:
     void sortingStateChanged(bool isSorting);
     void searchStateChanged(bool isSearching);
 
-    void searchResult(int idx, int result);
+    void searchResult(int idx, long long result);
 
 private:
     void RandomNumberVectorGenerate(int size);

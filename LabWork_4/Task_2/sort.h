@@ -9,7 +9,7 @@ class Sort
 public:
     Sort();
     static void InterpolationSort(QVector<int>& arr, QVector<QPair<int, int>>& motionVector);
-    static int BinaryPow(int digit, int power, int mod);
+    static long long BinaryPow(int digit, int power, long long mod);
 };
 
 #endif // SORT_H

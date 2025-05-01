@@ -53,7 +53,7 @@ void Sort::InterpolationSort(QVector<int>& arr, QVector<QPair<int, int>>& motion
     }
 }
 
-int Sort::BinaryPow(int digit, int power, int mod) {
+long long Sort::BinaryPow(int digit, int power, long long mod) {
     long long result = 1;
     long long base = digit % mod;
     while (power > 0) {

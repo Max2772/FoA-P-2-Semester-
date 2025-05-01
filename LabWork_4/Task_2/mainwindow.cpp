@@ -66,7 +66,7 @@ void MainWindow::onSearchStateChanged(bool isSearching)
     qDebug() << "UI " << (isSearching ? "заблокирован" : "разблокирован");
 }
 
-void MainWindow::onSearchResult(int idx, int result)
+void MainWindow::onSearchResult(int idx, long long result)
 {
     if(idx == -1){
         ui->labelIndexOfElement->setText(QString("Индекс элемента: NaN"));
