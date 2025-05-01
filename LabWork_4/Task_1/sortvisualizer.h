@@ -10,6 +10,7 @@ class SortVisualizer: public QWidget{
 public:
     SortVisualizer(QWidget *parent = nullptr);
     void setRects(const QVector<QRectF> &rects, int idx1, int idx2);
+    void setSearchIndices(int left, int right, int mid);
     QVector<QRectF> createRects(const QVector<int> &values) const;
 
     static const int OFFSET_X = 30;
@@ -20,8 +21,8 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 private:
     QVector<QRectF> rectsVector_;
-    int idx1 = -1;
-    int idx2 = -1;
+    int idx1 = -1, idx2 = -1;
+    int searchLeft = -1, searchRight = -1, searchMid = -1;
 };
 
 #endif // SORTVISUALIZER_H

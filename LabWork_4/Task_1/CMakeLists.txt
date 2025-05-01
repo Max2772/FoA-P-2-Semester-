@@ -42,6 +42,7 @@ else()
 
             sortvisualizer.h sortvisualizer.cpp
             sortcontroller.h sortcontroller.cpp
+            utils.h
         )
     endif()
 endif()

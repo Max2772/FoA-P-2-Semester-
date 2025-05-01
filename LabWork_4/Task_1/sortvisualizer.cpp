@@ -14,6 +14,13 @@ void SortVisualizer::setRects(const QVector<QRectF> &rects, int idx1, int idx2){
     update();
 }
 
+void SortVisualizer::setSearchIndices(int left, int right, int mid) {
+    searchLeft = left;
+    searchRight = right;
+    searchMid = mid;
+    update();
+}
+
 QVector<QRectF> SortVisualizer::createRects(const QVector<int> &values) const
 {
     QVector<QRectF> rects;
@@ -39,7 +46,16 @@ void SortVisualizer::paintEvent(QPaintEvent *event){
         QRectF rect = rectsVector_[i];
         rect.moveBottom(maxHeight);
 
-        painter.setBrush((i == idx1 || i == idx2) ? Qt::green : Qt::white);
+        if(i == searchMid){
+            painter.setBrush(Qt::red);
+        }else if(i == searchLeft || i == searchRight){
+            painter.setBrush(Qt::yellow);
+        }else if(i == idx1 || i == idx2){
+            painter.setBrush(Qt::green);
+        }else{
+            painter.setBrush(Qt::white);
+        }
+
         painter.drawRect(rect);
     }
 }

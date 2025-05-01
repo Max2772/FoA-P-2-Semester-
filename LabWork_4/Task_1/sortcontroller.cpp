@@ -1,16 +1,19 @@
 #include "sortcontroller.h"
 #include "sort.h"
+#include "utils.h"
 
 #include <QDebug>
 #include <QElapsedTimer>
 
 SortController::SortController(SortVisualizer *visualizer, QObject* parent) : QObject(parent) {
     sortTimer = new QTimer(this);
+    searchTimer = new QTimer(this);
     sortVisualizer = visualizer;
 
     MAX_HEIGHT = sortVisualizer->height();
 
     connect(sortTimer, &QTimer::timeout, this, &SortController::onSortTimerTimeout);
+    connect(searchTimer, &QTimer::timeout, this, &SortController::onSearchTimerTimeout);
 }
 
 SortController::~SortController()
@@ -74,6 +77,7 @@ void SortController::Sort(SortType type){
 
     if(IsSorted()){
         qDebug() << "Массив уже отсортирован!";
+        Utils::ShowInformationEvent("Массив уже отсортирован!");
         return;
     }
 
@@ -143,11 +147,82 @@ void SortController::ShowSort()
     if (!sortTimer || motionVector_.isEmpty()) {
         isUpdating = false;
         qDebug() << "SortTimer = null или motionVector пустой!";
+        Utils::ShowErrorEvent("SortController.cpp Error:\nSortTimer = null или motionVector пустой!");
         return;
     }
 
-    sortTimer->setInterval(ANIMATION_SPEED);
+    sortTimer->setInterval(SORT_ANIMATION_SPEED);
     isUpdating = true;
     sortTimer->start();
     emit sortingStateChanged(true);
+}
+
+// Binary Search
+void SortController::BinarySearch(int value) {
+    if (isUpdating || isSearching) {
+        qDebug() << "Поиск невозможен: идёт сортировка или другой поиск";
+        return;
+    }
+    if (!IsSorted()) {
+        qDebug() << "Массив не отсортирован";
+        Utils::ShowInformationEvent("Массив не отсортирован!");
+        emit searchResult(-1);
+        return;
+    }
+
+    searchVector_.clear();
+    isSearching = true;
+    emit searchStateChanged(true);
+
+    int left = 0;
+    int right = arr_.size() - 1;
+    int foundIndex = -1;
+
+    if (arr_[left] > value || arr_[right] < value) {
+        qDebug() << "Число вне диапазона массива!";
+        emit searchResult(-1);
+        isSearching = false;
+        emit searchStateChanged(false);
+        return;
+    }
+
+    while (left <= right) {
+        searchVector_.append({left, right});
+        int mid = left + (right - left) / 2;
+        if (arr_[mid] == value) {
+            foundIndex = mid;
+            searchVector_.append({mid, mid});
+            break;
+        }
+        if (arr_[mid] < value) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+
+    emit searchResult(foundIndex);
+    if (!searchVector_.isEmpty()) {
+        searchTimer->start(SERACH_ANIMATION_SPEED);
+    }else {
+        isSearching = false;
+        emit searchStateChanged(false);
+    }
+}
+
+void SortController::onSearchTimerTimeout() {
+    static int step = 0;
+    if (step < searchVector_.size()) {
+        searchLeft = searchVector_[step].first;
+        searchRight = searchVector_[step].second;
+        searchMid = (searchLeft == searchRight) ? searchLeft : -1;
+        step++;
+    } else {
+        searchLeft = searchRight = searchMid = -1;
+        isSearching = false;
+        searchTimer->stop();
+        emit searchStateChanged(false);
+        step = 0;
+    }
+    sortVisualizer->setSearchIndices(searchLeft, searchRight, searchMid);
 }

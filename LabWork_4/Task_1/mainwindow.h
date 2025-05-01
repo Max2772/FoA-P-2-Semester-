@@ -29,9 +29,13 @@ private slots:
     void on_pushButtonSort_clicked();
     void on_comboBoxSortType_currentTextChanged(const QString &text);
     void on_pushButtonShuffle_clicked();
+    void on_pushButtonFindElement_clicked();
 
     void onSortingStateChanged(bool isSorting);
     void onSortTimeUpdated(qint64 timeResult);
+
+    void onSearchStateChanged(bool isSearching);
+    void onSearchResult(int idx);
 
 private:
     Ui::MainWindow *ui;
