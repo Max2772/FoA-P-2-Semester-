@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Sprites">
+        <file>Sprites/sand-clock.png</file>
+    </qresource>
+</RCC>
