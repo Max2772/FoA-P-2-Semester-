@@ -38,7 +38,14 @@ else()
     else()
         add_executable(Task_1
             ${PROJECT_SOURCES}
-            resource.qrc
+
+            utils.h
+
+            constants.h
+            constants.cpp
+            keyboardwidget.h keyboardwidget.cpp keyboardwidget.ui
+
+
         )
     endif()
 endif()
