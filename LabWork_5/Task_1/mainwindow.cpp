@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     KeyboardWidget *keyboardWidget = new KeyboardWidget(this);
-    keyboardWidget->setGeometry(15, 520, keyboardWidget->width(), keyboardWidget->height());
+    keyboardWidget->setGeometry(20, 510, keyboardWidget->width(), keyboardWidget->height());
     keyboardWidget->show();
 }
 

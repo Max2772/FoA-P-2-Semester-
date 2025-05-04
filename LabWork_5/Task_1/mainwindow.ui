@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1600</width>
+    <width>1200</width>
     <height>900</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1600</width>
+    <width>1200</width>
     <height>900</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1600</width>
+    <width>1200</width>
     <height>900</height>
    </size>
   </property>
@@ -33,10 +33,10 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>15</x>
-      <y>510</y>
-      <width>1571</width>
-      <height>371</height>
+      <x>10</x>
+      <y>500</y>
+      <width>1181</width>
+      <height>381</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -48,8 +48,8 @@
      <rect>
       <x>10</x>
       <y>210</y>
-      <width>1571</width>
-      <height>281</height>
+      <width>1181</width>
+      <height>271</height>
      </rect>
     </property>
     <property name="font">
@@ -65,7 +65,7 @@
     <property name="geometry">
      <rect>
       <x>-60</x>
-      <y>490</y>
+      <y>480</y>
       <width>1671</width>
       <height>20</height>
      </rect>
@@ -74,329 +74,12 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>1521</width>
-      <height>131</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QLabel" name="labelLanguage">
-           <property name="font">
-            <font>
-             <family>URW Gothic</family>
-             <pointsize>25</pointsize>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Язык: </string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QComboBox" name="comboBoxLanguage">
-           <property name="font">
-            <font>
-             <family>Ubuntu</family>
-             <pointsize>15</pointsize>
-             <bold>false</bold>
-            </font>
-           </property>
-           <item>
-            <property name="text">
-             <string>Белорусский</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Арабский</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Немецкий</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Французский</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Китайский</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Иврит</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Русский</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButtonOpenFile">
-         <property name="font">
-          <font>
-           <family>URW Gothic</family>
-           <pointsize>15</pointsize>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Открыть Файл</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_12">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QPushButton" name="pushButtonPause">
-           <property name="font">
-            <font>
-             <family>URW Gothic</family>
-             <pointsize>15</pointsize>
-             <bold>false</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Приостановить</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButtonRestart">
-         <property name="font">
-          <font>
-           <family>URW Gothic</family>
-           <pointsize>15</pointsize>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Рестарт</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_13">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_9">
-         <item>
-          <widget class="QLabel" name="labelTime">
-           <property name="font">
-            <font>
-             <family>URW Gothic</family>
-             <pointsize>20</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>Время:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line_7">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelTime_2">
-         <property name="font">
-          <font>
-           <family>URW Gothic</family>
-           <pointsize>25</pointsize>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>1:24</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_4">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_14">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_10">
-         <item>
-          <widget class="QLabel" name="labelAccuracy">
-           <property name="font">
-            <font>
-             <family>URW Gothic</family>
-             <pointsize>20</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>Точность: </string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line_9">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelAccuracy_2">
-         <property name="font">
-          <font>
-           <family>URW Gothic</family>
-           <pointsize>25</pointsize>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>45%</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="Line" name="line_5">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_15">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
-         <item>
-          <widget class="QLabel" name="labelSpeed">
-           <property name="font">
-            <font>
-             <family>URW Gothic</family>
-             <pointsize>20</pointsize>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>Скорость:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="Line" name="line_8">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="labelSpeed_2">
-         <property name="font">
-          <font>
-           <family>URW Gothic</family>
-           <pointsize>25</pointsize>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>300 сл/мин</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>1541</width>
+      <x>10</x>
+      <y>20</y>
+      <width>1171</width>
       <height>151</height>
      </rect>
     </property>
@@ -406,6 +89,323 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>1151</width>
+       <height>131</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="QLabel" name="labelLanguage">
+            <property name="font">
+             <font>
+              <family>URW Gothic</family>
+              <pointsize>25</pointsize>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Язык: </string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="comboBoxLanguage">
+            <property name="font">
+             <font>
+              <family>Ubuntu</family>
+              <pointsize>15</pointsize>
+              <bold>false</bold>
+             </font>
+            </property>
+            <item>
+             <property name="text">
+              <string>Белорусский</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Арабский</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Немецкий</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Французский</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Китайский</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Иврит</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Русский</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonOpenFile">
+          <property name="font">
+           <font>
+            <family>URW Gothic</family>
+            <pointsize>15</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Открыть Файл</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_12">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <item>
+           <widget class="QPushButton" name="pushButtonPause">
+            <property name="font">
+             <font>
+              <family>URW Gothic</family>
+              <pointsize>15</pointsize>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Приостановить</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButtonRestart">
+          <property name="font">
+           <font>
+            <family>URW Gothic</family>
+            <pointsize>15</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Рестарт</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_13">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <item>
+           <widget class="QLabel" name="labelTime">
+            <property name="font">
+             <font>
+              <family>URW Gothic</family>
+              <pointsize>20</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Время:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_7">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelTime_2">
+          <property name="font">
+           <font>
+            <family>URW Gothic</family>
+            <pointsize>25</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>1:24</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_14">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_10">
+          <item>
+           <widget class="QLabel" name="labelAccuracy">
+            <property name="font">
+             <font>
+              <family>URW Gothic</family>
+              <pointsize>20</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Точность: </string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_9">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelAccuracy_2">
+          <property name="font">
+           <font>
+            <family>URW Gothic</family>
+            <pointsize>25</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>45%</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line_5">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_15">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QLabel" name="labelSpeed">
+            <property name="font">
+             <font>
+              <family>URW Gothic</family>
+              <pointsize>20</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Скорость:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="Line" name="line_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelSpeed_2">
+          <property name="font">
+           <font>
+            <family>URW Gothic</family>
+            <pointsize>25</pointsize>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>300 сл/мин</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="Line" name="line_6">
     <property name="geometry">
@@ -424,7 +424,6 @@
    <zorder>graphicsView</zorder>
    <zorder>textEdit</zorder>
    <zorder>line</zorder>
-   <zorder>horizontalLayoutWidget</zorder>
    <zorder>line_6</zorder>
   </widget>
  </widget>
