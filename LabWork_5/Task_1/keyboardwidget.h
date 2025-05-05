@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QKeyEvent>
+#include <QPushButton>
 
 #include "constants.h"
 
@@ -27,11 +28,12 @@ signals:
     void keyPressed(const QString &text);
 private slots:
     void onButtonClicked();
-
+    QPushButton* findButtonByText(const QString &text);
 private:
     Language language_;
     bool isCapsLockOn;
 
+    QList<QPushButton*> buttons;
     Ui::KeyboardWidget *ui;
 };
 

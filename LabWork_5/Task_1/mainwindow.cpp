@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     keyboardWidget = new KeyboardWidget(this);
     keyboardWidget->setGeometry(20, 510, keyboardWidget->width(), keyboardWidget->height());
     keyboardWidget->show();
+
+    connect(keyboardWidget, &KeyboardWidget::keyPressed, this, &MainWindow::onKeyPressed);
 }
 
 MainWindow::~MainWindow()
@@ -41,11 +43,17 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         return;
     }
 
+    if (event->key() == Qt::Key_Tab) {
+        event->ignore();
+        return;
+    }
+
     if(event->key() == Qt::Key_Backspace && isRunning){
         if(currentIdx != 0){
             --currentIdx;
             mask[currentIdx] = '_';
             HighlightLetter(currentIdx, Qt::gray);
+            keyboardWidget->keyPressEvent(event);
             return;
         }
         event->ignore();
@@ -69,6 +77,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         CheckSymbol(event->text());
         updateAccuracy();
         updateSpeed();
+        keyboardWidget->keyPressEvent(event);
         return;
     }
 
@@ -76,6 +85,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         CheckSymbol(event->text());
         updateAccuracy();
         updateSpeed();
+        keyboardWidget->keyPressEvent(event);
         if(mask.indexOf('_') == -1){
             timer->stop();
             isRunning = false;
@@ -93,8 +103,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Shift) keyboardWidget->keyReleaseEvent(event);
-
+    keyboardWidget->keyReleaseEvent(event);
     QMainWindow::keyReleaseEvent(event);
 }
 
