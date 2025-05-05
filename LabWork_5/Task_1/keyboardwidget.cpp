@@ -12,7 +12,6 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 
     language_ = English;
     isCapsLockOn = false;
-
 }
 
 KeyboardWidget::~KeyboardWidget()
@@ -86,6 +85,7 @@ void KeyboardWidget::keyPressEvent(QKeyEvent *event)
         isCapsLockOn = true;
         UpdateKeyboard(language_);
     }
+
     QWidget::keyPressEvent(event);
 }
 

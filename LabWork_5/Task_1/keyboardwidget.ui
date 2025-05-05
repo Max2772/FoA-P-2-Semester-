@@ -44,7 +44,7 @@
 color: white;</string>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>x</string>
    </property>
   </widget>
   <widget class="QPushButton" name="topButton_8">
@@ -88,7 +88,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>N</string>
+    <string>n</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_8">
@@ -110,7 +110,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>I</string>
+    <string>i</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_25">
@@ -132,7 +132,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>Z</string>
+    <string>z</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_29">
@@ -154,7 +154,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>B</string>
+    <string>b</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_11">
@@ -242,7 +242,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>A</string>
+    <string>a</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_15">
@@ -264,7 +264,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>S</string>
+    <string>s</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_27">
@@ -286,7 +286,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>C</string>
+    <string>c</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_4">
@@ -308,7 +308,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>R</string>
+    <string>r</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_33">
@@ -352,7 +352,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>O</string>
+    <string>o</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_20">
@@ -374,7 +374,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>J</string>
+    <string>j</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_24">
@@ -440,7 +440,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>W</string>
+    <string>w</string>
    </property>
   </widget>
   <widget class="QPushButton" name="topButton_5">
@@ -528,7 +528,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>U</string>
+    <string>u</string>
    </property>
   </widget>
   <widget class="QPushButton" name="button_LeftShift">
@@ -573,7 +573,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>L</string>
+    <string>l</string>
    </property>
   </widget>
   <widget class="QPushButton" name="topButton_6">
@@ -639,7 +639,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>Q</string>
+    <string>q</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_18">
@@ -661,7 +661,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>G</string>
+    <string>g</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_16">
@@ -683,7 +683,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>D</string>
+    <string>d</string>
    </property>
   </widget>
   <widget class="QPushButton" name="topButton_3">
@@ -749,7 +749,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>K</string>
+    <string>k</string>
    </property>
   </widget>
   <widget class="QPushButton" name="button_RightShift">
@@ -794,7 +794,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>P</string>
+    <string>p</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_28">
@@ -816,7 +816,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>V</string>
+    <string>v</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_31">
@@ -838,7 +838,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>M</string>
+    <string>m</string>
    </property>
   </widget>
   <widget class="QPushButton" name="topButton_0">
@@ -882,7 +882,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>F</string>
+    <string>f</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_12">
@@ -926,7 +926,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>H</string>
+    <string>h</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_6">
@@ -948,7 +948,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>Y</string>
+    <string>y</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_3">
@@ -970,7 +970,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>E</string>
+    <string>e</string>
    </property>
   </widget>
   <widget class="QPushButton" name="symbolButton_23">
@@ -1014,7 +1014,7 @@ color: white;</string>
 color: white;</string>
    </property>
    <property name="text">
-    <string>T</string>
+    <string>t</string>
    </property>
   </widget>
   <widget class="QPushButton" name="topButton_1">

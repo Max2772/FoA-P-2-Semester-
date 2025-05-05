@@ -25,15 +25,17 @@ protected:
     void keyReleaseEvent(QKeyEvent *event) override;
 private slots:
     void on_pushButtonOpenFile_clicked();
-
     void on_comboBoxLanguage_currentIndexChanged(int index);
-
 private:
+    void ProgressReset();
+    void CheckSymbol(QString symbol);
+    void HighlightLetter(int position, const QColor &color);
+
     bool isRunning;
     QTimer timer;
     QString currentText;
+    int currentIdx;
     QString mask;
-
     KeyboardWidget *keyboardWidget;
     Ui::MainWindow *ui;
 };
