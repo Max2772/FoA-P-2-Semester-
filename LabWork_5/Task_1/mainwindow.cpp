@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     isFileOpened = false;
+    isStopped = false;
 
     timer = new QTimer(this);
     time = QTime(0, 0);
@@ -30,7 +31,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if(!isFileOpened){
+    if (!isFileOpened) {
+        event->ignore();
+        return;
+    }
+
+    if(isStopped){
+        event->ignore();
+        return;
+    }
+
+    if (event->modifiers() == (Qt::ShiftModifier | Qt::AltModifier)) {
         event->ignore();
         return;
     }
@@ -51,20 +62,24 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         timer->start(1000);
         CheckSymbol(event->text());
         updateAccuracy();
+        updateSpeed();
+        return;
     }
 
     if(isRunning){
         CheckSymbol(event->text());
         updateAccuracy();
-        qDebug() << mask;
+        updateSpeed();
         if(mask.indexOf('_') == -1){
             timer->stop();
             isRunning = false;
-            QString resultMessage = QString("Результат:\nВремя: %1\nТочность: %2\nСкорость: Нихуя")
-                .arg(time.toString("mm:ss"))
-                .arg(ui->labelAccuracy->text());
+            QString resultMessage = QString("Результат:\nВремя: %1\nТочность: %2\nСкорость: %3")
+                                                .arg(ui->labelTime->text())
+                                                .arg(ui->labelAccuracy->text())
+                                                .arg(ui->labelSpeed->text());
             Utils::ShowInformationEvent(resultMessage);
         }
+        return;
     }
 
     QMainWindow::keyPressEvent(event);
@@ -104,8 +119,10 @@ void MainWindow::on_comboBoxLanguage_currentIndexChanged(int index)
 void MainWindow::updateTimer()
 {
     time = time.addSecs(1);
+    ++seconds;
     ui->labelTime->setText(time.toString("m:ss"));
 }
+
 
 void MainWindow::updateAccuracy()
 {
@@ -119,6 +136,23 @@ void MainWindow::updateAccuracy()
     }
     double result = (correct / (double)(correct + incorrect)) * 100;
     ui->labelAccuracy->setText(QString("%1%").arg(result, 0, 'f', 2));
+}
+
+void MainWindow::updateSpeed()
+{
+    int correct = 0;
+    for(int i = 0; i < mask.size(); ++i){
+        if(mask[i] == 'y') ++correct;
+    }
+
+    int result;
+    if(seconds == 0)
+        result = 0;
+    else{
+        result = correct * 6 / seconds;
+    }
+
+    ui->labelSpeed->setText(QString("%1 сл/мин").arg(result));
 }
 
 void MainWindow::CheckSymbol(QString symbol)
@@ -137,8 +171,7 @@ void MainWindow::HighlightLetter(int position, const QColor &color)
 {
     QTextCursor cursor(ui->textEdit->document());
     cursor.setPosition(position);
-    cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor); // Выделяем 1 символ
-
+    cursor.movePosition(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
     QTextCharFormat format;
     format.setForeground(color);
     cursor.mergeCharFormat(format);
@@ -148,5 +181,28 @@ void MainWindow::ProgressReset()
 {
     mask.fill('_', currentText.size());
     currentIdx = 0;
+    seconds = 0;
+
+    ui->textEdit->setPlainText(ui->textEdit->toPlainText());
+    ui->labelTime->setText("00:00");
+    ui->labelAccuracy->setText("0%");
+    ui->labelSpeed->setText("0 сл/мин");
+}
+
+
+void MainWindow::on_pushButtonPause_clicked(bool checked)
+{
+    isStopped = checked;
+    if(isStopped)
+        timer->stop();
+    else
+        timer->start(1000);
+}
+
+
+void MainWindow::on_pushButtonRestart_clicked()
+{
+    timer->stop();
+    ProgressReset();
 }
 

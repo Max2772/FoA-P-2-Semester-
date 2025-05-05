@@ -218,6 +218,9 @@
             <property name="text">
              <string>Приостановить</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
          </layout>

@@ -30,6 +30,12 @@ private slots:
 
     void updateTimer();
     void updateAccuracy();
+    void updateSpeed();
+
+    void on_pushButtonPause_clicked(bool checked);
+
+    void on_pushButtonRestart_clicked();
+
 private:
     void ProgressReset();
     void CheckSymbol(QString symbol);
@@ -37,10 +43,12 @@ private:
 
     bool isFileOpened;
     bool isRunning;
+    bool isStopped;
     QTimer *timer;
     QTime time;
     QString currentText;
     int currentIdx;
+    int seconds;
     QString mask;
     KeyboardWidget *keyboardWidget;
     Ui::MainWindow *ui;
