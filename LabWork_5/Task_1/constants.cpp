@@ -15,17 +15,17 @@ const QString Keyboards[8][2] = {
     // German (2)
     {
         "`1234567890-=qwertzuiopü+\\asdfghjklöäyxcvbnm,./",
-        "~!@#$%^?*()_+QWERTZUIOPÜ*|ASDFGHJKLÖÄ>YXCVBNM<>?"
+        "~!@#$%^?*()_+QWERTZUIOPÜ*|ASDFGHJKLÖÄYXCVBNM<>?"
     },
     // French (3)
     {
         "`1234567890-=azertyuiop^$\\qsdfghjklmùwxcvbn,;./",
-        "~!@#$%^?*()_+AZERTYUIOP{}|QSDFGHJKLMÙ*WXCVBNM<>?"
+        "~!@#$%^?*()_+AZERTYUIOP{}|QSDFGHJKLMÙWXCVBNM<>?"
     },
     // Arabic (4)
     {
         "`1234567890-=ضصثقفغعهخحجد\\شسيبلاتنمكطئءرزظد,;./",
-        "~!@#$%^?*()_+ضصثقفغعهخحجد|شسيبلاتنمكطئءرزظد<>?"
+        "~!@#$%^?*()_+ضصثفغعهخحجد|شسيبلاتنمكطئءرزظدىة<>?"
     },
     // Chinese (5)
     {

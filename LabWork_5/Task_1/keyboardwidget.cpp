@@ -22,8 +22,9 @@ KeyboardWidget::~KeyboardWidget()
 
 void KeyboardWidget::UpdateKeyboard(Language language)
 {
-    if(Keyboards[language][isCapsLockOn].size() != 47){
-        Utils::ShowErrorEvent("Раскладка клавиатура выбранного языка неверного размера!");
+    int size = Keyboards[language][isCapsLockOn].size();
+    if(size != 47){
+        Utils::ShowErrorEvent(QString("Раскладка клавиатура выбранного языка неверного размера!\n%1 вместо 47").arg(size));
         return;
     }
 
