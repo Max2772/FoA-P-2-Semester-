@@ -12,8 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    isFileOpened = false;
-    isStopped = false;
+    isTextOpened = false;
+    isRunning = false;
 
     timer = new QTimer(this);
     time = QTime(0, 0);
@@ -31,17 +31,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    if (!isFileOpened) {
-        event->ignore();
-        return;
-    }
-
-    if(isStopped){
+    if (!isTextOpened) {
         event->ignore();
         return;
     }
 
     if (event->modifiers() == (Qt::ShiftModifier | Qt::AltModifier)) {
+        event->ignore();
+        return;
+    }
+
+    if(event->key() == Qt::Key_Backspace && isRunning){
+        if(currentIdx != 0){
+            --currentIdx;
+            mask[currentIdx] = '_';
+            HighlightLetter(currentIdx, Qt::gray);
+            return;
+        }
         event->ignore();
         return;
     }
@@ -57,7 +63,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         return;
     }
 
-    if(!isRunning){
+    if(!isRunning && currentIdx == 0) {
         isRunning = true;
         timer->start(1000);
         CheckSymbol(event->text());
@@ -103,7 +109,7 @@ void MainWindow::on_pushButtonOpenFile_clicked()
         currentText = file.readAll();
         ui->textEdit->setText(currentText);
         file.close();
-        isFileOpened = true;
+        isTextOpened = true;
         ProgressReset();
     } else {
         Utils::ShowErrorEvent("Файл не открыт или не существует!");
@@ -114,6 +120,12 @@ void MainWindow::on_pushButtonOpenFile_clicked()
 void MainWindow::on_comboBoxLanguage_currentIndexChanged(int index)
 {
     keyboardWidget->UpdateKeyboard((Language)index);
+    currentText = ExampleTexts[index];
+    ui->textEdit->setText(currentText);
+
+    timer->stop();
+    isTextOpened = true;
+    ProgressReset();
 }
 
 void MainWindow::updateTimer()
@@ -182,6 +194,7 @@ void MainWindow::ProgressReset()
     mask.fill('_', currentText.size());
     currentIdx = 0;
     seconds = 0;
+    time = QTime(0, 0);
 
     ui->textEdit->setPlainText(ui->textEdit->toPlainText());
     ui->labelTime->setText("00:00");
@@ -192,8 +205,8 @@ void MainWindow::ProgressReset()
 
 void MainWindow::on_pushButtonPause_clicked(bool checked)
 {
-    isStopped = checked;
-    if(isStopped)
+    isRunning = !checked;
+    if(!isRunning)
         timer->stop();
     else
         timer->start(1000);
@@ -204,5 +217,37 @@ void MainWindow::on_pushButtonRestart_clicked()
 {
     timer->stop();
     ProgressReset();
+}
+
+void MainWindow::onKeyPressed(const QString &text)
+{
+    if (!isTextOpened) {
+        return;
+    }
+
+    if (!isRunning && currentIdx == 0) {
+        isRunning = true;
+        timer->start(1000);
+        CheckSymbol(text);
+        updateAccuracy();
+        updateSpeed();
+        return;
+    }
+
+    if (isRunning) {
+        CheckSymbol(text);
+        updateAccuracy();
+        updateSpeed();
+        if (mask.indexOf('_') == -1) {
+            timer->stop();
+            isRunning = false;
+            QString resultMessage = QString("Результат:\nВремя: %1\nТочность: %2\nСкорость: %3")
+                                        .arg(ui->labelTime->text())
+                                        .arg(ui->labelAccuracy->text())
+                                        .arg(ui->labelSpeed->text());
+            Utils::ShowInformationEvent(resultMessage);
+        }
+    }
+    return;
 }
 

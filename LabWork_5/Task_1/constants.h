@@ -28,6 +28,7 @@ const QString LanguageNames[] = {
 QString getLanguageName(int index);
 
 extern const QString Keyboards[8][2];
+extern const QString ExampleTexts[8];
 
 
 #endif // CONSTANTS_H

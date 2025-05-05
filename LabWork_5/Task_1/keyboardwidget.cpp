@@ -12,6 +12,26 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 
     language_ = English;
     isCapsLockOn = false;
+
+    QList<QPushButton *> buttons = {
+        ui->topButton_0, ui->topButton_1, ui->topButton_2, ui->topButton_3,
+        ui->topButton_4, ui->topButton_5, ui->topButton_6, ui->topButton_7,
+        ui->topButton_8, ui->topButton_9, ui->topButton_10, ui->topButton_11,
+        ui->topButton_12,
+        ui->symbolButton_1, ui->symbolButton_2, ui->symbolButton_3, ui->symbolButton_4,
+        ui->symbolButton_5, ui->symbolButton_6, ui->symbolButton_7, ui->symbolButton_8,
+        ui->symbolButton_9, ui->symbolButton_10, ui->symbolButton_11, ui->symbolButton_12,
+        ui->symbolButton_13, ui->symbolButton_14, ui->symbolButton_15, ui->symbolButton_16,
+        ui->symbolButton_17, ui->symbolButton_18, ui->symbolButton_19, ui->symbolButton_20,
+        ui->symbolButton_21, ui->symbolButton_22, ui->symbolButton_23, ui->symbolButton_24,
+        ui->symbolButton_25, ui->symbolButton_26, ui->symbolButton_27, ui->symbolButton_28,
+        ui->symbolButton_29, ui->symbolButton_30, ui->symbolButton_31, ui->symbolButton_32,
+        ui->symbolButton_33, ui->symbolButton_34
+    };
+
+    for (QPushButton *button : buttons) {
+        connect(button, &QPushButton::clicked, this, &KeyboardWidget::onButtonClicked);
+    }
 }
 
 KeyboardWidget::~KeyboardWidget()
@@ -96,4 +116,12 @@ void KeyboardWidget::keyReleaseEvent(QKeyEvent *event)
         UpdateKeyboard(language_);
     }
     QWidget::keyReleaseEvent(event);
+}
+
+void KeyboardWidget::onButtonClicked()
+{
+    QPushButton *button = qobject_cast<QPushButton *>(sender());
+    if (button) {
+        emit keyPressed(button->text());
+    }
 }

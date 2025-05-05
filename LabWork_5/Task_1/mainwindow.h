@@ -33,17 +33,16 @@ private slots:
     void updateSpeed();
 
     void on_pushButtonPause_clicked(bool checked);
-
     void on_pushButtonRestart_clicked();
 
+    void onKeyPressed(const QString &text);
 private:
     void ProgressReset();
     void CheckSymbol(QString symbol);
     void HighlightLetter(int position, const QColor &color);
 
-    bool isFileOpened;
+    bool isTextOpened;
     bool isRunning;
-    bool isStopped;
     QTimer *timer;
     QTime time;
     QString currentText;

@@ -23,6 +23,11 @@ public:
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 
+signals:
+    void keyPressed(const QString &text);
+private slots:
+    void onButtonClicked();
+
 private:
     Language language_;
     bool isCapsLockOn;
