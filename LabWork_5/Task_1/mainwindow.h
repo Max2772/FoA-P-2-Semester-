@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QKeyEvent>
+
+#include "keyboardwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,15 +20,21 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 private slots:
     void on_pushButtonOpenFile_clicked();
+
+    void on_comboBoxLanguage_currentIndexChanged(int index);
 
 private:
     bool isRunning;
     QTimer timer;
     QString currentText;
+    QString mask;
 
+    KeyboardWidget *keyboardWidget;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

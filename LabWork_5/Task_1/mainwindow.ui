@@ -39,9 +39,6 @@
       <height>381</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: #00000</string>
-    </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
@@ -131,12 +128,12 @@
             </property>
             <item>
              <property name="text">
-              <string>Белорусский</string>
+              <string>Английский</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Арабский</string>
+              <string>Русский</string>
              </property>
             </item>
             <item>
@@ -151,17 +148,22 @@
             </item>
             <item>
              <property name="text">
+              <string>Арабский</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string>Китайский</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Иврит</string>
+              <string>Белорусский</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Русский</string>
+              <string>Иврит</string>
              </property>
             </item>
            </widget>
@@ -277,7 +279,7 @@
            </font>
           </property>
           <property name="text">
-           <string>1:24</string>
+           <string>0:00</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -336,7 +338,7 @@
            </font>
           </property>
           <property name="text">
-           <string>45%</string>
+           <string>100%</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -395,7 +397,7 @@
            </font>
           </property>
           <property name="text">
-           <string>300 сл/мин</string>
+           <string>0 сл/мин</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
