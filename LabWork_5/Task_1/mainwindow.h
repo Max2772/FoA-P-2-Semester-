@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QKeyEvent>
+#include <QTime>
 
 #include "keyboardwidget.h"
 
@@ -26,13 +27,18 @@ protected:
 private slots:
     void on_pushButtonOpenFile_clicked();
     void on_comboBoxLanguage_currentIndexChanged(int index);
+
+    void updateTimer();
+    void updateAccuracy();
 private:
     void ProgressReset();
     void CheckSymbol(QString symbol);
     void HighlightLetter(int position, const QColor &color);
 
+    bool isFileOpened;
     bool isRunning;
-    QTimer timer;
+    QTimer *timer;
+    QTime time;
     QString currentText;
     int currentIdx;
     QString mask;

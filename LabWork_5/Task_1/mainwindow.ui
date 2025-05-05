@@ -126,6 +126,9 @@
               <bold>false</bold>
              </font>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <item>
              <property name="text">
               <string>Английский</string>
@@ -179,6 +182,9 @@
             <bold>false</bold>
            </font>
           </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
+          </property>
           <property name="text">
            <string>Открыть Файл</string>
           </property>
@@ -206,6 +212,9 @@
               <bold>false</bold>
              </font>
             </property>
+            <property name="focusPolicy">
+             <enum>Qt::NoFocus</enum>
+            </property>
             <property name="text">
              <string>Приостановить</string>
             </property>
@@ -221,6 +230,9 @@
             <pointsize>15</pointsize>
             <bold>false</bold>
            </font>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
           </property>
           <property name="text">
            <string>Рестарт</string>
@@ -241,7 +253,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
-           <widget class="QLabel" name="labelTime">
+           <widget class="QLabel" name="labelTimeInfo">
             <property name="font">
              <font>
               <family>URW Gothic</family>
@@ -270,7 +282,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelTime_2">
+         <widget class="QLabel" name="labelTime">
           <property name="font">
            <font>
             <family>URW Gothic</family>
@@ -300,7 +312,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_10">
           <item>
-           <widget class="QLabel" name="labelAccuracy">
+           <widget class="QLabel" name="labelAccuracyInfo">
             <property name="font">
              <font>
               <family>URW Gothic</family>
@@ -329,7 +341,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelAccuracy_2">
+         <widget class="QLabel" name="labelAccuracy">
           <property name="font">
            <font>
             <family>URW Gothic</family>
@@ -338,7 +350,7 @@
            </font>
           </property>
           <property name="text">
-           <string>100%</string>
+           <string>0%</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -359,7 +371,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_11">
           <item>
-           <widget class="QLabel" name="labelSpeed">
+           <widget class="QLabel" name="labelSpeedInfo">
             <property name="font">
              <font>
               <family>URW Gothic</family>
@@ -388,7 +400,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="labelSpeed_2">
+         <widget class="QLabel" name="labelSpeed">
           <property name="font">
            <font>
             <family>URW Gothic</family>
