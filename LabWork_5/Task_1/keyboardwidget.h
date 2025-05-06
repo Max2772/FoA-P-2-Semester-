@@ -20,9 +20,9 @@ public:
     ~KeyboardWidget();
 
     void UpdateKeyboard(Language language);
+    void ResetKeyboard();
 
     void keyPressEvent(QKeyEvent *event) override;
-    void keyReleaseEvent(QKeyEvent *event) override;
 
 signals:
     void keyPressed(const QString &text);
@@ -30,6 +30,9 @@ private slots:
     void onButtonClicked();
     QPushButton* findButtonByText(const QString &text);
 private:
+    void SetButton(QPushButton* button);
+    void SetShiftButtons(QPushButton *leftShit, QPushButton *rightShift);
+
     Language language_;
     bool isCapsLockOn;
 

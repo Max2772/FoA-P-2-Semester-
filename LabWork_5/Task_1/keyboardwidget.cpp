@@ -104,47 +104,36 @@ void KeyboardWidget::UpdateKeyboard(Language language)
 void KeyboardWidget::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Shift) {
-        ui->button_LeftShift->setDown(true);
-        ui->button_RightShift->setDown(true);
-        isCapsLockOn = true;
-        UpdateKeyboard(language_);
+        SetShiftButtons(ui->button_LeftShift, ui->button_RightShift);
+        return;
     }else if(event->key() == Qt::Key_Backspace){
-        ui->button_BackSpace->setDown(true);
-    }else if(event->key() == Qt::Key_Space)
-        ui->button_Space->setDown(true);
+        SetButton(ui->button_BackSpace);
+        return;
+    }else if(event->key() == Qt::Key_Space){
+        SetButton(ui->button_Space);
+        return;
+    }else if(event->key() == Qt::Key_CapsLock){
+        SetButton(ui->button_Caps);
+        isCapsLockOn = !isCapsLockOn;
+        UpdateKeyboard(language_);
+        return;
+    }else if(event->key() == Qt::Key_Enter){
+        SetButton(ui->button_Enter);
+        return;
+    }
+
 
     QString text = event->text();
     if (!text.isEmpty()) {
+        qDebug() << "Key text(Press):" << text;
         QPushButton *button = findButtonByText(text);
         if (button) {
-            button->setDown(true);
+            SetButton(button);
+        }else{
+            qDebug() << "Кнопки для данного символа не найдено!(keyPressEvent)";
         }
     }
-
     QWidget::keyPressEvent(event);
-}
-
-void KeyboardWidget::keyReleaseEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Shift) {
-        ui->button_LeftShift->setDown(false);
-        ui->button_RightShift->setDown(false);
-        isCapsLockOn = false;
-        UpdateKeyboard(language_);
-    }else if(event->key() == Qt::Key_Backspace){
-        ui->button_BackSpace->setDown(false);
-    }else if(event->key() == Qt::Key_Space)
-        ui->button_Space->setDown(false);
-
-    QString text = event->text();
-    if (!text.isEmpty()) {
-        QPushButton *button = findButtonByText(text);
-        if (button) {
-            button->setDown(false);
-        }
-    }
-
-    QWidget::keyReleaseEvent(event);
 }
 
 void KeyboardWidget::onButtonClicked()
@@ -166,4 +155,33 @@ QPushButton* KeyboardWidget::findButtonByText(const QString &text)
     }
 
     return nullptr;
+}
+
+void KeyboardWidget::SetButton(QPushButton *button)
+{
+    button->setDown(true);
+    QTimer::singleShot(200, this, [button]() {
+        button->setDown(false);
+    });
+}
+
+void KeyboardWidget::SetShiftButtons(QPushButton *leftShit, QPushButton *rightShift)
+{
+    leftShit->setDown(true);
+    rightShift->setDown(true);
+    isCapsLockOn = !isCapsLockOn;
+    UpdateKeyboard(language_);
+    QTimer::singleShot(500, this, [this, leftShit, rightShift]() {
+        isCapsLockOn = !isCapsLockOn;
+        UpdateKeyboard(language_);
+        leftShit->setDown(false);
+        rightShift->setDown(false);
+    });
+}
+
+void KeyboardWidget::ResetKeyboard()
+{
+    for (QPushButton *button : buttons) {
+        button->setDown(false);
+    }
 }

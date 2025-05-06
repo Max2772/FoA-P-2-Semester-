@@ -23,7 +23,6 @@ public:
     ~MainWindow();
 protected:
     void keyPressEvent(QKeyEvent *event) override;
-    void keyReleaseEvent(QKeyEvent *event) override;
 private slots:
     void on_pushButtonOpenFile_clicked();
     void on_comboBoxLanguage_currentIndexChanged(int index);

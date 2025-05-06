@@ -38,13 +38,13 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         return;
     }
 
-    if (event->modifiers() == (Qt::ShiftModifier | Qt::AltModifier)) {
-        event->ignore();
-        return;
-    }
-
-    if (event->key() == Qt::Key_Tab) {
-        event->ignore();
+    switch (event->key()) {
+    case Qt::Key_Shift:
+    case Qt::Key_Alt:
+    case Qt::Key_Control:
+    case Qt::Key_CapsLock:
+    case Qt::Key_Escape:
+        keyboardWidget->keyPressEvent(event);
         return;
     }
 
@@ -57,17 +57,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
             return;
         }
         event->ignore();
-        return;
-    }
-
-    switch (event->key()) {
-    case Qt::Key_Shift:
-    case Qt::Key_Alt:
-    case Qt::Key_Control:
-    case Qt::Key_CapsLock:
-    case Qt::Key_Tab:
-    case Qt::Key_Escape:
-        keyboardWidget->keyPressEvent(event);
         return;
     }
 
@@ -99,12 +88,6 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 
     QMainWindow::keyPressEvent(event);
-}
-
-void MainWindow::keyReleaseEvent(QKeyEvent *event)
-{
-    keyboardWidget->keyReleaseEvent(event);
-    QMainWindow::keyReleaseEvent(event);
 }
 
 void MainWindow::on_pushButtonOpenFile_clicked()
@@ -150,10 +133,8 @@ void MainWindow::updateAccuracy()
     int correct = 0;
     int incorrect = 0;
     for(int i = 0; i < mask.size(); ++i){
-        if(mask[i] == 'y')
-            ++correct;
-        if(mask[i] == 'n')
-            ++incorrect;
+        if(mask[i] == 'y') ++correct;
+        if(mask[i] == 'n') ++incorrect;
     }
     double result = (correct / (double)(correct + incorrect)) * 100;
     ui->labelAccuracy->setText(QString("%1%").arg(result, 0, 'f', 2));
@@ -178,6 +159,7 @@ void MainWindow::updateSpeed()
 
 void MainWindow::CheckSymbol(QString symbol)
 {
+    qDebug() << symbol;
     if(symbol == currentText[currentIdx]){
         mask[currentIdx] = 'y';
         HighlightLetter(currentIdx, Qt::green);
@@ -205,6 +187,7 @@ void MainWindow::ProgressReset()
     seconds = 0;
     time = QTime(0, 0);
 
+    keyboardWidget->ResetKeyboard();
     ui->textEdit->setPlainText(ui->textEdit->toPlainText());
     ui->labelTime->setText("00:00");
     ui->labelAccuracy->setText("0%");
