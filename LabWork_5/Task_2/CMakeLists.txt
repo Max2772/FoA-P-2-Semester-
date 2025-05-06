@@ -39,6 +39,7 @@ else()
         add_executable(Task_2
             ${PROJECT_SOURCES}
             string.h string.cpp
+            constants.h
         )
     endif()
 endif()

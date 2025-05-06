@@ -18,6 +18,8 @@ public:
     ~MainWindow();
 
 private:
+    void WriteResults();
+    QString results[15];
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
