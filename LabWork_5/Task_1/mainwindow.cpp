@@ -159,7 +159,6 @@ void MainWindow::updateSpeed()
 
 void MainWindow::CheckSymbol(QString symbol)
 {
-    qDebug() << symbol;
     if(symbol == currentText[currentIdx]){
         mask[currentIdx] = 'y';
         HighlightLetter(currentIdx, Qt::green);
@@ -185,6 +184,7 @@ void MainWindow::ProgressReset()
     mask.fill('_', currentText.size());
     currentIdx = 0;
     seconds = 0;
+    isRunning = false;
     time = QTime(0, 0);
 
     keyboardWidget->ResetKeyboard();
@@ -227,6 +227,19 @@ void MainWindow::onKeyPressed(const QString &text)
     }
 
     if (isRunning) {
+        if(text == "⌫" || text == "⇧" || text == "Caps"){
+            if(text == "⌫" && currentIdx != 0){
+                    --currentIdx;
+                    mask[currentIdx] = '_';
+                    HighlightLetter(currentIdx, Qt::gray);
+            }else if (text == "⇧"){
+                keyboardWidget->SetShiftButtonFromMain();
+            }else{
+                keyboardWidget->SetCapsButtonFromMain();
+            }
+            return;
+        }
+
         CheckSymbol(text);
         updateAccuracy();
         updateSpeed();

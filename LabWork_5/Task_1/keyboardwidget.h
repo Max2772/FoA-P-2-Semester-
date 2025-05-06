@@ -21,6 +21,8 @@ public:
 
     void UpdateKeyboard(Language language);
     void ResetKeyboard();
+    void SetShiftButtonFromMain();
+    void SetCapsButtonFromMain();
 
     void keyPressEvent(QKeyEvent *event) override;
 

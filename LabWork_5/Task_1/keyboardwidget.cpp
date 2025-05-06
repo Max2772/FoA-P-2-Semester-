@@ -11,6 +11,8 @@ KeyboardWidget::KeyboardWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->button_Space->setText(" "); // Qt Designer can't assign " " bruh
+
     language_ = English;
     isCapsLockOn = false;
 
@@ -50,7 +52,7 @@ void KeyboardWidget::UpdateKeyboard(Language language)
     }
 
     language_ = language;
-    qDebug() << "Язык изменён на" << getLanguageName(language);
+    qDebug() << "Язык изменён на" << getLanguageName(language) << (isCapsLockOn ? " CapsLockOn" : " CapsLockOff");
 
     ui->topButton_0->setText(QString(Keyboards[language][isCapsLockOn][0]));
     ui->topButton_1->setText(QString(Keyboards[language][isCapsLockOn][1]));
@@ -184,4 +186,24 @@ void KeyboardWidget::ResetKeyboard()
     for (QPushButton *button : buttons) {
         button->setDown(false);
     }
+}
+
+void KeyboardWidget::SetCapsButtonFromMain()
+{
+    isCapsLockOn = !isCapsLockOn;
+    UpdateKeyboard(language_);
+}
+
+void KeyboardWidget::SetShiftButtonFromMain()
+{
+    ui->button_LeftShift->setDown(true);
+    ui->button_RightShift->setDown(true);
+    isCapsLockOn = !isCapsLockOn;
+    UpdateKeyboard(language_);
+    QTimer::singleShot(500, this, [this]() {
+        isCapsLockOn = !isCapsLockOn;
+        UpdateKeyboard(language_);
+        ui->button_LeftShift->setDown(false);
+        ui->button_RightShift->setDown(false);
+    });
 }
