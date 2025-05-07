@@ -1,19 +1,58 @@
-#include "mainwindow.h"
-
-#include <QApplication>
-#include <QFile>
+#include <QCoreApplication>
+#include <QDebug>
+#include "mystring.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QCoreApplication a(argc, argv);
 
-    // QSS bs(Combinear, Genetive, Geoo, Toolery)
-    QFile styleSheetFile("/home/user/Documents/453502/ОАиП2/QSS/Geoo.qss");
-    styleSheetFile.open(QFile::ReadOnly);
-    QString styleSheet = QLatin1String(styleSheetFile.readAll());
-    a.setStyleSheet(styleSheet);
+    MyString s1("Hello");
+    const char* src1 = "Buffer";
+    MyString::memcpy(s1.begin(), src1, 3);
+    qDebug() << "memcpy:" << s1.begin();
 
-    MainWindow w;
-    w.show();
+    MyString s2("Hello");
+    MyString::memmove(s2.begin() + 2, s2.begin(), 3);
+    qDebug() << "memmove (overlap):" << s2.begin();
+
+    MyString s3(10, '\0');
+    MyString::strcpy(s3.begin(), "World");
+    qDebug() << "strcpy:" << s3.begin();
+
+    MyString s4("Hello");
+    MyString::strncpy(s4.begin(), "World", 3);
+    qDebug() << "strncpy:" << s4.begin();
+
+    MyString s5("Hello");
+    char temp[20];
+    MyString::strcpy(temp, s5.begin());
+    MyString::strcat(temp, "World");
+    qDebug() << "strcat:" << temp;
+
+    char temp2[20] = "Hello";
+    MyString::strncat(temp2, "World", 3);
+    qDebug() << "strncat:" << temp2;
+
+    const char* m1 = "abc";
+    const char* m2 = "abd";
+    int memcmp_result = MyString::memcmp(m1, m2, 3);
+    qDebug() << "memcmp (abc, abd, 3):" << memcmp_result;
+
+    int strcmp_result = MyString::strcmp("abc", "abc");
+    qDebug() << "strcmp (abc, abc):" << strcmp_result;
+
+    int strncmp_result = MyString::strncmp("Hello", "Hel", 3);
+    qDebug() << "strncmp (Hello, Hel, 3):" << strncmp_result;
+
+    size_t strcspn_result = MyString::strcspn("Hello", "lo");
+    qDebug() << "strcspn (Hello, lo):" << strcspn_result;
+
+    MyString s6("Buffer");
+    MyString::memset(s6.begin(), 'A', 5);
+    qDebug() << "memset:" << s6.begin();
+
+    size_t len = MyString::strlen("Hello");
+    qDebug() << "strlen:" << len;
+
     return a.exec();
 }
