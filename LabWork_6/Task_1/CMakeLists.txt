@@ -38,6 +38,8 @@ else()
     else()
         add_executable(Task_1
             ${PROJECT_SOURCES}
+
+            utils.h
             motorcycle.h motorcycle.cpp
         )
     endif()
