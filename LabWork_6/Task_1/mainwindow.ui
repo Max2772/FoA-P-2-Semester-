@@ -10,6 +10,18 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>620</width>
+    <height>600</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>620</width>
+    <height>600</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Motorcycle DB</string>
   </property>
@@ -27,7 +39,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="labelLogo">
     <property name="geometry">
      <rect>
       <x>100</x>
@@ -59,7 +71,7 @@
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>342</x>
       <y>-60</y>
       <width>20</width>
       <height>691</height>
@@ -74,13 +86,13 @@
      <rect>
       <x>360</x>
       <y>10</y>
-      <width>243</width>
+      <width>251</width>
       <height>581</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="labelInfo">
        <property name="font">
         <font>
          <family>URW Gothic</family>
@@ -108,47 +120,69 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_10">
        <item>
-        <widget class="Line" name="line_6">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <layout class="QVBoxLayout" name="verticalLayout_11">
+         <property name="spacing">
+          <number>10</number>
          </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_9">
-         <property name="font">
-          <font>
-           <family>URW Gothic</family>
-           <pointsize>15</pointsize>
-           <bold>false</bold>
-          </font>
+         <property name="bottomMargin">
+          <number>30</number>
          </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="lineWidth">
-          <number>4</number>
-         </property>
-         <property name="text">
-          <string>Модель:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit">
-         <property name="plainText">
-          <string>
+         <item>
+          <widget class="Line" name="line_6">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelModelInfo">
+           <property name="font">
+            <font>
+             <family>URW Gothic</family>
+             <pointsize>15</pointsize>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="lineWidth">
+            <number>4</number>
+           </property>
+           <property name="text">
+            <string>Модель:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="plainTextEditModel">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777214</width>
+             <height>100</height>
+            </size>
+           </property>
+           <property name="plainText">
+            <string>
 </string>
-         </property>
-        </widget>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="labelMileage">
            <property name="font">
             <font>
              <family>URW Gothic</family>
@@ -171,12 +205,12 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QSpinBox" name="spinBoxMileageInfo"/>
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="labelMaxSpeedInfo">
              <property name="font">
               <font>
                <family>URW Gothic</family>
@@ -199,7 +233,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxMaxSpeed"/>
            </item>
           </layout>
          </item>
@@ -210,7 +244,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout_5">
        <item>
-        <widget class="QLabel" name="label_5">
+        <widget class="QLabel" name="labelTypeInfo">
          <property name="font">
           <font>
            <family>URW Gothic</family>
@@ -240,38 +274,53 @@
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="radioButtonTypeS">
          <property name="text">
           <string>S - Sport</string>
          </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupType</string>
+         </attribute>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QRadioButton" name="radioButtonTypeC">
          <property name="text">
           <string>C - Cruiser</string>
          </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupType</string>
+         </attribute>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_3">
+        <widget class="QRadioButton" name="radioButtonTypeT">
          <property name="text">
           <string>T - Touring</string>
          </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupType</string>
+         </attribute>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_4">
+        <widget class="QRadioButton" name="radioButtonTypeA">
          <property name="text">
           <string>A - Adventure</string>
          </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupType</string>
+         </attribute>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_5">
+        <widget class="QRadioButton" name="radioButtonTypeD">
          <property name="text">
           <string>D - Dirt</string>
          </property>
+         <attribute name="buttonGroup">
+          <string notr="true">buttonGroupType</string>
+         </attribute>
         </widget>
        </item>
        <item>
@@ -284,7 +333,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_6">
+          <widget class="QLabel" name="labelDamageInfo">
            <property name="font">
             <font>
              <family>URW Gothic</family>
@@ -309,17 +358,23 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QRadioButton" name="radioButton_11">
+            <widget class="QRadioButton" name="radioButtonDamage_Yes">
              <property name="text">
               <string>Есть</string>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroupDamage</string>
+             </attribute>
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="radioButton_12">
+            <widget class="QRadioButton" name="radioButtonDamage_No">
              <property name="text">
               <string>Нету</string>
              </property>
+             <attribute name="buttonGroup">
+              <string notr="true">buttonGroupDamage</string>
+             </attribute>
             </widget>
            </item>
           </layout>
@@ -336,7 +391,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonAddElement">
        <property name="font">
         <font>
          <family>URW Gothic</family>
@@ -355,4 +410,8 @@
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroupDamage"/>
+  <buttongroup name="buttonGroupType"/>
+ </buttongroups>
 </ui>
