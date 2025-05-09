@@ -36,7 +36,6 @@ Rectangle::~Rectangle()
  
 }
 
-// Реализуем метод отрисовки
 void Rectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QPolygonF polygon;

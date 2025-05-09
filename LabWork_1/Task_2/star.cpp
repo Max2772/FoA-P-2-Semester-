@@ -43,7 +43,7 @@ void Star::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     QPolygonF polygon;
 
     if (is_drawing_first_time) {
-    outerRadius = sqrt(pow(startPoint().x() - endPoint().x(), 2) + pow(startPoint().y() - endPoint().y(), 2)); // Радиус внешней окружности
+    outerRadius = sqrt(pow(startPoint().x() - endPoint().x(), 2) + pow(startPoint().y() - endPoint().y(), 2));
     innerRadius = outerRadius / 2;
     }
 
