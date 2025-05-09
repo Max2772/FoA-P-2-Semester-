@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
     int memcmp_result = MyString::memcmp(m1, m2, 3);
     qDebug() << "memcmp (abc, abd, 3):" << memcmp_result;
 
-    int strcmp_result = MyString::strcmp("abc", "abc");
-    qDebug() << "strcmp (abc, abc):" << strcmp_result;
+    int strcmp_result = MyString::strcmp("ab0", "ab");
+    qDebug() << "strcmp (ab0, ab):" << strcmp_result;
 
     int strncmp_result = MyString::strncmp("Hello", "Hel", 3);
     qDebug() << "strncmp (Hello, Hel, 3):" << strncmp_result;

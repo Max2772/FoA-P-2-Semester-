@@ -11,8 +11,6 @@ private:
 
     using iterator = char*;
     using const_iterator = const char*;
-    using reverse_iterator = std::reverse_iterator<iterator>;
-    using const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
 public:
     MyString();
@@ -44,6 +42,7 @@ public:
     static size_t strcspn(const char *s1, const char *s2);
     static void *memset(void *s, int c, size_t n);
     static size_t strlen(const char *s);
+    static char *strerror(int errnum);
 };
 
 #endif // MYSTRING_H

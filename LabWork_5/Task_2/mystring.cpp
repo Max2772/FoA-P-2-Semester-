@@ -1,8 +1,14 @@
 #include "mystring.h"
+#include <stdexcept>
 
 void *MyString::memcpy(void *s1, const void *s2, size_t n) {
     auto dest = static_cast<char*>(s1);
     auto src = static_cast<const char*>(s2);
+
+    if (s1 == nullptr || s2 == nullptr) {
+        throw std::invalid_argument(MyString::strerror(1));
+    }
+
     for (size_t i = 0; i < n; i++) {
         dest[i] = src[i];
     }
@@ -25,6 +31,11 @@ void *MyString::memmove(void *s1, const void *s2, size_t n) {
 }
 
 char *MyString::strcpy(char *s1, const char *s2) {
+
+    if (s1 == nullptr || s2 == nullptr) {
+        throw std::invalid_argument(MyString::strerror(1));
+    }
+
     size_t i = 0;
     while ((s1[i] = s2[i]) != '\0') {
         i++;
@@ -104,7 +115,7 @@ size_t MyString::strcspn(const char *s1, const char *s2) {
 
 void *MyString::memset(void *s, int c, size_t n) {
     auto p = static_cast<unsigned char*>(s);
-    unsigned char u = static_cast<unsigned char>(c);
+    auto u = static_cast<unsigned char>(c);
     for (size_t i = 0; i < n; i++) {
         p[i] = u;
     }
@@ -114,10 +125,23 @@ void *MyString::memset(void *s, int c, size_t n) {
 size_t MyString::strlen(const char *s) {
     size_t length = 0;
     while (*s != '\0') {
-        length++;
-        s++;
+        ++length;
+        ++s;
     }
     return length;
+}
+
+char *MyString::strerror(int errnum) {
+    static const char* errors[] = {
+        "Выход за пределы памяти!",
+        "Неизвестная ошибка"
+    };
+
+    if (errnum < 0 || errnum >= sizeof(errors) / sizeof(errors[0])) {
+        return const_cast<char*>("Неизвестная ошибка");
+    }
+
+    return const_cast<char*>(errors[errnum]);
 }
 
 MyString::MyString() {
@@ -132,7 +156,7 @@ MyString::MyString(const char *str) {
     sz = len + 1;
     cap = sz;
     data = std::make_unique<char[]>(sz);
-    MyString::strcpy(data.get(), str);
+    MyString::strncpy(data.get(), str, sz);
 }
 
 MyString::MyString(const char *str, size_t n) {
@@ -140,7 +164,6 @@ MyString::MyString(const char *str, size_t n) {
     cap = sz;
     data = std::make_unique<char[]>(sz);
     MyString::strncpy(data.get(), str, n);
-    data[n] = '\0';
 }
 
 MyString::MyString(size_t amount, char symbol) {
@@ -148,7 +171,6 @@ MyString::MyString(size_t amount, char symbol) {
     cap = sz;
     data = std::make_unique<char[]>(sz);
     MyString::memset(data.get(), symbol, amount);
-    data[amount] = '\0';
 }
 
 char &MyString::operator[](size_t pos) {
@@ -164,7 +186,7 @@ MyString &MyString::operator=(const MyString &input) {
         sz = input.sz;
         cap = sz;
         data = std::make_unique<char[]>(sz);
-        MyString::strcpy(data.get(), input.data.get());
+        MyString::strncpy(data.get(), input.data.get(), sz);
     }
     return *this;
 }
