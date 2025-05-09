@@ -35,8 +35,7 @@ Star::~Star()
 {
  
 }
- 
-// Реализуем метод отрисовки
+
 void Star::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     center = startPoint();
@@ -45,14 +44,13 @@ void Star::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 
     if (is_drawing_first_time) {
     outerRadius = sqrt(pow(startPoint().x() - endPoint().x(), 2) + pow(startPoint().y() - endPoint().y(), 2)); // Радиус внешней окружности
-    innerRadius = outerRadius / 2; // Радиус внутренней окружности
+    innerRadius = outerRadius / 2;
     }
 
 
     for (int i = 0; i < N; ++i) {   
-        double angleOuter = 2 * M_PI * i / N; // Угол для вершины на внешней окружности
-        double angleInner = angleOuter + M_PI / N; // Угол для вершины на внутренней окружности
-
+        double angleOuter = 2 * M_PI * i / N;
+        double angleInner = angleOuter + M_PI / N;
         QPointF outerVertex((startPoint().x() + outerRadius * cos(angleOuter) - rotationX) * scale, (startPoint().y() + outerRadius * sin(angleOuter) - rotationY) * scale);
         QPointF innerVertex((startPoint().x() + innerRadius * cos(angleInner) - rotationX) * scale, (startPoint().y() + innerRadius * sin(angleInner) - rotationY) * scale);
 

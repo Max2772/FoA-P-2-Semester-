@@ -7,9 +7,6 @@
 #include <QGraphicsItem>
 #include "figure.h"
  
-/* Наследуемся от класса Figure,
- * в котором реализован общий для всех фигур функционал
- * */
 class Polygone : public Figure
 {
     Q_OBJECT
@@ -19,7 +16,6 @@ public:
     ~Polygone();
  
 private:
-    // Для Треугольника реализуем только саму отрисовку
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 };

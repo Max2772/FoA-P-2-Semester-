@@ -36,7 +36,6 @@ Polygone::~Polygone()
  
 }
  
-// Реализуем метод отрисовки
 void Polygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     center = startPoint();
@@ -49,7 +48,7 @@ void Polygone::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     QPolygonF polygon;
     for (int i = 0; i < N; ++i) {
 
-        double angleOuter = 2 * M_PI * i / N; // Угол для вершины на внешней окружности
+        double angleOuter = 2 * M_PI * i / N;
 
         QPointF outerVertex((startPoint().x() + outerRadius * cos(angleOuter) - rotationX) * scale, (startPoint().y() + outerRadius * sin(angleOuter) - rotationY) * scale);
 

@@ -37,7 +37,6 @@ Paint::~Paint()
 
 }
 
-// Реализуем метод отрисовки
 void Paint::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setBrush(Qt::white);

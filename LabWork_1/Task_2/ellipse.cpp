@@ -36,7 +36,6 @@ Ellipse::~Ellipse()
  
 }
  
-// Реализуем метод отрисовки
 void Ellipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     if (is_drawing_first_time) {
@@ -48,7 +47,6 @@ void Ellipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, Q
  
     QRectF polygon((startPoint().x() - rotationX) * scale, (startPoint().y() - rotationY) * scale, sideA, sideB);
 
-    // Нарисуйте эллипс внутри прямоугольника
     painter->setPen(QPen(Qt::red, 5));
     painter->drawPoint(rotationX, rotationY);
 

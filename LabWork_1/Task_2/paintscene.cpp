@@ -134,15 +134,9 @@ void PaintScene::setMouseMode(const int type)
 void PaintScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (m_mousemode != editing) {
-        /* Устанавливаем конечную координату положения мыши
-         * в текущую отрисовываемую фигуру
-         * */
         tempFigure->setEndPoint(event->scenePos());
     }
     else {
-        
-        // QRectF figureRect(tempFigure->startPoint(), tempFigure->endPoint());
-        // if (figureRect.contains(event->pos())) 
         if (m_typeFigure != StarType && m_typeFigure != PolygonType) {
             tempFigure->setPos(event->scenePos() - (tempFigure->startPoint() + tempFigure->endPoint()) / 2);
         }
@@ -150,25 +144,13 @@ void PaintScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
             tempFigure->setPos(event->scenePos() - tempFigure->startPoint());
         }
     }
-
-    /* Обновляем содержимое сцены,
-     * необходимо для устранения артефактов при отрисовке фигур
-     * */
     this->update();
 }
  
-/* Как только нажали кнопку мыши, создаём фигуру одного из трёх типов
- * и помещаем её на сцену или перемещаем имеющеесю,
- * сохранив указатель на неё в переменной tempFigure
- * */
 void PaintScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     switch (m_mousemode) {
     case editing: {
-        //////
-
-
-        ////
         break;
     }
     default:
@@ -376,7 +358,6 @@ void PaintScene::setPointC_y(int value)
     tempFigure->setPointC_y(value);
     update();
 }
-                 /*Возврат*/
 int PaintScene::returnPointA_x()
 {
     return tempFigure->returnPointA_x();

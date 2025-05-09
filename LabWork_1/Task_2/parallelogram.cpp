@@ -36,7 +36,6 @@ Parallelogram::~Parallelogram()
  
 }
 
-// Реализуем метод отрисовки
 void Parallelogram::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     QPolygonF polygon;
@@ -44,7 +43,6 @@ void Parallelogram::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     sideA = endPoint().x() - startPoint().x();
     sideB = sqrt(pow(endPoint().y() - startPoint().y(), 2) + pow(sideA / 3, 2)) * ((endPoint().y() - startPoint().y() < 0) ? -1 : 1);
     }
-    // sideB(y) = sqrt(pow(sideB, 2) - pow(sideA / 3, 2)) * ((endPoint().y() - startPoint().y() < 0) ? -1 : 1);
     center = QPointF(startPoint().x() + sideA / 2, startPoint().y() + sqrt(pow(sideB, 2) - pow(sideA / 3, 2)) * ((endPoint().y() - startPoint().y() < 0) ? -1 : 1) / 2);
  
     polygon << QPointF((startPoint().x() - rotationX) * scale, (startPoint().y() - rotationY) * scale)

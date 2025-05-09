@@ -10,7 +10,6 @@
 class PaintScene : public QGraphicsScene
 {
     Q_OBJECT
-    // Свойство текущего типа используемой фигуры
     Q_PROPERTY(int typeFigure
                READ typeFigure WRITE setTypeFigure
                NOTIFY typeFigureChanged)
@@ -21,9 +20,9 @@ public:
 
     void spaceFigure();
  
-    int typeFigure() const;                 // Возвращение текущего типа
-    void setTypeFigure(const int type);     // Установка текущего типа
-    void setMouseMode(const int type);     // Установка текущего типа
+    int typeFigure() const;
+    void setTypeFigure(const int type);
+    void setMouseMode(const int type);
 
     void setScale(double value);
     void setRotationX(int value);
@@ -76,7 +75,6 @@ public:
     int returnPointC_x();
     int returnPointC_y();
 
-    // Перечисление типов используемых фигур
     enum FigureTypes {
         RectangleType,
         RombType,
@@ -88,29 +86,24 @@ public:
         PaintType
     };
 
-    // Перечисление режимов мыши
     enum MouseMode {
         drawing,
         editing
     };
  
 signals:
-    void typeFigureChanged();               // Сигнал об изменении типа текущей фигуры
+    void typeFigureChanged();
  
 private:
-    /* Объект для временного хранения рисуемой фигуры
-     * Является объектом базового класса
-     * */
     Figure *tempFigure;
-    int m_typeFigure;   // текущий тип фигуры
-    int m_mousemode;   // текущий режим
+    int m_typeFigure;
+    int m_mousemode;
 
 
     QGraphicsPolygonItem* selectedPolygon = nullptr;
 
  
 private:
-    // Для рисования используем события мыши
     void mousePressEvent(QGraphicsSceneMouseEvent * event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 };

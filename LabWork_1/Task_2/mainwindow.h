@@ -24,23 +24,14 @@ public:
  
 private:
     Ui::MainWindow *ui;
-    PaintScene *scene;  // Объявляем кастомную графическую сцену
-    QTimer *timer;      /* Определяем таймер для подготовки актуальных размеров
-                         * графической сцены
-                         * */
+    PaintScene *scene;
+    QTimer *timer;
     QTimer *updateValues;
 
-private:
-    /* Переопределяем событие изменения размера окна
-     * для пересчёта размеров графической сцены
-     * */
-    void resizeEvent(QResizeEvent * event);
- 
 private slots:
-    // Таймер для изменения размеров сцены при изменении размеров Окна приложения
     void slotTimer();
     void update_values();
-    void on_clearscene_clicked();     // Очистка сцены
+    void on_clearscene_clicked();
     void on_drawing_toggled(bool checked);
     void on_editing_toggled(bool checked);
     void on_comboBox_currentIndexChanged(int index);

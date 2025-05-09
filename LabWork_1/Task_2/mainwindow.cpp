@@ -7,15 +7,15 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
  
-    scene = new PaintScene();                                               // Инициализируем графическую сцену
+    scene = new PaintScene();
     ui->graphicsView->setScene(scene);
-    ui->graphicsView->setRenderHint(QPainter::Antialiasing);                // Устанавливаем сглаживание
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);   // Отключаем скроллбар по вертикали
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Отключаем скроллбар по горизонтали
- 
-    timer = new QTimer();       // Инициализируем таймер
+    ui->graphicsView->setRenderHint(QPainter::Antialiasing);
+    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    timer = new QTimer();
     connect(timer, &QTimer::timeout, this, &MainWindow::slotTimer);
-    timer->start(100);          // Запускаем таймер
+    timer->start(100);
 
     updateValues = new QTimer();
     connect(updateValues, &QTimer::timeout, this, &MainWindow::update_values);
@@ -33,9 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->drawing->animateClick();
 
     ui->doubleSpinBox->setRange(1, 10);
-    // ui->doubleSpinBox->setValue(0);
 
-    ui->spinBox_rotation->setRange(-180, 180); // Установите диапазон значений (минимальное и максимальное)
+    ui->spinBox_rotation->setRange(-180, 180);
     ui->spinBox_rotationX->setRange(-1000, 1000);
     ui->spinBox_rotationY->setRange(-1000, 1000);
 
@@ -61,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spinBox_angel->setRange(0, 180);
     ui->spinBox_sideA_3->setRange(0, 1000);
 
-    // Треульник
+    // Треугольник
 
     ui->spinBox_A_x->setRange(-1000, 1000);
     ui->spinBox_A_y->setRange(-1000, 1000);
@@ -79,9 +78,6 @@ MainWindow::~MainWindow()
  
 void MainWindow::slotTimer()
 {
-    /* Переопределяем размеры графической сцены в зависимости
-     * от размеров окна
-     * */
     timer->stop();
     scene->setSceneRect(0, 0, ui->graphicsView->width() - 20, ui->graphicsView->height() - 20);
 }
@@ -130,26 +126,17 @@ void MainWindow::update_values()
 
 
 }
- 
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    timer->start(100);
-    QMainWindow::resizeEvent(event);
-}
 
-// Режим редактирования
 void MainWindow::on_drawing_toggled(bool checked)
 {
     scene->setMouseMode(PaintScene::drawing);
 }
 
-// Режим рисования
 void MainWindow::on_editing_toggled(bool checked)
 {
     scene->setMouseMode(PaintScene::editing);
 }
 
-// Очистка
 void MainWindow::on_clearscene_clicked()
 {    
     ui->area->setText(QString::number(0));
@@ -170,7 +157,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) {
         ui->frame_6->hide();
         ui->frame_7->hide();
         qDebug("Frame 0 (Romb)");
-        scene->setTypeFigure(PaintScene::RombType);
+
     }
     if (index == 1) {
         ui->frame_1->hide();
@@ -250,7 +237,7 @@ void MainWindow::on_comboBox_currentIndexChanged(int index) {
         scene->setTypeFigure(PaintScene::PaintType);
     }
     scene->spaceFigure();
-    ui->spinBox_rotation->setValue(0); // Установите диапазон значений (минимальное и максимальное)
+    ui->spinBox_rotation->setValue(0);
     ui->spinBox_rotationX->setValue(0);
     ui->spinBox_rotationY->setValue(0);
 

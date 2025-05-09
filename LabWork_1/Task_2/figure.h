@@ -8,11 +8,9 @@
 class Figure : public QObject, public QGraphicsItem
 {
     Q_OBJECT
-    // Свойство стартовой точки, относительно которой отрисовываем фигуру
     Q_PROPERTY(QPointF startPoint
                READ startPoint WRITE setStartPoint
                NOTIFY pointChanged)
-    // Свойство конечной точки, до куда отрисовываем фигуру
     Q_PROPERTY(QPointF endPoint
                READ endPoint WRITE setEndPoint
                NOTIFY pointChanged)
@@ -20,11 +18,11 @@ public:
     explicit Figure(QPointF point, QObject *parent = 0);
     ~Figure();
  
-    QPointF startPoint() const; // Стартовая точка
-    QPointF endPoint() const;   // Конечная точка
+    QPointF startPoint() const;
+    QPointF endPoint() const;
  
-    void setStartPoint(const QPointF point);    // Установка стартовой точки
-    void setEndPoint(const QPointF point);      // Установка конечной точки
+    void setStartPoint(const QPointF point);
+    void setEndPoint(const QPointF point);
 
     void setNumber(int value);
     void setScale(double value);
@@ -36,7 +34,7 @@ public:
     void setSideA(int value);
     void setSideB(int value);
     void setAngel(int value);
-    // Треугольник
+    // Треугольникz
     void setPointA_x(int value);
     void setPointA_y(int value);
     void setPointB_x(int value);
@@ -88,16 +86,16 @@ public:
     bool is_drawing_first_time;
 
 signals:
-    void pointChanged();    // Сигнал об изменении точки
+    void pointChanged();
  
 private:
-    QPointF m_startPoint;   // Стартовая точка
-    QPointF m_endPoint;     // Конечная точка
+    QPointF m_startPoint;
+    QPointF m_endPoint;
  
-    QRectF boundingRect() const;    // Область, в которой содержится фигура
+    QRectF boundingRect() const;
  
 public slots:
-    void updateRomb();     // Слот обновления области, в которой содержится фигура
+    void updateRomb();
 
 protected:
     QVector<QPointF> points;
