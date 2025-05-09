@@ -1,6 +1,10 @@
 #include "mystring.h"
 #include <stdexcept>
 
+void MyString::throwError(int errnum) const{
+    throw std::runtime_error(strerror(errnum));
+}
+
 void *MyString::memcpy(void *s1, const void *s2, size_t n) {
     auto dest = static_cast<char*>(s1);
     auto src = static_cast<const char*>(s2);
@@ -133,8 +137,11 @@ size_t MyString::strlen(const char *s) {
 
 char *MyString::strerror(int errnum) {
     static const char* errors[] = {
-        "Выход за пределы памяти!",
-        "Неизвестная ошибка"
+       "Выход за пределы памяти",
+       "Неизвестная ошибка",
+       "Недостаточно памяти",
+       "Недопустимый индекс",
+       "Нулевой указатель"
     };
 
     if (errnum < 0 || errnum >= sizeof(errors) / sizeof(errors[0])) {
@@ -152,6 +159,10 @@ MyString::MyString() {
 }
 
 MyString::MyString(const char *str) {
+    if (!str) {
+        throwError(4);
+    }
+
     size_t len = MyString::strlen(str);
     sz = len + 1;
     cap = sz;
@@ -166,6 +177,14 @@ MyString::MyString(const char *str, size_t n) {
     MyString::strncpy(data.get(), str, n);
 }
 
+MyString::MyString(const MyString &other)
+{
+    sz = other.sz;
+    cap = other.cap;
+    data = std::make_unique<char[]>(sz);
+    MyString::strncpy(data.get(), other.data.get(), sz);
+}
+
 MyString::MyString(size_t amount, char symbol) {
     sz = amount + 1;
     cap = sz;
@@ -174,10 +193,16 @@ MyString::MyString(size_t amount, char symbol) {
 }
 
 char &MyString::operator[](size_t pos) {
+    if (pos >= length()) {
+        throwError(3);
+    }
     return data[pos];
 }
 
 const char &MyString::operator[](size_t pos) const {
+    if (pos >= length()) {
+        throwError(3);
+    }
     return data[pos];
 }
 
@@ -203,11 +228,17 @@ MyString &MyString::operator=(MyString &&input) noexcept {
 }
 
 void MyString::resize(size_t newSize) {
+    if (newSize + 1 > cap) {
+        try {
+            reserve(newSize + 1);
+        } catch (const std::bad_alloc&) {
+            throwError(1);
+        }
+    }
     if (newSize + 1 <= sz) {
         sz = newSize + 1;
         data[newSize] = '\0';
     } else {
-        reserve(newSize + 1);
         for (size_t i = sz - 1; i < newSize; i++) {
             data[i] = '\0';
         }
@@ -231,12 +262,17 @@ bool MyString::empty() {
     return sz <= 1;
 }
 
-size_t MyString::length() {
+size_t MyString::length() const{
     return sz > 0 ? sz - 1 : 0;
 }
 
-size_t MyString::size() {
+size_t MyString::size() const{
     return sz > 0 ? sz - 1 : 0;
+}
+
+size_t MyString::capacity() const
+{
+    return cap;
 }
 
 MyString::iterator MyString::begin() {
