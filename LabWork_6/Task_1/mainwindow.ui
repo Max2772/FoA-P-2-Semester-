@@ -26,7 +26,8 @@
    <string>Motorcycle DB</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="dialog-password"/>
+   <iconset theme="dialog-password">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTableWidget" name="tableWidget">
@@ -44,18 +45,46 @@
     <property name="horizontalScrollBarPolicy">
      <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
     <attribute name="horizontalHeaderMinimumSectionSize">
      <number>21</number>
     </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>102</number>
+     <number>100</number>
     </attribute>
     <attribute name="verticalHeaderMinimumSectionSize">
      <number>18</number>
     </attribute>
     <attribute name="verticalHeaderDefaultSectionSize">
-     <number>30</number>
+     <number>40</number>
     </attribute>
+    <row>
+     <property name="text">
+      <string>1</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>2</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>3</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>4</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>5</string>
+     </property>
+    </row>
     <column>
      <property name="text">
       <string>Модель</string>
@@ -130,7 +159,7 @@
       <x>550</x>
       <y>10</y>
       <width>262</width>
-      <height>631</height>
+      <height>621</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -218,8 +247,7 @@
             <enum>QPlainTextEdit::WidgetWidth</enum>
            </property>
            <property name="plainText">
-            <string>
-</string>
+            <string/>
            </property>
           </widget>
          </item>

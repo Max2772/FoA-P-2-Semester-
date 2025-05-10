@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "motorcycle.h"
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,9 +21,10 @@ public:
 
 private slots:
     void on_pushButtonAddElement_clicked();
-
 private:
-    Motorcycle motorcycle5;
+    void FillTable();
+private:
+    Motorcycle motorcycles[5];
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
