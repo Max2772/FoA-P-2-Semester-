@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->plainTextEditInput->installEventFilter(this);
+
+    mode = 0;
 }
 
 MainWindow::~MainWindow()
@@ -70,7 +72,7 @@ void MainWindow::Task1()
 {
     QFile file("БибиковЛаб20.txt");
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        Utils::ShowErrorEvent("Невозможно открыть файл для чтения!");
+        Utils::ShowErrorEvent("Невозможно открыть файл для записи!");
         return;
     }
 
@@ -83,6 +85,22 @@ void MainWindow::Task1()
     }
 
     qDebug() << text << " записано в " << file.fileName();
+    file.close();
+
+    Task1Print();
+}
+
+void MainWindow::Task1Print()
+{
+    QFile file("БибиковЛаб20.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для чтения!");
+        return;
+    }
+
+    QTextStream in(&file);
+    QString text = in.readAll();
+    ui->plainTextEditOutput->setPlainText(text);
 
     file.close();
 }

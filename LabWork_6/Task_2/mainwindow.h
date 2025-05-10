@@ -22,6 +22,7 @@ private slots:
     bool eventFilter(QObject* object, QEvent* event) override;
 private:
     void Task1();
+    void Task1Print();
     void Task2();
     void Task3();
     void Task4();
