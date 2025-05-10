@@ -30,7 +30,7 @@ private:
     Motorcycle motorcyclePointer;
     Motorcycle* ptr = &motorcyclePointer;
     Motorcycle motorcycleRef;
-    Motorcycle &motoRef = motorcycleRef;
+    Motorcycle& motoRef = motorcycleRef;
 
     Ui::MainWindow *ui;
 };
