@@ -16,8 +16,18 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+private slots:
+    void on_comboBoxMode_activated(int mode);
+    void keyPressEvent(QKeyEvent *event) override;
+    bool eventFilter(QObject* object, QEvent* event) override;
 private:
+    void Task1();
+    void Task2();
+    void Task3();
+    void Task4();
+    void Task5();
+private:
+    int mode;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
