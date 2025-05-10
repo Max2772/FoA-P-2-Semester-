@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    ui->tableWidget->setRowCount(7);
+
     InitializeInfo();
 }
 
@@ -94,8 +96,17 @@ void MainWindow::InitializeInfo()
     motorcycles[3].damaged = false;
     strncpy(motorcycles[3].modelName, "BMW R 1250 GS", MAX_MODEL_NAME_CHARACTES);
 
+    ptr->mileage = 85000;
+    ptr->maxSpeed = 190.0;
+    ptr->type = 'T';
+    ptr->damaged = false;
+    strncpy(ptr->modelName, "Yamaha Star Venture", MAX_MODEL_NAME_CHARACTES);
 
-
+    motoRef.mileage = 12000;
+    motoRef.maxSpeed = 320.0;
+    motoRef.type = 'S';
+    motoRef.damaged = false;
+    strncpy(motoRef.modelName, "Ducati Panigale V4", MAX_MODEL_NAME_CHARACTES);
 
     qDebug() << "Variables initialized!\n";
 }
@@ -107,8 +118,9 @@ void MainWindow::FillTable()
         FillElement(motorcycles[i], i);
     }
 
-    ++i;
     FillElement(motorcyclePointer, i);
+    ++i;
+    FillElement(motorcycleRef, i);
 }
 
 void MainWindow::FillElement(const Motorcycle& moto, int row)

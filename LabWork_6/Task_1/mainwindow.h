@@ -29,6 +29,8 @@ private:
     Motorcycle motorcycles[5];
     Motorcycle motorcyclePointer;
     Motorcycle* ptr = &motorcyclePointer;
+    Motorcycle motorcycleRef;
+    Motorcycle &motoRef = motorcycleRef;
 
     Ui::MainWindow *ui;
 };
