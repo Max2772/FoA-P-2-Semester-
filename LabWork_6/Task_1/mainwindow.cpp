@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include <cstring>
+#include <QDebug>
 #include "utils.h"
 
 MainWindow::MainWindow(QWidget *parent)
@@ -12,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->tableWidget->setRowCount(5);
 
-    motorcycles[0] = {15000, 299.0, 'R', false, "Yamaha YZF-R1"};
+    motorcycles[0] = {15000, 299.0, 'R', true, "Yamaha YZF-R1"};
 
     motorcycles[1].mileage = 77000;
     motorcycles[1].maxSpeed = 246.6;
@@ -23,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     motorcycles[2].mileage = 100000;
     motorcycles[2].maxSpeed = 180.0;
     motorcycles[2].type = 'T';
-    motorcycles[2].damaged = false;
+    motorcycles[2].damaged = true;
     strncpy(motorcycles[2].modelName, "Honda Gold Wing", MAX_MODEL_NAME_CHARACTES);
 
     motorcycles[3].mileage = 25000;
@@ -95,7 +96,7 @@ void MainWindow::on_pushButtonAddElement_clicked()
 void MainWindow::FillTable()
 {
     for(int i = 0; i < 5; ++i){
-        motorcycles[i].Print();
+        qDebug() << motorcycles[i].Print();
         ui->tableWidget->setItem(i, 0, new QTableWidgetItem(motorcycles[i].modelName));
         ui->tableWidget->setItem(i, 1, new QTableWidgetItem(QString::number(motorcycles[i].mileage)));
         ui->tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(motorcycles[i].maxSpeed)));
@@ -104,7 +105,7 @@ void MainWindow::FillTable()
         QTableWidgetItem* item = new QTableWidgetItem;
         item->setCheckState((motorcycles[i].damaged ? Qt::Checked : Qt::Unchecked));
         item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
-        ui->tableWidget->setItem(i, 4, new QTableWidgetItem(motorcycles[i].damaged));
+        ui->tableWidget->setItem(i, 4, item);
     }
 }
 
