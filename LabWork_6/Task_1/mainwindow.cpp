@@ -11,26 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    motorcycles[0] = {15000, 299.0, 'R', true, "Yamaha YZF-R1"};
-
-    motorcycles[1].mileage = 77000;
-    motorcycles[1].maxSpeed = 246.6;
-    motorcycles[1].type = 'S';
-    motorcycles[1].damaged = false;
-    strncpy(motorcycles[1].modelName, "Yamaha FJR 1300", MAX_MODEL_NAME_CHARACTES);
-
-    motorcycles[2].mileage = 100000;
-    motorcycles[2].maxSpeed = 180.0;
-    motorcycles[2].type = 'T';
-    motorcycles[2].damaged = true;
-    strncpy(motorcycles[2].modelName, "Honda Gold Wing", MAX_MODEL_NAME_CHARACTES);
-
-    motorcycles[3].mileage = 25000;
-    motorcycles[3].maxSpeed = 200.0;
-    motorcycles[3].type = 'A';
-    motorcycles[3].damaged = false;
-    strncpy(motorcycles[3].modelName, "BMW R 1250 GS", MAX_MODEL_NAME_CHARACTES);
-
+    InitializeInfo();
 }
 
 MainWindow::~MainWindow()
@@ -91,20 +72,43 @@ void MainWindow::on_pushButtonAddElement_clicked()
     FillTable();
 }
 
+void MainWindow::InitializeInfo()
+{
+    motorcycles[0] = {15000, 299.0, 'R', true, "Yamaha YZF-R1"};
+
+    motorcycles[1].mileage = 77000;
+    motorcycles[1].maxSpeed = 246.6;
+    motorcycles[1].type = 'S';
+    motorcycles[1].damaged = false;
+    strncpy(motorcycles[1].modelName, "Yamaha FJR 1300", MAX_MODEL_NAME_CHARACTES);
+
+    motorcycles[2].mileage = 100000;
+    motorcycles[2].maxSpeed = 180.0;
+    motorcycles[2].type = 'T';
+    motorcycles[2].damaged = true;
+    strncpy(motorcycles[2].modelName, "Honda Gold Wing", MAX_MODEL_NAME_CHARACTES);
+
+    motorcycles[3].mileage = 25000;
+    motorcycles[3].maxSpeed = 200.0;
+    motorcycles[3].type = 'A';
+    motorcycles[3].damaged = false;
+    strncpy(motorcycles[3].modelName, "BMW R 1250 GS", MAX_MODEL_NAME_CHARACTES);
+
+
+
+
+    qDebug() << "Variables initialized!\n";
+}
+
 void MainWindow::FillTable()
 {
-    for(int i = 0; i < 5; ++i){
-        qDebug() << motorcycles[i].Print();
-        ui->tableWidget->setItem(i, 0, new QTableWidgetItem(motorcycles[i].modelName));
-        ui->tableWidget->setItem(i, 1, new QTableWidgetItem(QString::number(motorcycles[i].mileage)));
-        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(QString::number(motorcycles[i].maxSpeed)));
-        ui->tableWidget->setItem(i, 3, new QTableWidgetItem(QString(motorcycles[i].type)));
-
-        QTableWidgetItem* item = new QTableWidgetItem;
-        item->setCheckState((motorcycles[i].damaged ? Qt::Checked : Qt::Unchecked));
-        item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
-        ui->tableWidget->setItem(i, 4, item);
+    int i = 0;
+    for(; i < 5; ++i){
+        FillElement(motorcycles[i], i);
     }
+
+    ++i;
+    FillElement(motorcyclePointer, i);
 }
 
 void MainWindow::FillElement(const Motorcycle& moto, int row)

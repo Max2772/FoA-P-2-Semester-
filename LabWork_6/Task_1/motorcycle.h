@@ -13,7 +13,7 @@ struct Motorcycle{
     char modelName[MAX_MODEL_NAME_CHARACTES];
     static int series;
 
-    QString Print();
+    QString Print() const;
 };
 
 #endif // MOTORCYCLE_H

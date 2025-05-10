@@ -22,6 +22,7 @@ public:
 private slots:
     void on_pushButtonAddElement_clicked();
 private:
+    void InitializeInfo();
     void FillTable();
     void FillElement(const Motorcycle& moto, int row);
 private:
