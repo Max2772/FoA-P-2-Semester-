@@ -11,8 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->tableWidget->setRowCount(5);
-
     motorcycles[0] = {15000, 299.0, 'R', true, "Yamaha YZF-R1"};
 
     motorcycles[1].mileage = 77000;
@@ -107,5 +105,19 @@ void MainWindow::FillTable()
         item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
         ui->tableWidget->setItem(i, 4, item);
     }
+}
+
+void MainWindow::FillElement(const Motorcycle& moto, int row)
+{
+    qDebug() << moto.Print();
+    ui->tableWidget->setItem(row, 0, new QTableWidgetItem(moto.modelName));
+    ui->tableWidget->setItem(row, 1, new QTableWidgetItem(QString::number(moto.mileage)));
+    ui->tableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(moto.maxSpeed)));
+    ui->tableWidget->setItem(row, 3, new QTableWidgetItem(QString(moto.type)));
+
+    QTableWidgetItem* item = new QTableWidgetItem;
+    item->setCheckState((moto.damaged ? Qt::Checked : Qt::Unchecked));
+    item->setFlags(item->flags() & ~Qt::ItemIsUserCheckable);
+    ui->tableWidget->setItem(row, 4, item);
 }
 

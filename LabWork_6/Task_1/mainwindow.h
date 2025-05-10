@@ -23,8 +23,12 @@ private slots:
     void on_pushButtonAddElement_clicked();
 private:
     void FillTable();
+    void FillElement(const Motorcycle& moto, int row);
 private:
     Motorcycle motorcycles[5];
+    Motorcycle motorcyclePointer;
+    Motorcycle* ptr = &motorcyclePointer;
+
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H
