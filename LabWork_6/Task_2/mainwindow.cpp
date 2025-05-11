@@ -79,9 +79,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 bool MainWindow::eventFilter(QObject *object, QEvent *event) {
     if (object == ui->plainTextEditInput && event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return) {
-            keyPressEvent(keyEvent);
+        switch (keyEvent->key()) {
+        case Qt::Key_Shift:
+        case Qt::Key_Alt:
+        case Qt::Key_Control:
+        case Qt::Key_CapsLock:
+        case Qt::Key_Escape:
             return true;
+        case Qt::Key_Enter:
+        case Qt::Key_Return:
+            if (keyEvent->modifiers() == Qt::NoModifier) {
+                keyPressEvent(keyEvent);
+                return true;
+            }
+            return true;
+        default:
+            return false;
         }
     }
     return QWidget::eventFilter(object, event);
@@ -329,5 +342,36 @@ void MainWindow::Task4Print()
 
 void MainWindow::Task5()
 {
+    QFile file("БибиковЛаб20_3.txt");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для записи!");
+        return;
+    }
 
+    QString text = ui->plainTextEditInput->toPlainText().trimmed();
+    QTextStream out(&file);
+
+    out << text << '\n';
+
+    file.close();
+    qDebug() << text << " записано в " << file.fileName();
+
+    Task5Print();
+}
+
+void MainWindow::Task5Print()
+{
+    QFile file("БибиковЛаб20_3.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для чтения!");
+        return;
+    }
+
+    QTextStream in(&file);
+    QString text = in.readAll();
+
+    ui->plainTextEditOutput->clear();
+    ui->plainTextEditOutput->setPlainText(text);
+
+    file.close();
 }

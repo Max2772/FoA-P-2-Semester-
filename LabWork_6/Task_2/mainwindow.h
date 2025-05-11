@@ -36,6 +36,7 @@ private:
     void Task4(const Motorcycle &motorcycle);
     void Task4Print();
     void Task5();
+    void Task5Print();
 private:
     const char SPLITTER = '!';
     const char SPLITTER_STRUCT = '|';
