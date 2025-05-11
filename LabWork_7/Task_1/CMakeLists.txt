@@ -39,6 +39,7 @@ else()
         add_executable(Task_1
             ${PROJECT_SOURCES}
             deque.h deque.cpp
+            utils.h
         )
     endif()
 endif()

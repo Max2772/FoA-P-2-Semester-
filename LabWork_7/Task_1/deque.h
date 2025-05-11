@@ -29,6 +29,8 @@ public:
     [[nodiscard]] int size() const;
     [[nodiscard]] bool empty() const;
 
+    [[nodiscard]] int at(int index) const;
+
     void push_front(int element);
     void push_back(int element);
     void pop_front();

@@ -50,6 +50,18 @@ bool Deque::empty() const {
     return _size == 0;
 }
 
+int Deque::at(int index) const
+{
+    if (index < 0 || index >= _size) {
+        throw std::out_of_range("Index out of range");
+    }
+    Node* current = first;
+    for (int i = 0; i < index; ++i) {
+        current = current->next;
+    }
+    return current->_element;
+}
+
 void Deque::push_front(int element) {
     Node* tmp = new Node(element);
     if (_size) {

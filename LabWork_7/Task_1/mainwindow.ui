@@ -17,7 +17,7 @@
    <iconset theme="mail-send-receive"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPlainTextEdit" name="plainTextEdit">
+   <widget class="QPlainTextEdit" name="plainTextEditDeque">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -26,8 +26,11 @@
       <height>141</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="labelDequeInfo">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -45,7 +48,7 @@
      <string>Deque:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="labelOutputInfo">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -66,66 +69,52 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>250</y>
-      <width>481</width>
-      <height>151</height>
+      <x>260</x>
+      <y>210</y>
+      <width>221</width>
+      <height>111</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton_5">
+      <widget class="QPushButton" name="pushButtonEmpty">
        <property name="text">
         <string>empty</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton_4">
+      <widget class="QPushButton" name="pushButtonSize">
        <property name="text">
         <string>size</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="pushButton_6">
-       <property name="text">
-        <string>push_front</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>front</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
-      <widget class="QPushButton" name="pushButton_7">
+      <widget class="QPushButton" name="pushButtonPopBack">
        <property name="text">
-        <string>push_back</string>
+        <string>pop_back</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>back</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="pushButton_8">
+     <item row="2" column="0">
+      <widget class="QPushButton" name="pushButtonPopFront">
        <property name="text">
         <string>pop_front</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QPushButton" name="pushButton_9">
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButtonFront">
        <property name="text">
-        <string>pop_back</string>
+        <string>front</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pushButtonBack">
+       <property name="text">
+        <string>back</string>
        </property>
       </widget>
      </item>
@@ -144,7 +133,7 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit_2">
+   <widget class="QPlainTextEdit" name="plainTextEditOutput">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -152,6 +141,9 @@
       <width>481</width>
       <height>141</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="Line" name="line_2">
@@ -167,11 +159,11 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButtonGenerate">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>210</y>
+      <x>140</x>
+      <y>360</y>
       <width>237</width>
       <height>23</height>
      </rect>
@@ -179,6 +171,46 @@
     <property name="text">
      <string>Generate</string>
     </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>210</y>
+      <width>218</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QPushButton" name="pushButtonPushFront">
+         <property name="text">
+          <string>push_front</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButtonPushBack">
+         <property name="text">
+          <string>push_back</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="spinBoxElement">
+       <property name="minimum">
+        <number>-99</number>
+       </property>
+       <property name="maximum">
+        <number>99</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
