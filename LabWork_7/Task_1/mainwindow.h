@@ -35,6 +35,8 @@ private slots:
     void on_pushButtonPushFront_clicked();
     void on_pushButtonPushBack_clicked();
     void on_pushButtonPopFront_clicked();
+    void on_pushButtonDoTask_clicked();
+
 private:
     void GenerateRandomDeque();
     void OutputDeque();

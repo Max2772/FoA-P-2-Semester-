@@ -2,16 +2,16 @@
 
 #include <stdexcept>
 
-Deque::Deque() : first(nullptr), last(nullptr), _size(0) {}
+Deque::Deque() : first(nullptr), last(nullptr), size_(0) {}
 
 Deque::~Deque() {
     clear();
 }
 
-Deque::Deque(const Deque& other) : first(nullptr), last(nullptr), _size(0) {
+Deque::Deque(const Deque& other) : first(nullptr), last(nullptr), size_(0) {
     Node* current = other.first;
     while (current) {
-        push_back(current->_element);
+        push_back(current->element_);
         current = current->next;
     }
 }
@@ -21,7 +21,7 @@ Deque& Deque::operator=(const Deque& other) {
         clear();
         Node* current = other.first;
         while (current) {
-            push_back(current->_element);
+            push_back(current->element_);
             current = current->next;
         }
     }
@@ -32,39 +32,39 @@ int Deque::front() const {
     if (empty()) {
         throw std::out_of_range("Deque is empty");
     }
-    return first->_element;
+    return first->element_;
 }
 
 int Deque::back() const {
     if (empty()) {
         throw std::out_of_range("Deque is empty");
     }
-    return last->_element;
+    return last->element_;
 }
 
 int Deque::size() const {
-    return _size;
+    return size_;
 }
 
 bool Deque::empty() const {
-    return _size == 0;
+    return size_ == 0;
 }
 
 int Deque::at(int index) const
 {
-    if (index < 0 || index >= _size) {
+    if (index < 0 || index >= size_) {
         throw std::out_of_range("Index out of range");
     }
     Node* current = first;
     for (int i = 0; i < index; ++i) {
         current = current->next;
     }
-    return current->_element;
+    return current->element_;
 }
 
 void Deque::push_front(int element) {
     Node* tmp = new Node(element);
-    if (_size) {
+    if (size_) {
         tmp->next = first;
         first->previous = tmp;
         first = tmp;
@@ -72,12 +72,12 @@ void Deque::push_front(int element) {
         first = tmp;
         last = tmp;
     }
-    ++_size;
+    ++size_;
 }
 
 void Deque::push_back(int element) {
     Node* tmp = new Node(element);
-    if (_size) {
+    if (size_) {
         tmp->previous = last;
         last->next = tmp;
         last = tmp;
@@ -85,7 +85,7 @@ void Deque::push_back(int element) {
         first = tmp;
         last = tmp;
     }
-    ++_size;
+    ++size_;
 }
 
 void Deque::delFirst() {
@@ -119,7 +119,7 @@ void Deque::pop_front() {
         return;
     }
     delFirst();
-    --_size;
+    --size_;
 }
 
 void Deque::pop_back() {
@@ -127,7 +127,33 @@ void Deque::pop_back() {
         return;
     }
     delLast();
-    --_size;
+    --size_;
+}
+
+void Deque::erase(int index)
+{
+    if (index < 0 || index >= size_) {
+        throw std::out_of_range("Index out of range");
+    }
+    if (index == 0) {
+        pop_front();
+        return;
+    }
+    if (index == size_ - 1) {
+        pop_back();
+        return;
+    }
+
+    Node* current = first;
+    for (int i = 0; i < index; ++i) {
+        current = current->next;
+    }
+
+    current->previous->next = current->next;
+    current->next->previous = current->previous;
+
+    delete current;
+    --size_;
 }
 
 void Deque::clear() {
@@ -137,5 +163,5 @@ void Deque::clear() {
         delete tmp;
     }
     last = nullptr;
-    _size = 0;
+    size_ = 0;
 }

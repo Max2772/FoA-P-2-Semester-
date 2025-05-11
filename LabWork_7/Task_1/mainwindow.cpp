@@ -129,3 +129,38 @@ void MainWindow::on_pushButtonPopBack_clicked()
     OutputDeque();
 }
 
+
+void MainWindow::on_pushButtonDoTask_clicked()
+{
+    if(d.empty()){
+        Utils::ShowInformationEvent("Deque пустой!");
+        return;
+    }
+
+    int max = d.front(), min = d.front();
+    int max_idx = 0, min_idx = 0;
+    for(int i = 1; i < d.size(); ++i){
+        int tmp = d.at(i);
+        if(max < tmp){
+            max = tmp;
+            max_idx = i;
+        }
+
+        if(min > tmp){
+            min = tmp;
+            min_idx = i;
+        }
+    }
+
+    int start = min_idx <= max_idx ? min_idx : max_idx;
+    int end = min_idx >= max_idx ? min_idx : max_idx;
+
+    ++start;
+    while(start < end){
+        d.erase(start);
+        --end;
+    }
+
+    OutputDeque();
+}
+

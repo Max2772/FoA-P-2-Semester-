@@ -4,15 +4,15 @@
 class Deque {
 private:
     struct Node {
-        int _element;
+        int element_;
         Node* previous;
         Node* next;
-        Node(int element) : _element(element), previous(nullptr), next(nullptr) {}
+        Node(int element) : element_(element), previous(nullptr), next(nullptr) {}
     };
 
     Node* first;
     Node* last;
-    int _size;
+    int size_;
 
     void delFirst();
     void delLast();
@@ -35,6 +35,7 @@ public:
     void push_back(int element);
     void pop_front();
     void pop_back();
+    void erase(int index);
 
     void clear();
 };
