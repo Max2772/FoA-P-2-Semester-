@@ -39,7 +39,7 @@
       <height>131</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="topLayout">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -269,7 +269,7 @@
         <x>0</x>
         <y>0</y>
         <width>381</width>
-        <height>527</height>
+        <height>533</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayoutStruct">
@@ -284,7 +284,7 @@
             <number>20</number>
            </property>
            <item>
-            <widget class="QLabel" name="labelModelInfo_2">
+            <widget class="QLabel" name="labelModelInfo">
              <property name="font">
               <font>
                <family>URW Gothic</family>
@@ -307,7 +307,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPlainTextEdit" name="plainTextEditModel_2">
+            <widget class="QPlainTextEdit" name="plainTextEditModel">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -340,7 +340,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_8">
            <item>
-            <widget class="QLabel" name="labelMileage_2">
+            <widget class="QLabel" name="labelMileage">
              <property name="font">
               <font>
                <family>URW Gothic</family>
@@ -363,7 +363,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QSpinBox" name="spinBoxMileageInfo_2">
+            <widget class="QSpinBox" name="spinBoxMileageInfo">
              <property name="maximum">
               <number>999999</number>
              </property>
@@ -372,7 +372,7 @@
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_9">
              <item>
-              <widget class="QLabel" name="labelMaxSpeedInfo_2">
+              <widget class="QLabel" name="labelMaxSpeedInfo">
                <property name="font">
                 <font>
                  <family>URW Gothic</family>
@@ -395,7 +395,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QDoubleSpinBox" name="doubleSpinBoxMaxSpeed_2">
+              <widget class="QDoubleSpinBox" name="doubleSpinBoxMaxSpeed">
                <property name="maximum">
                 <double>9999.000000000000000</double>
                </property>
@@ -408,9 +408,16 @@
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_14">
+        <widget class="Line" name="line_11">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_24">
          <item>
-          <widget class="QLabel" name="labelTypeInfo_2">
+          <widget class="QLabel" name="labelTypeInfo">
            <property name="font">
             <font>
              <family>URW Gothic</family>
@@ -435,48 +442,41 @@
          <item>
           <layout class="QGridLayout" name="gridLayout">
            <item row="0" column="2">
-            <widget class="QRadioButton" name="radioButtonTypeC_2">
+            <widget class="QRadioButton" name="radioButtonTypeC">
              <property name="text">
               <string>C - Cruiser</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QRadioButton" name="radioButtonTypeS_2">
+            <widget class="QRadioButton" name="radioButtonTypeS">
              <property name="text">
               <string>S - Sport</string>
              </property>
             </widget>
            </item>
            <item row="2" column="2">
-            <widget class="QRadioButton" name="radioButtonTypeD_2">
+            <widget class="QRadioButton" name="radioButtonTypeD">
              <property name="text">
               <string>D - Dirt</string>
              </property>
             </widget>
            </item>
            <item row="2" column="1">
-            <widget class="QRadioButton" name="radioButtonTypeA_2">
+            <widget class="QRadioButton" name="radioButtonTypeA">
              <property name="text">
               <string>A - Adventure</string>
              </property>
             </widget>
            </item>
            <item row="0" column="3">
-            <widget class="QRadioButton" name="radioButtonTypeT_2">
+            <widget class="QRadioButton" name="radioButtonTypeT">
              <property name="text">
               <string>T - Touring</string>
              </property>
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="Line" name="line_11">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
          </item>
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -488,7 +488,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="labelDamageInfo_2">
+            <widget class="QLabel" name="labelDamageInfo">
              <property name="font">
               <font>
                <family>URW Gothic</family>
@@ -511,22 +511,14 @@
             </widget>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <item>
-              <widget class="QRadioButton" name="radioButtonDamage_Yes_2">
-               <property name="text">
-                <string>Есть</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButtonDamage_No_2">
-               <property name="text">
-                <string>Нету</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <widget class="QCheckBox" name="checkBoxIsDamaged">
+             <property name="text">
+              <string>Есть повредждения</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4"/>
            </item>
           </layout>
          </item>
@@ -540,7 +532,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButtonAddElement_2">
+        <widget class="QPushButton" name="pushButtonAddElement">
          <property name="font">
           <font>
            <family>URW Gothic</family>

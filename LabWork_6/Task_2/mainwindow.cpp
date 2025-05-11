@@ -3,6 +3,7 @@
 
 #include "utils.h"
 #include <QDebug>
+#include "motorcycle.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -70,7 +71,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         Task2();
         break;
     case 2:
-        Task3();
+        // From QPushButton
         break;
     case 3:
         Task4();
@@ -161,7 +162,7 @@ void MainWindow::Task2()
 
     for (int i = 0; i < size && i < arr.size(); ++i) {
         bool ok;
-        int num = arr[i].toInt(&ok);
+        long int num = arr[i].toLong(&ok);
         ok ? text += QString::number(num) + SPLITTER : text += QString("0") + SPLITTER;
     }
 
@@ -194,9 +195,87 @@ void MainWindow::Task2Print()
     file.close();
 }
 
-void MainWindow::Task3()
+void MainWindow::on_pushButtonAddElement_clicked()
 {
+    int mileage = ui->spinBoxMileageInfo->value();
+    if(mileage == 0){
+        Utils::ShowInformationEvent("Заполните все данные!");
+        return;
+    }
 
+    double maxSpeed = ui->doubleSpinBoxMaxSpeed->value();
+    if(maxSpeed == 0){
+        Utils::ShowInformationEvent("Заполните все данные!");
+        return;
+    }
+
+    char type;
+    if (ui->radioButtonTypeS->isChecked()) {
+        type = 'S';
+    } else if (ui->radioButtonTypeC->isChecked()){
+        type = 'C';
+    } else if (ui->radioButtonTypeT->isChecked()) {
+        type = 'T';
+    } else if (ui->radioButtonTypeA->isChecked()) {
+        type = 'A';
+    } else if (ui->radioButtonTypeD->isChecked()) {
+        type = 'D';
+    }else{
+        Utils::ShowInformationEvent("Заполните все данные!");
+        return;
+    }
+
+    bool isDamaged = ui->checkBoxIsDamaged->isChecked() ? true : false;
+
+    QString modelName = ui->plainTextEditModel->toPlainText().left(MAX_MODEL_NAME_CHARACTES);
+    if(modelName.isEmpty()){
+        Utils::ShowInformationEvent("Заполните все данные!");
+        return;
+    }
+
+    Motorcycle motorcycle = {mileage, maxSpeed, type, isDamaged, modelName};
+
+    QFile file("БибиковЛаб20_1.txt");
+    if (!file.open(QIODevice::Append | QIODevice::WriteOnly)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для записи!");
+        return;
+    }
+
+    QTextStream out(&file);
+    out << motorcycle.mileage << SPLITTER << motorcycle.maxSpeed << SPLITTER
+        << motorcycle.type << SPLITTER << motorcycle.damaged << SPLITTER
+        << motorcycle.modelName << '\n';
+
+    file.close();
+    Task3Print();
+}
+
+void MainWindow::Task3Print()
+{
+    QFile file("БибиковЛаб20_1.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для чтения!");
+        return;
+    }
+
+    QTextStream in(&file);
+
+    int cnt = 1;
+    while (!in.atEnd()) {
+        QStringList parts = in.readLine().trimmed().split(SPLITTER);
+        QString result;
+        for(int i = 0 ; i < parts.size(); ++i){
+            if(i == parts.size() - 1){
+                result += parts[i];
+            }else{
+                result += parts[i] + SPLITTER_STRUCT;
+            }
+        }
+
+        result = QString::number(cnt) + QString(") ") + result;
+        qDebug().noquote() << result;
+        ++cnt;
+    }
 }
 
 void MainWindow::Task4()
@@ -208,10 +287,3 @@ void MainWindow::Task5()
 {
 
 }
-
-
-void MainWindow::on_pushButtonAddElement_2_clicked()
-{
-
-}
-

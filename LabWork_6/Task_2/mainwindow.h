@@ -20,6 +20,8 @@ private slots:
     void on_comboBoxMode_activated(int mode);
     void keyPressEvent(QKeyEvent *event) override;
     bool eventFilter(QObject* object, QEvent* event) override;
+    void on_pushButtonAddElement_clicked();
+
 private:
     void CheckElementsUI(bool on);
     void CheckIOUI(bool on);
@@ -28,11 +30,12 @@ private:
     void Task1Print();
     void Task2();
     void Task2Print();
-    void Task3();
+    void Task3Print();
     void Task4();
     void Task5();
 private:
     const char SPLITTER = '!';
+    const char SPLITTER_STRUCT = '|';
     int mode;
     Ui::MainWindow *ui;
 };
