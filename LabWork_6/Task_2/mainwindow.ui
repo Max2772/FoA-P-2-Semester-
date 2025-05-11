@@ -266,10 +266,10 @@
      <widget class="QWidget" name="verticalLayoutWidget_2">
       <property name="geometry">
        <rect>
-        <x>3</x>
+        <x>0</x>
         <y>0</y>
-        <width>371</width>
-        <height>541</height>
+        <width>381</width>
+        <height>527</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayoutStruct">
@@ -434,10 +434,10 @@
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout">
-           <item row="0" column="3">
-            <widget class="QRadioButton" name="radioButtonTypeT_2">
+           <item row="0" column="2">
+            <widget class="QRadioButton" name="radioButtonTypeC_2">
              <property name="text">
-              <string>T - Touring</string>
+              <string>C - Cruiser</string>
              </property>
             </widget>
            </item>
@@ -448,10 +448,10 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QRadioButton" name="radioButtonTypeC_2">
+           <item row="2" column="2">
+            <widget class="QRadioButton" name="radioButtonTypeD_2">
              <property name="text">
-              <string>C - Cruiser</string>
+              <string>D - Dirt</string>
              </property>
             </widget>
            </item>
@@ -462,10 +462,10 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QRadioButton" name="radioButtonTypeD_2">
+           <item row="0" column="3">
+            <widget class="QRadioButton" name="radioButtonTypeT_2">
              <property name="text">
-              <string>D - Dirt</string>
+              <string>T - Touring</string>
              </property>
             </widget>
            </item>

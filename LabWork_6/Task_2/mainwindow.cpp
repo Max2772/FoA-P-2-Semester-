@@ -209,3 +209,9 @@ void MainWindow::Task5()
 
 }
 
+
+void MainWindow::on_pushButtonAddElement_2_clicked()
+{
+
+}
+
