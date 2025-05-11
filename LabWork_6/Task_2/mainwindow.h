@@ -21,6 +21,9 @@ private slots:
     void keyPressEvent(QKeyEvent *event) override;
     bool eventFilter(QObject* object, QEvent* event) override;
 private:
+    void CheckElementsUI(bool on);
+    void CheckIOUI(bool on);
+
     void Task1();
     void Task1Print();
     void Task2();

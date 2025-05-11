@@ -10,8 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->labelElementsInfo->setVisible(false);
-    ui->spinBoxElements->setVisible(false);
+    CheckElementsUI(false);
+    CheckIOUI(true);
+
     ui->plainTextEditInput->installEventFilter(this);
 
     connect(ui->pushButtonExit, &QPushButton::clicked, qApp, &QApplication::quit);
@@ -29,12 +30,16 @@ void MainWindow::on_comboBoxMode_activated(int mode)
 {
 
     if(mode == 1){
-        ui->labelElementsInfo->setVisible(true);
-        ui->spinBoxElements->setVisible(true);
+        CheckElementsUI(true);
+        CheckIOUI(true);
+    }else if(mode == 2){
+        CheckIOUI(false);
+        CheckElementsUI(false);
     }else{
-        ui->labelElementsInfo->setVisible(false);
-        ui->spinBoxElements->setVisible(false);
+        CheckIOUI(true);
+        CheckElementsUI(false);
     }
+
 
     switch(mode){
     case 0:
@@ -85,6 +90,21 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event) {
         }
     }
     return QWidget::eventFilter(object, event);
+}
+
+void MainWindow::CheckElementsUI(bool on)
+{
+    ui->labelElementsInfo->setVisible(on);
+    ui->spinBoxElements->setVisible(on);
+}
+
+void MainWindow::CheckIOUI(bool on)
+{
+    if(on){
+        ui->stackedWidget->setCurrentIndex(0);
+    }else{
+        ui->stackedWidget->setCurrentIndex(1);
+    }
 }
 
 void MainWindow::Task1()
