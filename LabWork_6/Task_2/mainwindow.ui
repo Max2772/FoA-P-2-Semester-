@@ -38,6 +38,9 @@
       <height>161</height>
      </rect>
     </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="Line" name="line">
     <property name="geometry">
@@ -151,7 +154,7 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <layout class="QHBoxLayout" name="horizontalLayoutSize">
        <item>
         <widget class="QLabel" name="labelElementsInfo">
          <property name="font">

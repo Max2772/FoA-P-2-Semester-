@@ -24,10 +24,12 @@ private:
     void Task1();
     void Task1Print();
     void Task2();
+    void Task2Print();
     void Task3();
     void Task4();
     void Task5();
 private:
+    const char SPLITTER = '!';
     int mode;
     Ui::MainWindow *ui;
 };

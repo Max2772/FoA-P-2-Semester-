@@ -9,7 +9,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ui->labelElementsInfo->setVisible(false);
+    ui->spinBoxElements->setVisible(false);
     ui->plainTextEditInput->installEventFilter(this);
+
+    connect(ui->pushButtonExit, &QPushButton::clicked, qApp, &QApplication::quit);
 
     mode = 0;
 }
@@ -22,17 +27,31 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_comboBoxMode_activated(int mode)
 {
+
+    if(mode == 1){
+        ui->labelElementsInfo->setVisible(true);
+        ui->spinBoxElements->setVisible(true);
+    }else{
+        ui->labelElementsInfo->setVisible(false);
+        ui->spinBoxElements->setVisible(false);
+    }
+
     switch(mode){
     case 0:
-        mode = 0;
+        this->mode = 0;
+        break;
     case 1:
-        mode = 1;
+        this->mode = 1;
+        break;
     case 2:
-        mode = 2;
+        this->mode = 2;
+        break;
     case 3:
-        mode = 3;
+        this->mode = 3;
+        break;
     case 4:
-        mode = 4;
+        this->mode = 4;
+        break;
     }
 }
 
@@ -81,11 +100,10 @@ void MainWindow::Task1()
 
     for (QChar ch: text) {
         out << ch;
-        out.flush();
     }
 
-    qDebug() << text << " записано в " << file.fileName();
     file.close();
+    qDebug() << text << " записано в " << file.fileName();
 
     Task1Print();
 }
@@ -100,14 +118,60 @@ void MainWindow::Task1Print()
 
     QTextStream in(&file);
     QString text = in.readAll();
-    ui->plainTextEditOutput->setPlainText(text);
+
+    ui->plainTextEditOutput->clear();
+    for(QChar ch: text){
+        ui->plainTextEditOutput->setPlainText(ui->plainTextEditOutput->toPlainText() + ch);
+    }
 
     file.close();
 }
 
 void MainWindow::Task2()
 {
+    QFile file("БибиковЛаб20_0.txt");
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для записи!");
+        return;
+    }
 
+    QStringList arr = ui->plainTextEditInput->toPlainText().trimmed().split(' ');
+    int size = ui->spinBoxElements->value();
+    QString text;
+
+    for (int i = 0; i < size && i < arr.size(); ++i) {
+        bool ok;
+        int num = arr[i].toInt(&ok);
+        ok ? text += QString::number(num) + SPLITTER : text += QString("0") + SPLITTER;
+    }
+
+    file.write(text.toUtf8());
+    file.close();
+    qDebug() << text << " записано в " << file.fileName();
+
+    Task2Print();
+}
+
+void MainWindow::Task2Print()
+{
+    QFile file("БибиковЛаб20_0.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для чтения!");
+        return;
+    }
+
+    QTextStream in(&file);
+    QString text;
+    in >> text;
+
+    QStringList arr = text.split(SPLITTER);
+
+    ui->plainTextEditOutput->clear();
+    for(QString num : arr){
+        ui->plainTextEditOutput->setPlainText(ui->plainTextEditOutput->toPlainText() + " " + num);
+    }
+
+    file.close();
 }
 
 void MainWindow::Task3()
