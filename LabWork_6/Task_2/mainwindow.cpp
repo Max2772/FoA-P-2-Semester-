@@ -2,8 +2,8 @@
 #include "./ui_mainwindow.h"
 
 #include "utils.h"
+#include <QString>
 #include <QDebug>
-#include "motorcycle.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -33,7 +33,7 @@ void MainWindow::on_comboBoxMode_activated(int mode)
     if(mode == 1){
         CheckElementsUI(true);
         CheckIOUI(true);
-    }else if(mode == 2){
+    }else if(mode == 2 || mode == 3){
         CheckIOUI(false);
         CheckElementsUI(false);
     }else{
@@ -63,18 +63,12 @@ void MainWindow::on_comboBoxMode_activated(int mode)
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
-    switch(mode){
+    switch(mode){ // Cases 2,3 from QPushButton
     case 0:
         Task1();
         break;
     case 1:
         Task2();
-        break;
-    case 2:
-        // From QPushButton
-        break;
-    case 3:
-        Task4();
         break;
     case 4:
         Task5();
@@ -227,14 +221,25 @@ void MainWindow::on_pushButtonAddElement_clicked()
 
     bool isDamaged = ui->checkBoxIsDamaged->isChecked() ? true : false;
 
-    QString modelName = ui->plainTextEditModel->toPlainText().left(MAX_MODEL_NAME_CHARACTES);
+    QString modelName = ui->plainTextEditModel->toPlainText().left(MAX_MODEL_NAME_CHARACTERS);
     if(modelName.isEmpty()){
         Utils::ShowInformationEvent("Заполните все данные!");
         return;
     }
 
-    Motorcycle motorcycle = {mileage, maxSpeed, type, isDamaged, modelName};
+    Motorcycle motorcycle = {mileage, maxSpeed, type, isDamaged, {}};
+    strncpy(motorcycle.modelName, modelName.toUtf8().constData(), MAX_MODEL_NAME_CHARACTERS);
+    motorcycle.modelName[MAX_MODEL_NAME_CHARACTERS - 1] = '\0';
 
+    if(mode == 2){
+        Task3(motorcycle);
+    }else if(mode == 3){
+        Task4(motorcycle);
+    }
+}
+
+void MainWindow::Task3(const Motorcycle &motorcycle)
+{
     QFile file("БибиковЛаб20_1.txt");
     if (!file.open(QIODevice::Append | QIODevice::WriteOnly)) {
         Utils::ShowErrorEvent("Невозможно открыть файл для записи!");
@@ -276,11 +281,50 @@ void MainWindow::Task3Print()
         qDebug().noquote() << result;
         ++cnt;
     }
+
+    qDebug() << "";
+    file.close();
 }
 
-void MainWindow::Task4()
+void MainWindow::Task4(const Motorcycle &motorcycle)
 {
+    QFile file("БибиковЛаб20_2.bin");
+    if (!file.open(QIODevice::Append | QIODevice::WriteOnly)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для записи!");
+        return;
+    }
 
+    file.write((char*)&motorcycle, sizeof(Motorcycle));
+    file.close();
+
+    Task4Print();
+}
+
+void MainWindow::Task4Print()
+{
+    QFile file("БибиковЛаб20_2.bin");
+    if (!file.open(QIODevice::ReadOnly)) {
+        Utils::ShowErrorEvent("Невозможно открыть файл для чтения!");
+        return;
+    }
+
+    Motorcycle motorcycle;
+
+    int cnt = 1;
+    while (file.read((char*)&motorcycle, sizeof(Motorcycle)) == sizeof(Motorcycle)) {
+        QString result = QString("%1) %2;%3;%4;%5;%6\n")
+                      .arg(cnt)
+                      .arg(motorcycle.mileage)
+                      .arg(motorcycle.maxSpeed)
+                      .arg(motorcycle.type)
+                      .arg(motorcycle.damaged ? "true" : "false")
+                      .arg(QString::fromUtf8(motorcycle.modelName));
+        qDebug().noquote() << result;
+        ++cnt;
+    }
+
+    qDebug() << "";
+    file.close();
 }
 
 void MainWindow::Task5()

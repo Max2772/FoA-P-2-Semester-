@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "motorcycle.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -30,8 +31,10 @@ private:
     void Task1Print();
     void Task2();
     void Task2Print();
+    void Task3(const Motorcycle &motorcycle);
     void Task3Print();
-    void Task4();
+    void Task4(const Motorcycle &motorcycle);
+    void Task4Print();
     void Task5();
 private:
     const char SPLITTER = '!';
