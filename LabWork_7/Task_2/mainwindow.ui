@@ -59,6 +59,18 @@
       <number>20</number>
      </property>
      <item>
+      <widget class="QPushButton" name="pushButtonGenerate">
+       <property name="font">
+        <font>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Generate</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButtonInsert">
        <property name="font">
         <font>

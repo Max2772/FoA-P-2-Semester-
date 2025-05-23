@@ -98,3 +98,12 @@ void MainWindow::PrintTree(AVLTree *tree) {
     if (tree->Left() != nullptr)
         PrintTree(tree->Left());
 }
+
+void MainWindow::on_pushButtonGenerate_clicked()
+{
+    CreateRandomAVLTree();
+    qDebug() << "Generated new ATL Tree:";
+    PrintTree(root);
+    Update();
+}
+

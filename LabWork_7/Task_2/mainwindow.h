@@ -36,6 +36,7 @@ private slots:
     void on_pushButtonDoTask_clicked();
     void on_pushButtonContains_clicked();
     void on_pushButtonRemove_clicked();
+    void on_pushButtonGenerate_clicked();
 
 private:
     AVLTree* tree;
