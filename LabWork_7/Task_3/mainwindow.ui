@@ -63,7 +63,7 @@
       <number>20</number>
      </property>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonGenerate">
        <property name="font">
         <font>
          <pointsize>10</pointsize>
@@ -76,7 +76,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButtonDoTask">
        <property name="font">
         <font>
          <pointsize>10</pointsize>
