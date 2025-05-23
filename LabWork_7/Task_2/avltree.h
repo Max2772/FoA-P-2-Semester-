@@ -27,6 +27,7 @@ public:
     void insert(int value);
     bool contains(int value);
     void remove(int value);
+    void clear();
     int get();
 
     AVLTree *Left();

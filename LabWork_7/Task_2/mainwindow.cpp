@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 
 #include <QDebug>
+#include <QRandomGenerator>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,105 +11,82 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     tree = new AVLTree();
-    tree->insert(20);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(25);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(23);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(24);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(12);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(13);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(3);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(0);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(4);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(6);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(34);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(55);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(29);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(17);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(18);
-    while (tree->Parent() != nullptr) tree = tree->Parent();
+    root = tree;
+    CreateRandomAVLTree();
 
-    PrintTree(tree);
-    Update(tree);
+    PrintTree(root);
+    Update();
 }
 
 MainWindow::~MainWindow() {
     delete ui;
 }
 
+void MainWindow::CreateRandomAVLTree()
+{
+    root->clear();
+    QRandomGenerator rand(QRandomGenerator::system()->generate());
+    int size = rand.bounded(MINIMUM_RANDOM_SIZE, MAXIMUM_RANDOM_SIZE);
+    for(int i = 0; i < size; ++i){
+        root->insert(rand.bounded(MINIMUM_RANDOM_NUMBER, MAXIMUM_RANDOM_NUMBER));
+    }
+}
+
 void MainWindow::on_pushButtonInsert_clicked() {
     int value = ui->spinBox->value();
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->insert(value);
-    Update(tree);
+    root->insert(value);
+    Update();
 }
 
 
 void MainWindow::on_pushButtonContains_clicked() {
     int value = ui->spinBox->value();
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-        if (tree->contains(value)) {
-            QTimer::singleShot(1000, [=]() {
-                QPalette palette = ui->pushButtonContains->palette();
-                palette.setColor(QPalette::ButtonText, Qt::red);
-                ui->pushButtonContains->setPalette(palette);
-            });
-        } else {
-            QTimer::singleShot(1000, [=]() {
-                QPalette palette = ui->pushButtonContains->palette();
-                palette.setColor(QPalette::ButtonText, Qt::green);
-                ui->pushButtonContains->setPalette(palette);
-            });
-        }
+    if (root->contains(value)) {
+        ui->pushButtonContains->setStyleSheet("QPushButton { color: green; }");
+        QTimer::singleShot(600, [=]() {
+            ui->pushButtonContains->setStyleSheet("");
+        });
+    } else {
+        ui->pushButtonContains->setStyleSheet("QPushButton { color: red; }");
+        QTimer::singleShot(600, [=]() {
+            ui->pushButtonContains->setStyleSheet("");
+        });
+    }
 }
 
 
 void MainWindow::on_pushButtonRemove_clicked() {
     int value = ui->spinBox->value();
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->remove(value);
-    Update(tree);
+    root->remove(value);
+    Update();
 }
 
 
 void MainWindow::on_pushButtonDoTask_clicked() {
     int value = ui->spinBox->value();
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    tree->remove(value);
-    Update(tree);
+    root->remove(value);
+    Update();
 
 }
 
 QTreeWidgetItem* MainWindow::UpdateTree(AVLTree *tree) {
-    QTreeWidgetItem *parent = new QTreeWidgetItem();
-    parent->setText(0, QString::number(tree->get()));
+    QTreeWidgetItem *item = new QTreeWidgetItem();
+    item->setText(0, QString::number(tree->get()));
     if (tree->Right() != nullptr) {
-        parent->addChild(UpdateTree(tree->Right()));
+        item->addChild(UpdateTree(tree->Right()));
     }
     if (tree->Left() != nullptr) {
-        parent->addChild(UpdateTree(tree->Left()));
+        item->addChild(UpdateTree(tree->Left()));
     }
-    return parent;
+    return item;
 }
 
-void MainWindow::Update(AVLTree *tree) {
-    while (tree->Parent() != nullptr) tree = tree->Parent();
-    QTreeWidgetItem *parent = UpdateTree(tree);
-    ui->treeWidget->setColumnCount(ui->treeWidget->columnCount() + 1);
-    ui->treeWidget->addTopLevelItem(parent);
+void MainWindow::Update() {
+    ui->treeWidget->clear();
+    if (root != nullptr) {
+        QTreeWidgetItem *parent = UpdateTree(root);
+        ui->treeWidget->addTopLevelItem(parent);
+    }
 }
 
 void MainWindow::PrintTree(AVLTree *tree) {

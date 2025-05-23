@@ -14,7 +14,7 @@
    <string>AVL Tree App</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="emblem-shared"/>
+   <iconset theme="format-justify-right"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTreeWidget" name="treeWidget">

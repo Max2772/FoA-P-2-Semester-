@@ -115,6 +115,23 @@ void AVLTree::remove(int value) {
     }
 }
 
+void AVLTree::clear() {
+    if (left != nullptr) {
+        left->clear();
+        delete left;
+        left = nullptr;
+    }
+    if (right != nullptr) {
+        right->clear();
+        delete right;
+        right = nullptr;
+    }
+
+    data = 0;
+    balanceFactor = 0;
+    parent = nullptr;
+}
+
 
 void AVLTree::removeNode() {
     if (left == nullptr || right == nullptr) {
