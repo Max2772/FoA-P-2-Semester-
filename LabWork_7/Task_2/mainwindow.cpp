@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow() {
     delete ui;
+    delete tree;
 }
 
 void MainWindow::CreateRandomAVLTree()
@@ -90,6 +91,7 @@ void MainWindow::Update() {
 }
 
 void MainWindow::PrintTree(AVLTree *tree) {
+    if(tree == nullptr) return;
     qDebug() << tree->get() << ' ';
     if (tree->Right() != nullptr)
         PrintTree(tree->Right());
